@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/responsive.dart';
-import '../../../l10n/app_localizations.dart';
 import '../../../core/services/pocketbase_auth_service.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -23,14 +23,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ResponsiveWidget(
-      mobile: _buildMobileLayout(),
-      tablet: _buildSplitLayout(),
-      desktop: _buildSplitLayout(),
+      mobile: _buildMobileLayout(l10n),
+      tablet: _buildSplitLayout(l10n),
+      desktop: _buildSplitLayout(l10n),
     );
   }
 
-  Widget _buildMobileLayout() {
+  Widget _buildMobileLayout(AppLocalizations l10n) {
     return Scaffold(
       body: ResponsiveLayout(
         child: SafeArea(
@@ -56,7 +57,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ],
                 ),
-                
+
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -64,13 +65,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         SizedBox(height: 40.h),
                         _buildLogo(),
                         SizedBox(height: 32.h),
-                        
                         if (!_emailSent) ...[
-                          _buildRequestForm(),
+                          _buildRequestForm(l10n),
                         ] else ...[
-                          _buildEmailSentContent(),
+                          _buildEmailSentContent(l10n),
                         ],
-                        
                         SizedBox(height: 20.h),
                       ],
                     ),
@@ -84,12 +83,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-  Widget _buildSplitLayout() {
+  Widget _buildSplitLayout(AppLocalizations l10n) {
     return Scaffold(
       body: Row(
         children: [
           Expanded(child: _buildImageSection()),
-          Expanded(child: _buildForgotPasswordFormSection()),
+          Expanded(child: _buildForgotPasswordFormSection(l10n)),
         ],
       ),
     );
@@ -115,7 +114,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-  Widget _buildForgotPasswordFormSection() {
+  Widget _buildForgotPasswordFormSection(AppLocalizations l10n) {
     return Container(
       height: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 32),
@@ -133,9 +132,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       icon: const Icon(Icons.arrow_back),
                       color: AppTheme.textGrey,
                     ),
-                    const Text(
-                      'Mot de passe oublié',
-                      style: TextStyle(
+                    Text(
+                      l10n.forgotPasswordTitle,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Colors.black87,
@@ -143,15 +142,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ],
                 ),
-                
                 const SizedBox(height: 24),
                 _buildLogo(),
                 const SizedBox(height: 32),
-                
                 if (!_emailSent) ...[
-                  _buildRequestForm(),
+                  _buildRequestForm(l10n),
                 ] else ...[
-                  _buildEmailSentContent(),
+                  _buildEmailSentContent(l10n),
                 ],
               ],
             ),
@@ -172,8 +169,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-  Widget _buildRequestForm() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildRequestForm(AppLocalizations l10n) {
     return Form(
       key: _formKey,
       child: Column(
@@ -240,8 +236,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-    Widget _buildEmailSentContent() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildEmailSentContent(AppLocalizations l10n) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -354,8 +349,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-  Widget _buildEmailField() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildEmailField(AppLocalizations l10n) {
     return TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
@@ -375,8 +369,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-  Widget _buildSendButton() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildSendButton(AppLocalizations l10n) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: 48.0, // Hauteur minimale de 48 pixels
@@ -418,7 +411,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-  Widget _buildResetPasswordButton() {
+  Widget _buildResetPasswordButton(AppLocalizations l10n) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: 48.0, // Hauteur minimale de 48 pixels
@@ -433,11 +426,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             });
           },
           icon: const Icon(Icons.vpn_key),
-          label: Text( 
-            'J\'ai reçu l\'email - Saisir le code',
+          label: Text(
+            l10n.resetPassword,
             style: TextStyle(
-              fontSize: ResponsiveUtils.isDesktop(context) 
-                  ? 16 
+              fontSize: ResponsiveUtils.isDesktop(context)
+                  ? 16
                   : ResponsiveUtils.getFontSize(context, 14),
               fontWeight: FontWeight.w600,
             ),
@@ -456,8 +449,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-  Widget _buildResendEmailButton() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildResendEmailButton(AppLocalizations l10n) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: 48.0, // Hauteur minimale de 48 pixels
@@ -501,8 +493,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-  Widget _buildBackToLoginLink() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildBackToLoginLink(AppLocalizations l10n) {
     return Center(
       child: GestureDetector(
         onTap: () => context.go('/login'),

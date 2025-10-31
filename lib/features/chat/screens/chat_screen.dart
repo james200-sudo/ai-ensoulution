@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/responsive.dart';
 import '../../../core/utils/auth_guard.dart';
@@ -185,6 +186,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return GestureDetector(
       // ✅ NOUVEAU: Ferme le clavier quand on tap ailleurs
       onTap: () {
@@ -192,20 +194,19 @@ class _ChatScreenState extends State<ChatScreen> {
       },
       child: Scaffold(
         key: _scaffoldKey,
-        appBar: _buildAppBar(),
-        drawer: _buildDrawer(),
+        appBar: _buildAppBar(l10n),
+        drawer: _buildDrawer(l10n),
         resizeToAvoidBottomInset: true,
         body: ResponsiveWidget(
-          mobile: _buildMobileLayout(context),
-          tablet: _buildTabletLayout(context),
-          desktop: _buildDesktopLayout(context),
+          mobile: _buildMobileLayout(context, l10n),
+          tablet: _buildTabletLayout(context, l10n),
+          desktop: _buildDesktopLayout(context, l10n),
         ),
       ),
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
-    final l10n = AppLocalizations.of(context)!;
+  PreferredSizeWidget _buildAppBar(AppLocalizations l10n) {
     return AppBar(
       automaticallyImplyLeading: false,
       leading: IconButton(
@@ -229,8 +230,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _buildDrawer() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildDrawer(AppLocalizations l10n) {
     return Drawer(
       child: Column(
         children: [
@@ -467,7 +467,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _buildMobileLayout(BuildContext context) {
+  Widget _buildMobileLayout(BuildContext context, AppLocalizations l10n) {
     return Column(
       children: [
         // ========================================
@@ -495,8 +495,8 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               Column(
                 children: [
-                  Expanded(child: _buildMessagesArea()),
-                  if (_selectedImage != null) _buildImagePreview(),
+                  Expanded(child: _buildMessagesArea(l10n)),
+                  if (_selectedImage != null) _buildImagePreview(l10n),
                 ],
               ),
               // Scroll to bottom button positioned just above message input
@@ -511,12 +511,12 @@ class _ChatScreenState extends State<ChatScreen> {
             ],
           ),
         ),
-        _buildMessageInput(),
+        _buildMessageInput(l10n),
       ],
     );
   }
 
-  Widget _buildTabletLayout(BuildContext context) {
+  Widget _buildTabletLayout(BuildContext context, AppLocalizations l10n) {
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 600),
@@ -543,7 +543,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Expanded(
               child: Stack(
                 children: [
-                  _buildMessagesArea(),
+                  _buildMessagesArea(l10n),
                   // Scroll to bottom button positioned above message input
                   Positioned(
                     bottom: 80, // Position above the message input area
@@ -556,14 +556,14 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               ),
             ),
-            _buildMessageInput(),
+            _buildMessageInput(l10n),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDesktopLayout(BuildContext context) {
+  Widget _buildDesktopLayout(BuildContext context, AppLocalizations l10n) {
     return Column(
       children: [
         // ========================================
@@ -587,7 +587,7 @@ class _ChatScreenState extends State<ChatScreen> {
         Expanded(
           child: Stack(
             children: [
-              _buildMessagesArea(),
+              _buildMessagesArea(l10n),
               // Scroll to bottom button positioned just above message input
               Positioned(
                 bottom: 20, // Much closer to the message input area
@@ -600,12 +600,12 @@ class _ChatScreenState extends State<ChatScreen> {
             ],
           ),
         ),
-        _buildMessageInput(),
+        _buildMessageInput(l10n),
       ],
     );
   }
 
-  Widget _buildMessagesArea() {
+  Widget _buildMessagesArea(AppLocalizations l10n) {
     return Consumer<ChatProvider>(
       builder: (context, chatProvider, child) {
         // Show loading indicator while messages are loading
@@ -708,7 +708,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _buildRecordingWidget() {
+  Widget _buildRecordingWidget(AppLocalizations l10n) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       height: _isRecording ? 50 : 0,
@@ -830,9 +830,9 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _buildMessageInput() {
+  Widget _buildMessageInput(AppLocalizations l10n) {
     return Column(mainAxisSize: MainAxisSize.min, children: [
-      _buildRecordingWidget(),
+      _buildRecordingWidget(l10n),
       Container(
         padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
@@ -882,22 +882,22 @@ class _ChatScreenState extends State<ChatScreen> {
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.send,
                             textCapitalization: TextCapitalization.sentences,
-                            onSubmitted: (value) => _sendMessage(),
-                            decoration: const InputDecoration(
-                              hintText: 'Type your message',
+                            onSubmitted: (value) => _sendMessage(l10n),
+                            decoration: InputDecoration(
+                              hintText: l10n.typeYourMessage,
                               border: InputBorder.none,
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               filled: true,
                               fillColor: Colors.transparent,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 12,
                               ),
                             ),
                           ),
                         ),
-                        _buildActionButton(),
+                        _buildActionButton(l10n),
                       ],
                     ),
                   ),
@@ -910,7 +910,7 @@ class _ChatScreenState extends State<ChatScreen> {
     ]);
   }
 
-  Widget _buildActionButton() {
+  Widget _buildActionButton(AppLocalizations l10n) {
     return Consumer<ChatProvider>(
       builder: (context, chatProvider, child) {
         final buttonSize = ResponsiveUtils.isDesktop(context) ? 40.0 : 36.0;
@@ -928,7 +928,7 @@ class _ChatScreenState extends State<ChatScreen> {
             },
             child: _hasText
                 ? _buildSendButton(chatProvider, buttonSize, iconSize)
-                : _buildMicrophoneButton(buttonSize, iconSize),
+                : _buildMicrophoneButton(buttonSize, iconSize, l10n),
           ),
         );
       },
@@ -975,7 +975,8 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _buildMicrophoneButton(double buttonSize, double iconSize) {
+  Widget _buildMicrophoneButton(
+      double buttonSize, double iconSize, AppLocalizations l10n) {
     return Container(
       key: const ValueKey('microphone'),
       width: buttonSize,
@@ -1007,7 +1008,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _buildAttachmentButton() {
+  Widget _buildAttachmentButton(AppLocalizations l10n) {
     final buttonSize = ResponsiveUtils.isDesktop(context) ? 44.0 : 41.0;
     final iconSize = ResponsiveUtils.isDesktop(context) ? 22.0 : 20.0;
 
@@ -1267,8 +1268,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _sendMessage();
   }
 
-  void _showAttachmentMenu() {
-    final l10n = AppLocalizations.of(context)!;
+  void _showAttachmentMenu(AppLocalizations l10n) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -1309,8 +1309,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  String _formatDate(DateTime date) {
-    final l10n = AppLocalizations.of(context)!;
+  String _formatDate(DateTime date, AppLocalizations l10n) {
     final now = DateTime.now();
     final difference = now.difference(date);
 
@@ -1325,7 +1324,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void _toggleVoiceRecording() async {
+  void _toggleVoiceRecording(AppLocalizations l10n) async {
     // Add haptic feedback for better user experience
     HapticFeedback.lightImpact();
 
@@ -1358,7 +1357,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  Future<void> _startVoiceRecording() async {
+  Future<void> _startVoiceRecording(AppLocalizations l10n) async {
     try {
       //debugPrint('Starting voice recording...');
 
@@ -1396,7 +1395,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  Future<void> _stopVoiceRecording() async {
+  Future<void> _stopVoiceRecording(AppLocalizations l10n) async {
     try {
       //debugPrint('Stopping voice recording...');
 
@@ -1438,8 +1437,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void _showPermissionDeniedDialog() {
-    final l10n = AppLocalizations.of(context)!;
+  void _showPermissionDeniedDialog(AppLocalizations l10n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -1468,7 +1466,7 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  void _sendMessage() {
+  void _sendMessage(AppLocalizations l10n) {
     if (_messageController.text.trim().isEmpty && _selectedImage == null) {
       return;
     }
@@ -1484,7 +1482,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _focusNode.requestFocus();
   }
 
-  Widget _buildImagePreview() {
+  Widget _buildImagePreview(AppLocalizations l10n) {
     return Container(
       padding: const EdgeInsets.all(8),
       color: Theme.of(context).cardColor,

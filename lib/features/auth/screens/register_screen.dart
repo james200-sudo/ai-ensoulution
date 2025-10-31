@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package.flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/responsive.dart';
-import '../../../l10n/app_localizations.dart';
 import '../../../core/services/pocketbase_auth_service.dart';
 import '../../profile/providers/profile_provider.dart';
 
@@ -30,14 +30,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ResponsiveWidget(
-      mobile: _buildMobileLayout(),
-      tablet: _buildSplitLayout(),
-      desktop: _buildSplitLayout(),
+      mobile: _buildMobileLayout(l10n),
+      tablet: _buildSplitLayout(l10n),
+      desktop: _buildSplitLayout(l10n),
     );
   }
 
-  Widget _buildMobileLayout() {
+  Widget _buildMobileLayout(AppLocalizations l10n) {
     return Scaffold(
       body: ResponsiveLayout(
         child: SafeArea(
@@ -63,7 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ],
                 ),
-                
+
                 Expanded(
                   child: SingleChildScrollView(
                     child: Form(
@@ -73,40 +74,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           SizedBox(height: 32.h),
                           _buildLogo(),
                           SizedBox(height: 32.h),
-                          
+
                           Text(
                             l10n.joinOurCommunity,
                             style: TextStyle(
-                              fontSize: ResponsiveUtils.getFontSize(context, 16),
+                              fontSize:
+                                  ResponsiveUtils.getFontSize(context, 16),
                               fontWeight: FontWeight.w500,
                               color: AppTheme.textGrey,
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          
+
                           SizedBox(height: 24.h),
-                          _buildNameField(),
+                          _buildNameField(l10n),
                           SizedBox(height: 16.h),
-                          _buildEmailField(),
+                          _buildEmailField(l10n),
                           SizedBox(height: 16.h),
-                          _buildPasswordField(),
+                          _buildPasswordField(l10n),
                           SizedBox(height: 16.h),
-                          _buildConfirmPasswordField(),
+                          _buildConfirmPasswordField(l10n),
                           SizedBox(height: 16.h),
-                          _buildTermsCheckbox(),
+                          _buildTermsCheckbox(l10n),
                           SizedBox(height: 24.h),
-                          _buildRegisterButton(),
-                          
+                          _buildRegisterButton(l10n),
+
                           // ✅ NOUVEAU : Diviseur "OU"
                           SizedBox(height: 24.h),
-                          _buildOrDivider(),
+                          _buildOrDivider(l10n),
                           SizedBox(height: 20.h),
-                          
+
                           // ✅ NOUVEAU : Bouton Google OAuth
-                          _buildGoogleButton(),
-                          
+                          _buildGoogleButton(l10n),
+
                           SizedBox(height: 24.h),
-                          _buildLoginLink(),
+                          _buildLoginLink(l10n),
                           SizedBox(height: 20.h),
                         ],
                       ),
@@ -121,12 +123,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _buildSplitLayout() {
+  Widget _buildSplitLayout(AppLocalizations l10n) {
     return Scaffold(
       body: Row(
         children: [
           Expanded(child: _buildImageSection()),
-          Expanded(child: _buildRegisterFormSection()),
+          Expanded(child: _buildRegisterFormSection(l10n)),
         ],
       ),
     );
@@ -152,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _buildRegisterFormSection() {
+  Widget _buildRegisterFormSection(AppLocalizations l10n) {
     return Container(
       height: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 32),
@@ -170,9 +172,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       icon: const Icon(Icons.arrow_back),
                       color: AppTheme.textGrey,
                     ),
-                    const Text(
-                      'Créer un compte',
-                      style: TextStyle(
+                    Text(
+                      l10n.createAccount,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Colors.black87,
@@ -180,7 +182,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ],
                 ),
-                
                 Form(
                   key: _formKey,
                   child: Column(
@@ -188,40 +189,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(height: 24),
                       _buildLogo(),
                       const SizedBox(height: 32),
-                      
-                      const Text(
-                        'Rejoignez notre communauté',
-                        style: TextStyle(
+                      Text(
+                        l10n.joinOurCommunity,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           color: AppTheme.textGrey,
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      
                       const SizedBox(height: 24),
-                      _buildNameField(),
+                      _buildNameField(l10n),
                       const SizedBox(height: 16),
-                      _buildEmailField(),
+                      _buildEmailField(l10n),
                       const SizedBox(height: 16),
-                      _buildPasswordField(),
+                      _buildPasswordField(l10n),
                       const SizedBox(height: 16),
-                      _buildConfirmPasswordField(),
+                      _buildConfirmPasswordField(l10n),
                       const SizedBox(height: 16),
-                      _buildTermsCheckbox(),
+                      _buildTermsCheckbox(l10n),
                       const SizedBox(height: 24),
-                      _buildRegisterButton(),
-                      
-                      // ✅ NOUVEAU : Diviseur "OU"
+                      _buildRegisterButton(l10n),
                       const SizedBox(height: 24),
-                      _buildOrDivider(),
+                      _buildOrDivider(l10n),
                       const SizedBox(height: 20),
-                      
-                      // ✅ NOUVEAU : Bouton Google OAuth
-                      _buildGoogleButton(),
-                      
+                      _buildGoogleButton(l10n),
                       const SizedBox(height: 24),
-                      _buildLoginLink(),
+                      _buildLoginLink(l10n),
                     ],
                   ),
                 ),
@@ -244,8 +238,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _buildNameField() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildNameField(AppLocalizations l10n) {
     return TextFormField(
       controller: _nameController,
       keyboardType: TextInputType.name,
@@ -265,8 +258,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _buildEmailField() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildEmailField(AppLocalizations l10n) {
     return TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
@@ -286,8 +278,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _buildPasswordField() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildPasswordField(AppLocalizations l10n) {
     return TextFormField(
       controller: _passwordController,
       obscureText: _obscurePassword,
@@ -320,8 +311,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _buildConfirmPasswordField() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildConfirmPasswordField(AppLocalizations l10n) {
     return TextFormField(
       controller: _confirmPasswordController,
       obscureText: _obscureConfirmPassword,
@@ -351,8 +341,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _buildTermsCheckbox() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildTermsCheckbox(AppLocalizations l10n) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -388,8 +377,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _buildRegisterButton() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildRegisterButton(AppLocalizations l10n) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: 48.0,
@@ -433,8 +421,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   // ✅ NOUVEAU : Diviseur "OU"
-  Widget _buildOrDivider() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildOrDivider(AppLocalizations l10n) {
     return Row(
       children: [
         const Expanded(child: Divider()),
@@ -458,8 +445,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   // ✅ NOUVEAU : Bouton Google OAuth
-  Widget _buildGoogleButton() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildGoogleButton(AppLocalizations l10n) {
     final isMobile = ResponsiveUtils.isMobile(context);
     return SizedBox(
       width: isMobile ? double.infinity : 300,
@@ -497,8 +483,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _buildLoginLink() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildLoginLink(AppLocalizations l10n) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

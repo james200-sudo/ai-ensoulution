@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/responsive.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -237,6 +237,7 @@ class _SplashScreenState extends State<SplashScreen>
       'assets/images/logo.png',
       fit: BoxFit.contain,
       errorBuilder: (context, error, stackTrace) {
+        final l10n = AppLocalizations.of(context)!;
         // Fallback to gradient container with text if logo.png is not found
         return Container(
           decoration: BoxDecoration(

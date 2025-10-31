@@ -7,7 +7,7 @@ import 'package:tgm_ai_chat/features/plans/providers/plans_provider.dart';
 import 'package:tgm_ai_chat/core/theme/app_theme.dart';
 import 'package:tgm_ai_chat/core/utils/responsive.dart';
 import 'package:tgm_ai_chat/features/profile/providers/profile_provider.dart';
-import 'package:tgm_ai_chat/l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlansScreen extends StatefulWidget {
   const PlansScreen({super.key});
@@ -42,7 +42,7 @@ class _PlansScreenState extends State<PlansScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
     final isDesktop = ResponsiveUtils.isDesktop(context);
     final isTablet = ResponsiveUtils.isTablet(context);
 
@@ -50,32 +50,26 @@ class _PlansScreenState extends State<PlansScreen> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: CustomScrollView(
         slivers: [
-          // Modern App Bar
-          _buildSliverAppBar(context),
-          
-          // Hero Section avec toggle billing
+          _buildSliverAppBar(context, l10n),
           SliverToBoxAdapter(
-            child: _buildHeroSection(context),
+            child: _buildHeroSection(context, l10n),
           ),
-          
-          // Plans Content
           Consumer2<PlansProvider, ProfileProvider>(
             builder: (context, plansProvider, profileProvider, child) {
               if (plansProvider.isLoading && !plansProvider.hasPlans) {
-                return _buildLoadingSliver();
+                return _buildLoadingSliver(l10n);
               }
-              
+
               if (plansProvider.hasError && !plansProvider.hasPlans) {
-                return _buildErrorSliver(context, plansProvider);
+                return _buildErrorSliver(context, plansProvider, l10n);
               }
-              
+
               if (!plansProvider.hasPlans) {
-                return _buildEmptySliver(context);
+                return _buildEmptySliver(context, l10n);
               }
-              
+
               final sortedPlans = plansProvider.getSortedPlans();
-              
-              // Disposition responsive AMÉLIORÉE style Bootstrap
+
               if (isDesktop) {
                 return _buildDesktopPlansGrid(sortedPlans, context);
               } else if (isTablet) {
@@ -85,18 +79,15 @@ class _PlansScreenState extends State<PlansScreen> {
               }
             },
           ),
-          
-          // Bottom CTA Section
           SliverToBoxAdapter(
-            child: _buildBottomSection(context),
+            child: _buildBottomSection(context, l10n),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSliverAppBar(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+  Widget _buildSliverAppBar(BuildContext context, AppLocalizations l10n) {
     return SliverAppBar(
       expandedHeight: 100.h,
       floating: false,
@@ -126,7 +117,7 @@ class _PlansScreenState extends State<PlansScreen> {
       ],
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
-          localizations.chooseYourPlan,
+          l10n.chooseYourPlan,
           style: TextStyle(
             fontSize: ResponsiveUtils.getFontSize(context, 20),
             fontWeight: FontWeight.w600,
@@ -175,10 +166,9 @@ class _PlansScreenState extends State<PlansScreen> {
     }
   }
 
-  Widget _buildHeroSection(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+  Widget _buildHeroSection(BuildContext context, AppLocalizations l10n) {
     final isDesktop = ResponsiveUtils.isDesktop(context);
-    
+
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 60.w : 24.w, 
@@ -198,7 +188,7 @@ class _PlansScreenState extends State<PlansScreen> {
       child: Column(
         children: [
           Text(
-            localizations.unlockThePowerOfAI,
+            l10n.unlockThePowerOfAI,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: ResponsiveUtils.getFontSize(context, isDesktop ? 40 : 32),
@@ -208,39 +198,40 @@ class _PlansScreenState extends State<PlansScreen> {
           ),
           SizedBox(height: 16.h),
           Container(
-            constraints: BoxConstraints(maxWidth: isDesktop ? 600.w : double.infinity),
+            constraints:
+                BoxConstraints(maxWidth: isDesktop ? 600.w : double.infinity),
             child: Text(
-              localizations.choosePerfectPlan,
+              l10n.choosePerfectPlan,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, isDesktop ? 18 : 16),
-                color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.9),
+                color: Theme.of(context).colorScheme.onPrimary.withAlpha(230),
                 height: 1.5,
               ),
             ),
           ),
           SizedBox(height: 32.h),
-
-          // Billing Toggle
-          _buildBillingToggle(context),
+          _buildBillingToggle(context, l10n),
           SizedBox(height: 24.h),
-
-          // Current Plan Info
           Consumer<ProfileProvider>(
             builder: (context, profileProvider, _) {
-              if (!profileProvider.isLoading && profileProvider.userProfile != null) {
+              if (!profileProvider.isLoading &&
+                  profileProvider.userProfile != null) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   profileProvider.syncPlanFromPocketBase();
                 });
               }
-              
-              final currentPlan = profileProvider.userProfile?.currentPlan ?? 'Free';
+
+              final currentPlan =
+                  profileProvider.userProfile?.currentPlan ?? 'Free';
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.2),
+                  color: Theme.of(context).colorScheme.onPrimary.withAlpha(51),
                   borderRadius: BorderRadius.circular(25.r),
-                  border: Border.all(color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color:
+                          Theme.of(context).colorScheme.onPrimary.withAlpha(76)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -257,7 +248,7 @@ class _PlansScreenState extends State<PlansScreen> {
                       SizedBox(width: 8.w),
                     ],
                     Text(
-                      '${localizations.currentPlan}: $currentPlan',
+                      '${l10n.currentPlan}: $currentPlan',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: ResponsiveUtils.getFontSize(context, 15),
@@ -274,16 +265,16 @@ class _PlansScreenState extends State<PlansScreen> {
     );
   }
 
-  Widget _buildBillingToggle(BuildContext context) {
+  Widget _buildBillingToggle(BuildContext context, AppLocalizations l10n) {
     return Consumer<PlansProvider>(
       builder: (context, plansProvider, _) {
         return Container(
           padding: EdgeInsets.all(6.w),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.2),
+            color: Theme.of(context).colorScheme.onPrimary.withAlpha(51),
             borderRadius: BorderRadius.circular(30.r),
             border: Border.all(
-              color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.3),
+              color: Theme.of(context).colorScheme.onPrimary.withAlpha(76),
               width: 2,
             ),
           ),
@@ -412,8 +403,7 @@ class _PlansScreenState extends State<PlansScreen> {
     );
   }
 
-  Widget _buildLoadingSliver() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildLoadingSliver(AppLocalizations l10n) {
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Center(
@@ -436,8 +426,7 @@ class _PlansScreenState extends State<PlansScreen> {
     );
   }
 
-  Widget _buildErrorSliver(BuildContext context, PlansProvider plansProvider) {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildErrorSliver(BuildContext context, PlansProvider plansProvider, AppLocalizations l10n) {
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Center(
@@ -490,8 +479,7 @@ class _PlansScreenState extends State<PlansScreen> {
     );
   }
 
-  Widget _buildEmptySliver(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildEmptySliver(BuildContext context, AppLocalizations l10n) {
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Center(
@@ -519,10 +507,9 @@ class _PlansScreenState extends State<PlansScreen> {
     );
   }
 
-  Widget _buildBottomSection(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+  Widget _buildBottomSection(BuildContext context, AppLocalizations l10n) {
     final isDesktop = ResponsiveUtils.isDesktop(context);
-    
+
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: isDesktop ? 60.w : 24.w, 
@@ -549,7 +536,7 @@ class _PlansScreenState extends State<PlansScreen> {
           ),
           SizedBox(height: 20.h),
           Text(
-            localizations.secureAndReliable,
+            l10n.secureAndReliable,
             style: TextStyle(
               fontSize: ResponsiveUtils.getFontSize(context, isDesktop ? 24 : 20),
               fontWeight: FontWeight.w600,
@@ -558,13 +545,14 @@ class _PlansScreenState extends State<PlansScreen> {
           ),
           SizedBox(height: 12.h),
           Container(
-            constraints: BoxConstraints(maxWidth: isDesktop ? 600.w : double.infinity),
+            constraints:
+                BoxConstraints(maxWidth: isDesktop ? 600.w : double.infinity),
             child: Text(
-              localizations.enterpriseGradeSecurity,
+              l10n.enterpriseGradeSecurity,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 15),
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(178),
                 height: 1.6,
               ),
             ),
@@ -575,9 +563,9 @@ class _PlansScreenState extends State<PlansScreen> {
             runSpacing: 20.h,
             alignment: WrapAlignment.center,
             children: [
-              _buildFeatureIcon(context, Icons.shield, localizations.secure),
-              _buildFeatureIcon(context, Icons.speed, localizations.fast),
-              _buildFeatureIcon(context, Icons.support_agent, localizations.support247),
+              _buildFeatureIcon(context, Icons.shield, l10n.secure),
+              _buildFeatureIcon(context, Icons.speed, l10n.fast),
+              _buildFeatureIcon(context, Icons.support_agent, l10n.support247),
             ],
           ),
         ],

@@ -33,6 +33,8 @@ class _ContactFormScreenState extends State<ContactFormScreen>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+  AppLocalizations? _l10n;
+  bool _isInitialized = false;
 
   @override
   void initState() {
@@ -59,11 +61,17 @@ class _ContactFormScreenState extends State<ContactFormScreen>
     ));
 
     _animationController.forward();
-    
-    // Pré-remplir le message si un plan est spécifié
-    if (widget.planName != null) {
-      _messageController.text = 
-          AppLocalizations.of(context)!.planInterest(widget.planName!);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInitialized) {
+      _l10n = AppLocalizations.of(context);
+      if (widget.planName != null && _l10n != null) {
+        _messageController.text = _l10n!.planInterest(widget.planName!);
+      }
+      _isInitialized = true;
     }
   }
 
@@ -80,11 +88,21 @@ class _ContactFormScreenState extends State<ContactFormScreen>
 
   @override
   Widget build(BuildContext context) {
+    // S'assurer que _l10n est initialisé
+    if (_l10n == null) {
+      _l10n = AppLocalizations.of(context);
+    }
+    // Si toujours null, retourner un loader
+    if (_l10n == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
     return Scaffold(
       backgroundColor: AppTheme.backgroundGrey,
       body: CustomScrollView(
         slivers: [
-          _buildAppBar(context),
+          _buildAppBar(context, _l10n!),
           SliverToBoxAdapter(
             child: FadeTransition(
               opacity: _fadeAnimation,
@@ -94,11 +112,11 @@ class _ContactFormScreenState extends State<ContactFormScreen>
                   padding: EdgeInsets.all(20.w),
                   child: Column(
                     children: [
-                      _buildHeaderCard(context),
+                      _buildHeaderCard(context, _l10n!),
                       SizedBox(height: 24.h),
-                      _buildContactForm(context),
+                      _buildContactForm(context, _l10n!),
                       SizedBox(height: 24.h),
-                      _buildContactInfo(context),
+                      _buildContactInfo(context, _l10n!),
                     ],
                   ),
                 ),
@@ -110,7 +128,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
     );
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  Widget _buildAppBar(BuildContext context, AppLocalizations l10n) {
     return SliverAppBar(
       expandedHeight: 120.h,
       floating: false,
@@ -118,8 +136,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
       backgroundColor: AppTheme.primaryGreen,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
-          AppLocalizations.of(context)?.enterpriseContact ??
-              'Enterprise Contact',
+          l10n.enterpriseContact,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
             fontSize: ResponsiveUtils.getFontSize(context, 20),
@@ -174,7 +191,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
     );
   }
 
-  Widget _buildHeaderCard(BuildContext context) {
+  Widget _buildHeaderCard(BuildContext context, AppLocalizations l10n) {
     return Card(
       elevation: 12,
       shape: RoundedRectangleBorder(
@@ -209,9 +226,9 @@ class _ContactFormScreenState extends State<ContactFormScreen>
             ),
             SizedBox(height: 16.h),
             Text(
-              widget.planName != null 
+              widget.planName != null
                   ? '${widget.planName} Plan'
-                  : (AppLocalizations.of(context)?.enterpriseSolutions ?? 'Enterprise Solutions'),
+                  : l10n.enterpriseSolutions,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 24),
                 fontWeight: FontWeight.bold,
@@ -221,8 +238,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
             ),
             SizedBox(height: 8.h),
             Text(
-              AppLocalizations.of(context)?.enterpriseDescription ??
-                  'Get customized solutions for your business needs. Our team will contact you within 24 hours to discuss your requirements.',
+              l10n.enterpriseDescription,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 14),
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -236,7 +252,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
     );
   }
 
-  Widget _buildContactForm(BuildContext context) {
+  Widget _buildContactForm(BuildContext context, AppLocalizations l10n) {
     return Card(
       elevation: 8,
       shape: RoundedRectangleBorder(
@@ -250,7 +266,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                AppLocalizations.of(context)!.contactInformation,
+                l10n.contactInformation,
                 style: TextStyle(
                   fontSize: ResponsiveUtils.getFontSize(context, 20),
                   fontWeight: FontWeight.bold,
@@ -258,139 +274,118 @@ class _ContactFormScreenState extends State<ContactFormScreen>
                 ),
               ),
               SizedBox(height: 20.h),
-
-              // Company Name Field
               _buildAnimatedField(
                 child: TextFormField(
                   controller: _companyController,
                   decoration: _buildInputDecoration(
-                    label: AppLocalizations.of(context)!.companyName,
+                    label: l10n.companyName,
                     icon: Icons.business,
-                    hint: AppLocalizations.of(context)!.enterCompanyName,
+                    hint: l10n.enterCompanyName,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .pleaseEnterCompanyName;
+                      return l10n.pleaseEnterCompanyName;
                     }
                     return null;
                   },
                 ),
                 delay: 200,
               ),
-
               SizedBox(height: 16.h),
-
-              // Full Name Field
               _buildAnimatedField(
                 child: TextFormField(
                   controller: _nameController,
                   decoration: _buildInputDecoration(
-                    label: AppLocalizations.of(context)!.fullName,
+                    label: l10n.fullName,
                     icon: Icons.person,
-                    hint: AppLocalizations.of(context)!.pleaseEnterFullName,
+                    hint: l10n.enterFullName,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.pleaseEnterFullName;
+                      return l10n.pleaseEnterFullName;
                     }
                     return null;
                   },
                 ),
                 delay: 300,
               ),
-
               SizedBox(height: 16.h),
-
-              // Email Field
               _buildAnimatedField(
                 child: TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: _buildInputDecoration(
-                    label: AppLocalizations.of(context)!.email,
+                    label: l10n.emailAddress,
                     icon: Icons.email,
-                    hint: AppLocalizations.of(context)!.pleaseEnterEmailAddress,
+                    hint: l10n.enterEmailAddress,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .pleaseEnterEmailAddress;
+                      return l10n.pleaseEnterEmailAddress;
                     }
                     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                         .hasMatch(value)) {
-                      return AppLocalizations.of(context)!
-                          .pleaseEnterValidEmail;
+                      return l10n.pleaseEnterValidEmail;
                     }
                     return null;
                   },
                 ),
                 delay: 400,
               ),
-
               SizedBox(height: 16.h),
-
-              // Phone Field
               _buildAnimatedField(
                 child: TextFormField(
                   controller: _phoneController,
                   keyboardType: TextInputType.phone,
                   decoration: _buildInputDecoration(
-                    label: AppLocalizations.of(context)!.phoneNumber,
+                    label: l10n.phoneNumber,
                     icon: Icons.phone,
-                    hint: AppLocalizations.of(context)!.enterPhoneNumber,
+                    hint: l10n.enterPhoneNumber,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .pleaseEnterPhoneNumber;
+                      return l10n.pleaseEnterPhoneNumber;
                     }
                     return null;
                   },
                 ),
                 delay: 500,
               ),
-
               SizedBox(height: 16.h),
-
-              // Message Field
               _buildAnimatedField(
                 child: TextFormField(
                   controller: _messageController,
                   maxLines: 4,
                   decoration: _buildInputDecoration(
-                    label: AppLocalizations.of(context)!.message,
+                    label: l10n.message,
                     icon: Icons.message,
-                    hint: AppLocalizations.of(context)!.enterMessage,
+                    hint: l10n.enterMessage,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.pleaseEnterMessage;
+                      return l10n.pleaseEnterMessage;
                     }
                     if (value.length < 20) {
-                      return AppLocalizations.of(context)!
-                          .pleaseProvideMoreDetails;
+                      return l10n.pleaseProvideMoreDetails;
                     }
                     return null;
                   },
                 ),
                 delay: 600,
               ),
-
               SizedBox(height: 32.h),
-
-              // Submit Button
               _buildAnimatedField(
                 child: SizedBox(
                   width: double.infinity,
                   height: 56.h,
                   child: ElevatedButton(
-                    onPressed: _isSubmitting ? null : _submitForm,
+                    onPressed:
+                        _isSubmitting ? null : () => _submitForm(l10n),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppTheme.primaryGreen,
                       foregroundColor: Colors.white,
                       elevation: 8,
-                      shadowColor: AppTheme.primaryGreen.withValues(alpha: 0.3),
+                      shadowColor: AppTheme.primaryGreen.withAlpha(76),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16.r),
                       ),
@@ -404,23 +399,24 @@ class _ContactFormScreenState extends State<ContactFormScreen>
                                 height: 20,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimary,
                                 ),
                               ),
                               SizedBox(width: 12.w),
                               Text(
-                                AppLocalizations.of(context)!.sending,
+                                l10n.sending,
                                 style: TextStyle(
-                                  fontSize:
-                                      ResponsiveUtils.getFontSize(context, 16),
+                                  fontSize: ResponsiveUtils.getFontSize(
+                                      context, 16),
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ],
                           )
                         : Text(
-                            AppLocalizations.of(context)!.sendMessage,
+                            l10n.sendMessage,
                             style: TextStyle(
                               fontSize:
                                   ResponsiveUtils.getFontSize(context, 16),
@@ -438,7 +434,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
     );
   }
 
-  Widget _buildContactInfo(BuildContext context) {
+  Widget _buildContactInfo(BuildContext context, AppLocalizations l10n) {
     return Card(
       elevation: 6,
       shape: RoundedRectangleBorder(
@@ -450,7 +446,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.of(context)!.alternativeContactMethods,
+              l10n.alternativeContactMethods,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 18),
                 fontWeight: FontWeight.bold,
@@ -460,22 +456,22 @@ class _ContactFormScreenState extends State<ContactFormScreen>
             SizedBox(height: 16.h),
             _buildContactItem(
               icon: Icons.email_outlined,
-              title: AppLocalizations.of(context)!.email,
-              subtitle: AppLocalizations.of(context)!.enterpriseEmail,
+              title: l10n.email,
+              subtitle: l10n.enterpriseEmail,
               color: Colors.blue,
             ),
             SizedBox(height: 12.h),
             _buildContactItem(
               icon: Icons.phone_outlined,
-              title: AppLocalizations.of(context)!.phoneNumber,
-              subtitle: AppLocalizations.of(context)!.enterprisePhone,
+              title: l10n.phoneNumber,
+              subtitle: l10n.enterprisePhone,
               color: Colors.green,
             ),
             SizedBox(height: 12.h),
             _buildContactItem(
               icon: Icons.access_time_outlined,
-              title: AppLocalizations.of(context)!.businessHours,
-              subtitle: AppLocalizations.of(context)!.businessHoursText,
+              title: l10n.businessHours,
+              subtitle: l10n.businessHoursText,
               color: Colors.orange,
             ),
           ],
@@ -581,8 +577,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
   }
 
   // ✅ MÉTHODE CORRIGÉE - ENREGISTRE DANS POCKETBASE
-  Future<void> _submitForm() async {
-    final l10n = AppLocalizations.of(context)!;
+  Future<void> _submitForm(AppLocalizations l10n) async {
     if (!_formKey.currentState!.validate()) {
       return;
     }

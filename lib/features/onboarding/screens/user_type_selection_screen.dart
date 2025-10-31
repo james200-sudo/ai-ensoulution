@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/responsive.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum UserType { individual, company }
 
@@ -86,14 +87,15 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ResponsiveWidget(
-      mobile: _buildMobileLayout(),
-      tablet: _buildSplitLayout(),
-      desktop: _buildSplitLayout(),
+      mobile: _buildMobileLayout(l10n),
+      tablet: _buildSplitLayout(l10n),
+      desktop: _buildSplitLayout(l10n),
     );
   }
 
-  Widget _buildMobileLayout() {
+  Widget _buildMobileLayout(AppLocalizations l10n) {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -101,9 +103,9 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              AppTheme.primaryGreen.withValues(alpha: 0.1),
+              AppTheme.primaryGreen.withAlpha(25),
               Colors.white,
-              AppTheme.primaryGreen.withValues(alpha: 0.05),
+              AppTheme.primaryGreen.withAlpha(12),
             ],
           ),
         ),
@@ -113,13 +115,13 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
             child: Column(
               children: [
                 SizedBox(height: 40.h),
-                _buildHeader(),
+                _buildHeader(l10n),
                 SizedBox(height: 50.h),
-                _buildUserTypeSelection(),
+                _buildUserTypeSelection(l10n),
                 SizedBox(height: 30.h),
-                _buildCompanyCodeSection(),
+                _buildCompanyCodeSection(l10n),
                 SizedBox(height: 30.h),
-                _buildContinueButton(),
+                _buildContinueButton(l10n),
                 SizedBox(height: 40.h),
               ],
             ),
@@ -129,7 +131,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
     );
   }
 
-  Widget _buildSplitLayout() {
+  Widget _buildSplitLayout(AppLocalizations l10n) {
     return Scaffold(
       body: Row(
         children: [
@@ -139,7 +141,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
           ),
           // Right side - User type selection form
           Expanded(
-            child: _buildFormSection(),
+            child: _buildFormSection(l10n),
           ),
         ],
       ),
@@ -169,7 +171,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
     );
   }
 
-  Widget _buildFormSection() {
+  Widget _buildFormSection(AppLocalizations l10n) {
     return Container(
       height: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 32),
@@ -181,13 +183,13 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _buildHeaderDesktop(),
+                _buildHeaderDesktop(l10n),
                 const SizedBox(height: 40),
-                _buildUserTypeSelectionDesktop(),
+                _buildUserTypeSelectionDesktop(l10n),
                 const SizedBox(height: 30),
-                _buildCompanyCodeSectionDesktop(),
+                _buildCompanyCodeSectionDesktop(l10n),
                 const SizedBox(height: 40),
-                _buildContinueButtonDesktop(),
+                _buildContinueButtonDesktop(l10n),
                 const SizedBox(height: 20),
               ],
             ),
@@ -197,7 +199,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(AppLocalizations l10n) {
     return FadeTransition(
       opacity: _fadeAnimation,
       child: ScaleTransition(
@@ -212,7 +214,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.primaryGreen.withValues(alpha: 0.3),
+                    color: AppTheme.primaryGreen.withAlpha(76),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),
@@ -249,7 +251,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
     );
   }
 
-  Widget _buildHeaderDesktop() {
+  Widget _buildHeaderDesktop(AppLocalizations l10n) {
     return FadeTransition(
       opacity: _fadeAnimation,
       child: ScaleTransition(
@@ -264,7 +266,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.primaryGreen.withValues(alpha: 0.3),
+                    color: AppTheme.primaryGreen.withAlpha(76),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),
@@ -277,18 +279,18 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
               ),
             ),
             const SizedBox(height: 24),
-            const Text(
-              'Welcome to TGM HydroAI',
-              style: TextStyle(
+            Text(
+              l10n.welcomeTo,
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Choose your account type to get started',
-              style: TextStyle(
+            Text(
+              l10n.chooseAccountType,
+              style: const TextStyle(
                 fontSize: 16,
                 color: AppTheme.textGrey,
               ),
@@ -300,8 +302,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
     );
   }
 
-  Widget _buildUserTypeSelection() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildUserTypeSelection(AppLocalizations l10n) {
     return SlideTransition(
       position: _slideAnimation,
       child: Column(
@@ -326,7 +327,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
     );
   }
 
-  Widget _buildUserTypeSelectionDesktop() {
+  Widget _buildUserTypeSelectionDesktop(AppLocalizations l10n) {
     return SlideTransition(
       position: _slideAnimation,
       child: Column(
@@ -334,16 +335,16 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
           _buildUserTypeCardDesktop(
             userType: UserType.individual,
             icon: Icons.person,
-            title: 'Individual',
-            subtitle: 'Personal use with social login',
+            title: l10n.individual,
+            subtitle: l10n.personalUse,
             color: Colors.blue,
           ),
           const SizedBox(height: 16),
           _buildUserTypeCardDesktop(
             userType: UserType.company,
             icon: Icons.business,
-            title: 'Company',
-            subtitle: 'Business account with company code',
+            title: l10n.company,
+            subtitle: l10n.businessAccount,
             color: Colors.orange,
           ),
         ],
@@ -452,8 +453,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
     );
   }
 
-  Widget _buildCompanyCodeSection() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildCompanyCodeSection(AppLocalizations l10n) {
     return AnimatedSize(
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
@@ -527,7 +527,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
     );
   }
 
-  Widget _buildContinueButton() {
+  Widget _buildContinueButton(AppLocalizations l10n) {
     final canContinue = _selectedUserType != null &&
         (_selectedUserType == UserType.individual ||
             (_selectedUserType == UserType.company &&
@@ -721,7 +721,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
     );
   }
 
-  Widget _buildCompanyCodeSectionDesktop() {
+  Widget _buildCompanyCodeSectionDesktop(AppLocalizations l10n) {
     return AnimatedSize(
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
@@ -731,9 +731,9 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Company Code',
-                    style: TextStyle(
+                  Text(
+                    l10n.companyCode,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -748,7 +748,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                       UpperCaseTextFormatter(),
                     ],
                     decoration: InputDecoration(
-                      hintText: 'Enter 6-digit company code',
+                      hintText: l10n.companyCodeHint,
                       prefixIcon: const Icon(Icons.business_center),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -763,13 +763,13 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Company code is required';
+                        return l10n.companyCodeRequired;
                       }
                       if (value.length != 6) {
-                        return 'Company code must be exactly 6 characters';
+                        return l10n.companyCodeLength;
                       }
                       if (!RegExp(r'^[A-Z0-9]{6}$').hasMatch(value)) {
-                        return 'Only uppercase letters and numbers allowed';
+                        return l10n.invalidCompanyCode;
                       }
                       return null;
                     },
@@ -780,9 +780,9 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                     },
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    '6 uppercase alphanumeric characters (A-Z, 0-9)',
-                    style: TextStyle(
+                  Text(
+                    l10n.companyCodeDescription,
+                    style: const TextStyle(
                       fontSize: 12,
                       color: AppTheme.textGrey,
                     ),
@@ -794,7 +794,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
     );
   }
 
-  Widget _buildContinueButtonDesktop() {
+  Widget _buildContinueButtonDesktop(AppLocalizations l10n) {
     final canContinue = _selectedUserType != null &&
         (_selectedUserType == UserType.individual ||
             (_selectedUserType == UserType.company &&
@@ -814,7 +814,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
               canContinue ? AppTheme.primaryGreen : Colors.grey[300],
           foregroundColor: canContinue ? Colors.white : Colors.grey[500],
           elevation: canContinue ? 4 : 0,
-          shadowColor: AppTheme.primaryGreen.withValues(alpha: 0.3),
+          shadowColor: AppTheme.primaryGreen.withAlpha(76),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -829,11 +829,11 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
               )
-            : const FittedBox(
+            : FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  'Continue',
-                  style: TextStyle(
+                  l10n.continueButton,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),

@@ -395,11 +395,11 @@ class PlanCard extends StatelessWidget {
           Icon(
             Icons.check_circle,
             size: 20.sp,
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+            color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
           ),
           SizedBox(width: 8.w),
           Text(
-            localizations.currentPlan,
+            localizations.current,
             style: TextStyle(
               fontSize: ResponsiveUtils.getFontSize(context, 16),
               fontWeight: FontWeight.w600,

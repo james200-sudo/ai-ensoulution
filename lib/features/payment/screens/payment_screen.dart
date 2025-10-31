@@ -9,6 +9,7 @@ import 'package:tgm_ai_chat/core/services/pocketbase_auth_service.dart';
 import 'package:tgm_ai_chat/core/theme/app_theme.dart';
 import 'package:tgm_ai_chat/core/utils/responsive.dart';
 import 'package:tgm_ai_chat/core/services/stripe_checkout_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaymentScreen extends StatefulWidget {
   final Plan plan;
@@ -47,29 +48,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
         padding: EdgeInsets.all(16.w),
         child: Column(
           children: [
-            _buildPlanSummaryCard(),
+            _buildPlanSummaryCard(l10n),
             SizedBox(height: 20.h),
-            
-            _buildPaymentInfo(),
+            _buildPaymentInfo(l10n),
             SizedBox(height: 20.h),
-            
             if (_paymentError.isNotEmpty) ...[
               _buildErrorMessage(),
               SizedBox(height: 16.h),
             ],
-            
-            _buildPaymentButton(),
+            _buildPaymentButton(l10n),
             SizedBox(height: 16.h),
-            
-            _buildSecurityInfo(),
+            _buildSecurityInfo(l10n),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildPlanSummaryCard() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildPlanSummaryCard(AppLocalizations l10n) {
     final plansProvider = context.watch<PlansProvider>();
     final currentPrice = plansProvider.getPlanPrice(widget.plan);
     final billingPeriod = plansProvider.getBillingPeriodText();
@@ -145,8 +141,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  Widget _buildPaymentInfo() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildPaymentInfo(AppLocalizations l10n) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
@@ -238,16 +233,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  Widget _buildPaymentButton() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildPaymentButton(AppLocalizations l10n) {
     final plansProvider = context.watch<PlansProvider>();
     final currentPrice = plansProvider.getPlanPrice(widget.plan);
-    
+
     return SizedBox(
       width: double.infinity,
       height: 50.h,
       child: ElevatedButton(
-        onPressed: _isProcessingPayment ? null : _processPayment,
+        onPressed:
+            _isProcessingPayment ? null : () => _processPayment(l10n),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppTheme.primaryGreen,
           foregroundColor: Colors.white,
@@ -297,8 +292,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  Widget _buildSecurityInfo() {
-    final l10n = AppLocalizations.of(context)!;
+  Widget _buildSecurityInfo(AppLocalizations l10n) {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -353,7 +347,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  Future<void> _processPayment() async {
+  Future<void> _processPayment(AppLocalizations l10n) async {
     setState(() {
       _isProcessingPayment = true;
       _paymentError = '';

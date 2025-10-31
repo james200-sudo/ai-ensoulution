@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 import '../providers/chat_provider.dart';
 import '../models/conversation.dart';
@@ -117,7 +118,7 @@ class HistoryScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        _formatDate(conversation.lastMessageAt),
+                        _formatDate(context, conversation.lastMessageAt),
                         style: TextStyle(
                           fontSize: 10.sp,
                           color: Colors.grey,
@@ -232,7 +233,7 @@ class HistoryScreen extends StatelessWidget {
     return Icons.chat_bubble_outline;
   }
 
-  String _formatDate(DateTime dateTime) {
+  String _formatDate(BuildContext context, DateTime dateTime) {
     final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final difference = now.difference(dateTime);
