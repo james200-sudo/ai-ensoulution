@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "108709723521",
+    "project_id": "mboa-paris-app-testing",
+    "storage_bucket": "mboa-paris-app-testing.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108709723521:android:c984eb5b73892c33707c80",
+        "android_client_info": {
+          "package_name": "com.ensolutions.tgm_ai_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByKhzGtCSYqQ8eHUmgg2eqwHbYNMLN3Uw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108709723521:android:b2c26554a60c75b8707c80",
+        "android_client_info": {
+          "package_name": "com.itgrafik.mboa_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByKhzGtCSYqQ8eHUmgg2eqwHbYNMLN3Uw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

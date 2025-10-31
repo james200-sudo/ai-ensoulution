@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ensolutions.tgm_ai_chat",
+      "sha256_cert_fingerprints": [
+        "9A:97:32:E3:40:9D:CE:80:24:09:1A:40:80:B1:19:DE:0B:C5:63:35:D4:5A:68:EB:72:03:FE:FD:BE:AD:97:3D"
+      ]
+    }
+  }
+]

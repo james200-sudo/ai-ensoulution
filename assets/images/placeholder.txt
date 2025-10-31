@@ -1,0 +1,2 @@
+This is a placeholder file to ensure the assets/images directory exists.
+You can add actual avatar images here later.

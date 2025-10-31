@@ -1,0 +1,691 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import '../../../core/theme/app_theme.dart';
+import '../../../core/utils/responsive.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../core/services/pocketbase_auth_service.dart';
+import '../../profile/providers/profile_provider.dart';
+
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _authService = PocketBaseAuthService();
+  
+  bool _isLoading = false;
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+  bool _acceptTerms = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveWidget(
+      mobile: _buildMobileLayout(),
+      tablet: _buildSplitLayout(),
+      desktop: _buildSplitLayout(),
+    );
+  }
+
+  Widget _buildMobileLayout() {
+    return Scaffold(
+      body: ResponsiveLayout(
+        child: SafeArea(
+          child: Padding(
+            padding: ResponsiveUtils.getHorizontalPadding(context),
+            child: Column(
+              children: [
+                // Header avec bouton retour
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => context.go('/login'),
+                      icon: const Icon(Icons.arrow_back),
+                      color: AppTheme.textGrey,
+                    ),
+                    Text(
+                      'Créer un compte',
+                      style: TextStyle(
+                        fontSize: ResponsiveUtils.getFontSize(context, 18),
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+                
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          SizedBox(height: 32.h),
+                          _buildLogo(),
+                          SizedBox(height: 32.h),
+                          
+                          Text(
+                            'Rejoignez notre communauté',
+                            style: TextStyle(
+                              fontSize: ResponsiveUtils.getFontSize(context, 16),
+                              fontWeight: FontWeight.w500,
+                              color: AppTheme.textGrey,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          
+                          SizedBox(height: 24.h),
+                          _buildNameField(),
+                          SizedBox(height: 16.h),
+                          _buildEmailField(),
+                          SizedBox(height: 16.h),
+                          _buildPasswordField(),
+                          SizedBox(height: 16.h),
+                          _buildConfirmPasswordField(),
+                          SizedBox(height: 16.h),
+                          _buildTermsCheckbox(),
+                          SizedBox(height: 24.h),
+                          _buildRegisterButton(),
+                          
+                          // ✅ NOUVEAU : Diviseur "OU"
+                          SizedBox(height: 24.h),
+                          _buildOrDivider(),
+                          SizedBox(height: 20.h),
+                          
+                          // ✅ NOUVEAU : Bouton Google OAuth
+                          _buildGoogleButton(),
+                          
+                          SizedBox(height: 24.h),
+                          _buildLoginLink(),
+                          SizedBox(height: 20.h),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSplitLayout() {
+    return Scaffold(
+      body: Row(
+        children: [
+          Expanded(child: _buildImageSection()),
+          Expanded(child: _buildRegisterFormSection()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageSection() {
+    return Container(
+      height: double.infinity,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [AppTheme.primaryGreen, AppTheme.lightGreen],
+        ),
+      ),
+      child: Center(
+        child: Image.asset(
+          'assets/images/login.png',
+          fit: BoxFit.contain,
+          height: MediaQuery.sizeOf(context).height * 0.6,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRegisterFormSection() {
+    return Container(
+      height: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 32),
+      child: Center(
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Column(
+              children: [
+                // Header avec bouton retour
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => context.go('/login'),
+                      icon: const Icon(Icons.arrow_back),
+                      color: AppTheme.textGrey,
+                    ),
+                    const Text(
+                      'Créer un compte',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+                
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 24),
+                      _buildLogo(),
+                      const SizedBox(height: 32),
+                      
+                      const Text(
+                        'Rejoignez notre communauté',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: AppTheme.textGrey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      
+                      const SizedBox(height: 24),
+                      _buildNameField(),
+                      const SizedBox(height: 16),
+                      _buildEmailField(),
+                      const SizedBox(height: 16),
+                      _buildPasswordField(),
+                      const SizedBox(height: 16),
+                      _buildConfirmPasswordField(),
+                      const SizedBox(height: 16),
+                      _buildTermsCheckbox(),
+                      const SizedBox(height: 24),
+                      _buildRegisterButton(),
+                      
+                      // ✅ NOUVEAU : Diviseur "OU"
+                      const SizedBox(height: 24),
+                      _buildOrDivider(),
+                      const SizedBox(height: 20),
+                      
+                      // ✅ NOUVEAU : Bouton Google OAuth
+                      _buildGoogleButton(),
+                      
+                      const SizedBox(height: 24),
+                      _buildLoginLink(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogo() {
+    return SizedBox(
+      width: ResponsiveUtils.isDesktop(context) ? 80 : 60.w,
+      height: ResponsiveUtils.isDesktop(context) ? 80 : 60.h,
+      child: Image.asset(
+        'assets/images/logo.png',
+        fit: BoxFit.contain,
+      ),
+    );
+  }
+
+  Widget _buildNameField() {
+    return TextFormField(
+      controller: _nameController,
+      keyboardType: TextInputType.name,
+      decoration: const InputDecoration(
+        hintText: 'Nom complet',
+        prefixIcon: Icon(Icons.person_outline),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Veuillez saisir votre nom';
+        }
+        if (value.length < 2) {
+          return 'Le nom doit contenir au moins 2 caractères';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _buildEmailField() {
+    return TextFormField(
+      controller: _emailController,
+      keyboardType: TextInputType.emailAddress,
+      decoration: const InputDecoration(
+        hintText: 'Adresse email',
+        prefixIcon: Icon(Icons.email_outlined),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Veuillez saisir votre email';
+        }
+        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+          return 'Veuillez saisir un email valide';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _buildPasswordField() {
+    return TextFormField(
+      controller: _passwordController,
+      obscureText: _obscurePassword,
+      decoration: InputDecoration(
+        hintText: 'Mot de passe',
+        prefixIcon: const Icon(Icons.lock_outline),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscurePassword ? Icons.visibility : Icons.visibility_off,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscurePassword = !_obscurePassword;
+            });
+          },
+        ),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Veuillez saisir un mot de passe';
+        }
+        if (value.length < 8) {
+          return 'Le mot de passe doit contenir au moins 8 caractères';
+        }
+        if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)').hasMatch(value)) {
+          return 'Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _buildConfirmPasswordField() {
+    return TextFormField(
+      controller: _confirmPasswordController,
+      obscureText: _obscureConfirmPassword,
+      decoration: InputDecoration(
+        hintText: 'Confirmer le mot de passe',
+        prefixIcon: const Icon(Icons.lock_outline),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscureConfirmPassword = !_obscureConfirmPassword;
+            });
+          },
+        ),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Veuillez confirmer votre mot de passe';
+        }
+        if (value != _passwordController.text) {
+          return 'Les mots de passe ne correspondent pas';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _buildTermsCheckbox() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Checkbox(
+          value: _acceptTerms,
+          onChanged: (value) {
+            setState(() {
+              _acceptTerms = value ?? false;
+            });
+          },
+          activeColor: AppTheme.primaryGreen,
+        ),
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _acceptTerms = !_acceptTerms;
+              });
+            },
+            child: Text(
+              'J\'accepte les conditions d\'utilisation et la politique de confidentialité',
+              style: TextStyle(
+                fontSize: ResponsiveUtils.isDesktop(context) 
+                    ? 14 
+                    : ResponsiveUtils.getFontSize(context, 13),
+                color: AppTheme.textGrey,
+                height: 1.4,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRegisterButton() {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minHeight: 48.0,
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        height: ResponsiveUtils.isDesktop(context) ? 48 : 45.h,
+        child: ElevatedButton(
+          onPressed: (_isLoading || !_acceptTerms) ? null : _handleRegister,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppTheme.primaryGreen,
+            foregroundColor: Colors.white,
+            disabledBackgroundColor: AppTheme.textGrey.withOpacity(0.3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                ResponsiveUtils.isDesktop(context) ? 8 : 8.r,
+              ),
+            ),
+          ),
+          child: _isLoading
+              ? SizedBox(
+                  height: 20.h,
+                  width: 20.w,
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                )
+              : Text(
+                  'Créer mon compte',
+                  style: TextStyle(
+                    fontSize: ResponsiveUtils.isDesktop(context) 
+                        ? 16 
+                        : ResponsiveUtils.getFontSize(context, 14),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+
+  // ✅ NOUVEAU : Diviseur "OU"
+  Widget _buildOrDivider() {
+    return Row(
+      children: [
+        const Expanded(child: Divider()),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: ResponsiveUtils.isDesktop(context) ? 15 : 15.w,
+          ),
+          child: Text(
+            'OU',
+            style: TextStyle(
+              color: AppTheme.textGrey,
+              fontSize: ResponsiveUtils.isDesktop(context) 
+                  ? 14 
+                  : ResponsiveUtils.getFontSize(context, 14),
+            ),
+          ),
+        ),
+        const Expanded(child: Divider()),
+      ],
+    );
+  }
+
+  // ✅ NOUVEAU : Bouton Google OAuth
+  Widget _buildGoogleButton() {
+    final isMobile = ResponsiveUtils.isMobile(context);
+    return SizedBox(
+      width: isMobile ? double.infinity : 300,
+      height: isMobile ? 44.h : 48,
+      child: OutlinedButton(
+        onPressed: _isLoading ? null : _handleGoogleRegister,
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: Color(0xFF4285F4), width: 2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(isMobile ? 8.r : 8),
+          ),
+          backgroundColor: Colors.white,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/google_logo.png',
+              width: isMobile ? 18.sp : 18,
+              height: isMobile ? 18.sp : 18,
+              fit: BoxFit.contain,
+            ),
+            SizedBox(width: isMobile ? 8.w : 8),
+            Text(
+              'Continuer avec Google',
+              style: TextStyle(
+                color: const Color(0xFF4285F4),
+                fontSize: isMobile ? ResponsiveUtils.getFontSize(context, 13) : 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoginLink() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Vous avez déjà un compte ? ',
+          style: TextStyle(
+            fontSize: ResponsiveUtils.isDesktop(context) 
+                ? 14 
+                : ResponsiveUtils.getFontSize(context, 14),
+            color: AppTheme.textGrey,
+          ),
+        ),
+        GestureDetector(
+          onTap: () => context.go('/login'),
+          child: Text(
+            'Se connecter',
+            style: TextStyle(
+              fontSize: ResponsiveUtils.isDesktop(context) 
+                  ? 14 
+                  : ResponsiveUtils.getFontSize(context, 14),
+              color: AppTheme.primaryGreen,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ========================================
+  // GESTION DES ACTIONS
+  // ========================================
+
+  Future<void> _handleRegister() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    if (!_acceptTerms) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Vous devez accepter les conditions d\'utilisation'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final result = await _authService.registerUser(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+        passwordConfirm: _confirmPasswordController.text,
+        name: _nameController.text.trim(),
+      );
+
+      if (mounted) {
+        if (result['success'] == true) {
+          // Inscription réussie et email envoyé
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['message'] ?? 'Inscription réussie'),
+              backgroundColor: AppTheme.primaryGreen,
+              duration: const Duration(seconds: 4),
+            ),
+          );
+
+          // Rediriger vers l'écran de vérification d'email
+          context.go('/verify-email', extra: {
+            'email': _emailController.text.trim(),
+            'fromRegister': true,
+          });
+          
+        } else if (result['success'] == false && result['emailSent'] == false) {
+          // Compte créé mais problème d'envoi d'email
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['message'] ?? 'Compte créé mais problème d\'envoi d\'email'),
+              backgroundColor: Colors.orange,
+              duration: const Duration(seconds: 4),
+            ),
+          );
+
+          // Rediriger quand même vers la vérification car le compte existe
+          if (result['userId'] != null) {
+            context.go('/verify-email', extra: {
+              'email': _emailController.text.trim(),
+              'fromRegister': true,
+            });
+          }
+          
+        } else {
+          // Échec de l'inscription
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['error'] ?? 'Erreur d\'inscription'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  // ✅ NOUVEAU : Gestion de l'inscription Google
+  Future<void> _handleGoogleRegister() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+     //print('🔵 Inscription Google démarrée...');
+      
+      final result = await _authService.loginWithGoogle();
+      
+      if (mounted) {
+        if (result['success'] == true) {
+         //print('✅ Google Auth réussie: ${result['message']}');
+          
+          // Rafraîchir le profil utilisateur
+          final profileProvider = context.read<ProfileProvider>();
+          await profileProvider.refreshUserProfile();
+          
+          // Message différencié selon nouvel utilisateur ou existant
+          final isNewUser = result['isNewUser'] == true;
+          final message = isNewUser 
+              ? 'Compte créé avec succès' 
+              : 'Connexion réussie';
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(message),
+              backgroundColor: AppTheme.primaryGreen,
+              duration: const Duration(seconds: 2),
+            ),
+          );
+          
+          // Rediriger vers le chat
+          context.go('/chat');
+          
+        } else {
+          // Erreur d'authentification Google
+         //print('❌ Erreur Google Auth: ${result['error']}');
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['error'] ?? 'Erreur lors de l\'authentification Google'),
+              backgroundColor: Colors.red,
+              duration: const Duration(seconds: 4),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+     //print('❌ Exception Google Register: $e');
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur inattendue: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+}
