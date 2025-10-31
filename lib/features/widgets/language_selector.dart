@@ -34,13 +34,14 @@ class LanguageSelector extends StatelessWidget {
     String currentLocale,
     bool isMobile,
   ) {
+    final l10n = AppLocalizations.of(context)!;
     return PopupMenuButton<String>(
       icon: Icon(
         Icons.language,
         color: AppTheme.primaryGreen,
         size: isMobile ? 24.sp : 24,
       ),
-      tooltip: currentLocale == 'fr' ? 'Changer de langue' : 'Change language',
+      tooltip: l10n.changeLanguage,
       onSelected: (String locale) {
         settingsProvider.updateLocale(locale);
       },
@@ -52,7 +53,7 @@ class LanguageSelector extends StatelessWidget {
               Text('🇫🇷', style: TextStyle(fontSize: isMobile ? 20.sp : 20)),
               SizedBox(width: isMobile ? 12.w : 12),
               Text(
-                'Français',
+                l10n.languageFrench,
                 style: TextStyle(
                   fontSize: isMobile ? 14.sp : 14,
                   fontWeight: currentLocale == 'fr' ? FontWeight.w600 : FontWeight.normal,
@@ -73,7 +74,7 @@ class LanguageSelector extends StatelessWidget {
               Text('🇬🇧', style: TextStyle(fontSize: isMobile ? 20.sp : 20)),
               SizedBox(width: isMobile ? 12.w : 12),
               Text(
-                'English',
+                l10n.languageEnglish,
                 style: TextStyle(
                   fontSize: isMobile ? 14.sp : 14,
                   fontWeight: currentLocale == 'en' ? FontWeight.w600 : FontWeight.normal,

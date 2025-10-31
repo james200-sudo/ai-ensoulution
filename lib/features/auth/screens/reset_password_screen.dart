@@ -1,315 +1,286 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/responsive.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/services/pocketbase_auth_service.dart';
 
-class VerifyEmailScreen extends StatefulWidget {
+class ResetPasswordScreen extends StatefulWidget {
   final String? email;
-  final bool fromRegister;
+  final String? token;
 
-  const VerifyEmailScreen({
+  const ResetPasswordScreen({
     super.key,
     this.email,
-    this.fromRegister = false,
+    this.token,
   });
 
   @override
-  State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _passwordController = TextEditingController();
+  final _passwordConfirmController = TextEditingController();
   final _authService = PocketBaseAuthService();
-  bool _isResending = false;
+
+  bool _isLoading = false;
+  bool _isSuccess = false;
+  bool _obscurePassword = true;
+  bool _obscurePasswordConfirm = true;
+
+  String? _token;
+
+  @override
+  void initState() {
+    super.initState();
+    _token = widget.token;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: ResponsiveUtils.getHorizontalPadding(context),
-          child: Column(
-            children: [
-              // Header
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () => context.go('/login'),
-                    icon: const Icon(Icons.arrow_back),
-                    color: AppTheme.textGrey,
-                  ),
-                  Text(
-                    'Vérification email',
-                    style: TextStyle(
-                      fontSize: ResponsiveUtils.getFontSize(context, 18),
-                      fontWeight: FontWeight.w600,
+      body: ResponsiveLayout(
+        child: SafeArea(
+          child: Padding(
+            padding: ResponsiveUtils.getHorizontalPadding(context),
+            child: Column(
+              children: [
+                // Header
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => context.go('/login'),
+                      icon: const Icon(Icons.arrow_back),
+                      color: AppTheme.textGrey,
                     ),
-                  ),
-                ],
-              ),
-              
-              Expanded(
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Icône
-                        Container(
-                          padding: EdgeInsets.all(24.w),
-                          decoration: BoxDecoration(
-                            color: AppTheme.primaryGreen.withOpacity(0.1),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.mark_email_unread,
-                            size: 64.sp,
-                            color: AppTheme.primaryGreen,
-                          ),
-                        ),
-                        
-                        SizedBox(height: 32.h),
-                        
-                        Text(
-                          'Email de vérification envoyé !',
-                          style: TextStyle(
-                            fontSize: ResponsiveUtils.getFontSize(context, 24),
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black87,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        
-                        SizedBox(height: 16.h),
-                        
-                        if (widget.email != null) ...[
-                          Text(
-                            'Nous avons envoyé un email à :',
-                            style: TextStyle(
-                              fontSize: ResponsiveUtils.getFontSize(context, 16),
-                              color: AppTheme.textGrey,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: 8.h),
-                          Text(
-                            widget.email!,
-                            style: TextStyle(
-                              fontSize: ResponsiveUtils.getFontSize(context, 16),
-                              color: AppTheme.primaryGreen,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: 24.h),
-                        ],
-                        
-                        // Instructions
-                        Container(
-                          padding: EdgeInsets.all(20.w),
-                          margin: EdgeInsets.symmetric(horizontal: 16.w),
-                          decoration: BoxDecoration(
-                            color: Colors.blue.shade50,
-                            borderRadius: BorderRadius.circular(12.r),
-                            border: Border.all(
-                              color: Colors.blue.shade200,
-                              width: 1,
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.info_outline,
-                                    color: Colors.blue.shade700,
-                                    size: 24.sp,
-                                  ),
-                                  SizedBox(width: 12.w),
-                                  Expanded(
-                                    child: Text(
-                                      'Instructions',
-                                      style: TextStyle(
-                                        fontSize: ResponsiveUtils.getFontSize(context, 18),
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.blue.shade900,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 16.h),
-                              _buildInstructionStep(
-                                '1',
-                                'Ouvrez votre boîte mail',
-                                Icons.email_outlined,
-                              ),
-                              SizedBox(height: 12.h),
-                              _buildInstructionStep(
-                                '2',
-                                'Cherchez l\'email de vérification',
-                                Icons.search,
-                              ),
-                              SizedBox(height: 12.h),
-                              _buildInstructionStep(
-                                '3',
-                                'Cliquez sur le bouton "Verify" dans l\'email',
-                                Icons.touch_app,
-                              ),
-                              SizedBox(height: 12.h),
-                              _buildInstructionStep(
-                                '4',
-                                'Votre compte sera activé automatiquement',
-                                Icons.check_circle_outline,
-                              ),
-                            ],
-                          ),
-                        ),
-                        
-                        SizedBox(height: 32.h),
-                        
-                        // Note spam
-                        Text(
-                          '📬 N\'oubliez pas de vérifier vos spams',
-                          style: TextStyle(
-                            fontSize: ResponsiveUtils.getFontSize(context, 14),
-                            color: Colors.orange.shade700,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        
-                        SizedBox(height: 32.h),
-                        
-                        // Bouton renvoyer
-                        SizedBox(
-                          width: double.infinity,
-                          child: OutlinedButton.icon(
-                            onPressed: _isResending ? null : _handleResend,
-                            icon: _isResending
-                                ? SizedBox(
-                                    width: 20.w,
-                                    height: 20.h,
-                                    child: const CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                    ),
-                                  )
-                                : const Icon(Icons.refresh),
-                            label: Text(
-                              _isResending ? 'Envoi...' : 'Renvoyer l\'email',
-                              style: TextStyle(
-                                fontSize: ResponsiveUtils.getFontSize(context, 16),
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            style: OutlinedButton.styleFrom(
-                              foregroundColor: AppTheme.primaryGreen,
-                              side: const BorderSide(
-                                color: AppTheme.primaryGreen,
-                                width: 2,
-                              ),
-                              padding: EdgeInsets.symmetric(vertical: 14.h),
-                            ),
-                          ),
-                        ),
-                        
-                        SizedBox(height: 24.h),
-                        
-                        // Retour login
-                        TextButton(
-                          onPressed: () => context.go('/login'),
-                          child: Text(
-                            'Retour à la connexion',
-                            style: TextStyle(
-                              fontSize: ResponsiveUtils.getFontSize(context, 16),
-                              color: AppTheme.primaryGreen,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
+                    Text(
+                      AppLocalizations.of(context)!.resetPassword,
+                      style: TextStyle(
+                        fontSize: ResponsiveUtils.getFontSize(context, 18),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+
+                Expanded(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: _isSuccess
+                          ? _buildSuccessContent()
+                          : _buildResetForm(),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildInstructionStep(String number, String text, IconData icon) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 32.w,
-          height: 32.h,
-          decoration: BoxDecoration(
+  Widget _buildResetForm() {
+    final l10n = AppLocalizations.of(context)!;
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Icône
+          Icon(
+            Icons.lock_open,
+            size: 64.sp,
             color: AppTheme.primaryGreen,
-            shape: BoxShape.circle,
           ),
-          child: Center(
-            child: Text(
-              number,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: ResponsiveUtils.getFontSize(context, 16),
+
+          SizedBox(height: 32.h),
+
+          Text(
+            l10n.setNewPassword,
+            style: TextStyle(
+              fontSize: ResponsiveUtils.getFontSize(context, 24),
+              fontWeight: FontWeight.w700,
+              color: Colors.black87,
+            ),
+            textAlign: TextAlign.center,
+          ),
+
+          SizedBox(height: 16.h),
+
+          // Champ Nouveau mot de passe
+          TextFormField(
+            controller: _passwordController,
+            obscureText: _obscurePassword,
+            decoration: InputDecoration(
+              hintText: l10n.newPassword,
+              prefixIcon: const Icon(Icons.lock_outline),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
               ),
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return l10n.pleaseEnterPassword;
+              }
+              if (value.length < 8) {
+                return l10n.passwordTooShort;
+              }
+              return null;
+            },
           ),
-        ),
-        SizedBox(width: 12.w),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(icon, size: 20.sp, color: Colors.blue.shade700),
-                  SizedBox(width: 8.w),
-                  Expanded(
-                    child: Text(
-                      text,
-                      style: TextStyle(
-                        fontSize: ResponsiveUtils.getFontSize(context, 15),
-                        color: Colors.black87,
-                        height: 1.4,
-                      ),
-                    ),
-                  ),
-                ],
+
+          SizedBox(height: 16.h),
+
+          // Champ Confirmer mot de passe
+          TextFormField(
+            controller: _passwordConfirmController,
+            obscureText: _obscurePasswordConfirm,
+            decoration: InputDecoration(
+              hintText: l10n.confirmPassword,
+              prefixIcon: const Icon(Icons.lock_outline),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscurePasswordConfirm
+                      ? Icons.visibility_off
+                      : Icons.visibility,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscurePasswordConfirm = !_obscurePasswordConfirm;
+                  });
+                },
               ),
-            ],
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return l10n.pleaseConfirmPassword;
+              }
+              if (value != _passwordController.text) {
+                return l10n.passwordsDoNotMatch;
+              }
+              return null;
+            },
+          ),
+
+          SizedBox(height: 32.h),
+
+          // Bouton Réinitialiser
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: _isLoading ? null : _handleResetPassword,
+              child: _isLoading
+                  ? const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    )
+                  : Text(l10n.resetPassword),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSuccessContent() {
+    final l10n = AppLocalizations.of(context)!;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Lottie.asset(
+          'assets/animations/success.json',
+          width: 150.w,
+          height: 150.h,
+          fit: BoxFit.fill,
+        ),
+        SizedBox(height: 32.h),
+        Text(
+          l10n.passwordResetSuccess,
+          style: TextStyle(
+            fontSize: ResponsiveUtils.getFontSize(context, 22),
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 16.h),
+        Text(
+          l10n.canNowLogin,
+          style: TextStyle(
+            fontSize: ResponsiveUtils.getFontSize(context, 16),
+            color: Colors.grey[600],
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 32.h),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () => context.go('/login'),
+            child: Text(l10n.returnToLogin),
           ),
         ),
       ],
     );
   }
 
-  Future<void> _handleResend() async {
-    if (widget.email == null) return;
-
-    setState(() => _isResending = true);
-
-    try {
-      final result = await _authService.requestEmailVerification(widget.email!);
-
-      if (mounted) {
+  Future<void> _handleResetPassword() async {
+    if (!_formKey.currentState!.validate() || _token == null) {
+      if (_token == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['message'] ?? 'Email renvoyé'),
-            backgroundColor: result['success'] == true
-                ? AppTheme.primaryGreen
-                : Colors.red,
+            content: Text(AppLocalizations.of(context)!.resetTokenMissing),
+            backgroundColor: Colors.red,
           ),
         );
       }
-    } finally {
-      if (mounted) setState(() => _isResending = false);
+      return;
     }
+
+    setState(() => _isLoading = true);
+
+    try {
+      final result = await _authService.confirmPasswordReset(
+        _token!,
+        _passwordController.text,
+        _passwordConfirmController.text,
+      );
+
+      if (mounted) {
+        if (result['success'] == true) {
+          setState(() {
+            _isSuccess = true;
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['error'] ?? AppLocalizations.of(context)!.errorOccurred),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _passwordConfirmController.dispose();
+    super.dispose();
   }
 }

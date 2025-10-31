@@ -30,6 +30,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       children: [
         GestureDetector(
@@ -77,7 +78,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         ),
         SizedBox(height: 8.h),
         Text(
-          'Tap to change photo',
+          l10n.tapToChangePhoto,
           style: TextStyle(
             fontSize: ResponsiveUtils.getFontSize(context, 12),
             color: AppTheme.textGrey,
@@ -126,6 +127,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
   }
 
   void _showImageSourceDialog() {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       builder: (context) => SafeArea(
@@ -133,7 +135,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           children: [
             ListTile(
               leading: const Icon(Icons.photo_library),
-              title: const Text('Photo Library'),
+              title: Text(l10n.photoLibrary),
               onTap: () {
                 Navigator.pop(context);
                 _pickImage(ImageSource.gallery);
@@ -141,7 +143,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
             ),
             ListTile(
               leading: const Icon(Icons.photo_camera),
-              title: const Text('Camera'),
+              title: Text(l10n.camera),
               onTap: () {
                 Navigator.pop(context);
                 _pickImage(ImageSource.camera);
@@ -150,7 +152,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
             if (widget.currentImageUrl != null || _selectedImage != null)
               ListTile(
                 leading: const Icon(Icons.delete, color: Colors.red),
-                title: const Text('Remove Photo', style: TextStyle(color: Colors.red)),
+                title: Text(l10n.removePhoto, style: const TextStyle(color: Colors.red)),
                 onTap: () {
                   Navigator.pop(context);
                   _removeImage();
@@ -158,7 +160,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
               ),
             ListTile(
               leading: const Icon(Icons.close),
-              title: const Text('Cancel'),
+              title: Text(l10n.cancel),
               onTap: () => Navigator.pop(context),
             ),
           ],
@@ -168,6 +170,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
   }
 
   Future<void> _pickImage(ImageSource source) async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       final XFile? image = await _picker.pickImage(
         source: source,
@@ -196,7 +199,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to pick image: $e'),
+            content: Text(l10n.failedToPickImage(e.toString())),
             backgroundColor: Colors.red,
           ),
         );

@@ -145,6 +145,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Widget _buildSplashContent(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -185,7 +186,7 @@ class _SplashScreenState extends State<SplashScreen>
             child: Column(
               children: [
                 Text(
-                  'TGM HydroAI Chat',
+                  l10n.appTitle,
                   style: TextStyle(
                     fontSize: ResponsiveUtils.getFontSize(context, 32),
                     fontWeight: FontWeight.bold,
@@ -195,7 +196,7 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  'Intelligent Chat Assistant',
+                  l10n.appTagline,
                   style: TextStyle(
                     fontSize: ResponsiveUtils.getFontSize(context, 16),
                     color: AppTheme.textGrey,
@@ -244,7 +245,7 @@ class _SplashScreenState extends State<SplashScreen>
           ),
           child: Center(
             child: Text(
-              'TGM\nAI',
+              l10n.logoFallback,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,

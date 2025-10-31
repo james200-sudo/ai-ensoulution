@@ -226,7 +226,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
             ),
             SizedBox(height: 24.h),
             Text(
-              'Welcome to TGM HydroAI',
+              l10n.welcomeTo,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 28),
                 fontWeight: FontWeight.bold,
@@ -236,7 +236,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
             ),
             SizedBox(height: 8.h),
             Text(
-              'Choose your account type to get started',
+              l10n.chooseAccountType,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 16),
                 color: AppTheme.textGrey,
@@ -301,6 +301,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
   }
 
   Widget _buildUserTypeSelection() {
+    final l10n = AppLocalizations.of(context)!;
     return SlideTransition(
       position: _slideAnimation,
       child: Column(
@@ -308,16 +309,16 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
           _buildUserTypeCard(
             userType: UserType.individual,
             icon: Icons.person,
-            title: 'Individual',
-            subtitle: 'Personal use with social login',
+            title: l10n.individual,
+            subtitle: l10n.personalUse,
             color: Colors.blue,
           ),
           SizedBox(height: 16.h),
           _buildUserTypeCard(
             userType: UserType.company,
             icon: Icons.business,
-            title: 'Company',
-            subtitle: 'Business account with company code',
+            title: l10n.company,
+            subtitle: l10n.businessAccount,
             color: Colors.orange,
           ),
         ],
@@ -452,6 +453,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
   }
 
   Widget _buildCompanyCodeSection() {
+    final l10n = AppLocalizations.of(context)!;
     return AnimatedSize(
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
@@ -462,7 +464,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Company Code',
+                    l10n.companyCode,
                     style: TextStyle(
                       fontSize: ResponsiveUtils.getFontSize(context, 16),
                       fontWeight: FontWeight.w600,
@@ -479,7 +481,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                       UpperCaseTextFormatter(),
                     ],
                     decoration: InputDecoration(
-                      hintText: 'Enter 6-digit company code',
+                      hintText: l10n.companyCodeHint,
                       prefixIcon: const Icon(Icons.business_center),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.r),
@@ -494,13 +496,13 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Company code is required';
+                        return l10n.companyCodeRequired;
                       }
                       if (value.length != 6) {
-                        return 'Company code must be exactly 6 characters';
+                        return l10n.companyCodeLength;
                       }
                       if (!RegExp(r'^[A-Z0-9]{6}$').hasMatch(value)) {
-                        return 'Only uppercase letters and numbers allowed';
+                        return l10n.invalidCompanyCode;
                       }
                       return null;
                     },
@@ -512,7 +514,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    '6 uppercase alphanumeric characters (A-Z, 0-9)',
+                    l10n.companyCodeDescription,
                     style: TextStyle(
                       fontSize: ResponsiveUtils.getFontSize(context, 12),
                       color: AppTheme.textGrey,
@@ -563,7 +565,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
             : FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  'Continue',
+                  l10n.continueButton,
                   style: TextStyle(
                     fontSize: ResponsiveUtils.getFontSize(context, 16),
                     fontWeight: FontWeight.w600,

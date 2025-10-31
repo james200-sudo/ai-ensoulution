@@ -25,6 +25,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -40,7 +41,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     color: AppTheme.textGrey,
                   ),
                   Text(
-                    'Vérification email',
+                    l10n.verifyEmail,
                     style: TextStyle(
                       fontSize: ResponsiveUtils.getFontSize(context, 18),
                       fontWeight: FontWeight.w600,
@@ -72,7 +73,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         SizedBox(height: 32.h),
                         
                         Text(
-                          'Email de vérification envoyé !',
+                          l10n.verificationEmailSent,
                           style: TextStyle(
                             fontSize: ResponsiveUtils.getFontSize(context, 24),
                             fontWeight: FontWeight.w700,
@@ -85,7 +86,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         
                         if (widget.email != null) ...[
                           Text(
-                            'Nous avons envoyé un email à :',
+                            l10n.weSentAnEmailTo,
                             style: TextStyle(
                               fontSize: ResponsiveUtils.getFontSize(context, 16),
                               color: AppTheme.textGrey,
@@ -129,7 +130,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                                   SizedBox(width: 12.w),
                                   Expanded(
                                     child: Text(
-                                      'Comment activer votre compte',
+                                      l10n.instructions,
                                       style: TextStyle(
                                         fontSize: ResponsiveUtils.getFontSize(context, 18),
                                         fontWeight: FontWeight.w700,
@@ -142,25 +143,25 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                               SizedBox(height: 16.h),
                               _buildInstructionStep(
                                 '1',
-                                'Ouvrez votre boîte mail',
+                                l10n.openMailbox,
                                 Icons.email_outlined,
                               ),
                               SizedBox(height: 12.h),
                               _buildInstructionStep(
                                 '2',
-                                'Trouvez l\'email de vérification',
+                                l10n.findVerificationEmail,
                                 Icons.search,
                               ),
                               SizedBox(height: 12.h),
                               _buildInstructionStep(
                                 '3',
-                                'Cliquez sur le bouton "Verify"',
+                                l10n.clickVerifyButton,
                                 Icons.touch_app,
                               ),
                               SizedBox(height: 12.h),
                               _buildInstructionStep(
                                 '4',
-                                'Votre compte sera activé automatiquement !',
+                                l10n.accountActivated,
                                 Icons.check_circle_outline,
                               ),
                             ],
@@ -188,7 +189,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                               SizedBox(width: 12.w),
                               Expanded(
                                 child: Text(
-                                  'Vérifiez vos spams si vous ne trouvez pas l\'email',
+                                  l10n.checkSpam,
                                   style: TextStyle(
                                     fontSize: ResponsiveUtils.getFontSize(context, 14),
                                     color: Colors.orange.shade900,
@@ -217,7 +218,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                                   )
                                 : const Icon(Icons.refresh),
                             label: Text(
-                              _isResending ? 'Envoi en cours...' : 'Renvoyer l\'email',
+                              _isResending ? l10n.sendingInProgress : l10n.resendEmail,
                               style: TextStyle(
                                 fontSize: ResponsiveUtils.getFontSize(context, 16),
                                 fontWeight: FontWeight.w600,
@@ -240,7 +241,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         TextButton(
                           onPressed: () => context.go('/login'),
                           child: Text(
-                            'Retour à la connexion',
+                            l10n.returnToLogin,
                             style: TextStyle(
                               fontSize: ResponsiveUtils.getFontSize(context, 16),
                               color: AppTheme.primaryGreen,

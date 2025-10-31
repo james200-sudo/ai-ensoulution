@@ -12,9 +12,10 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Conversation History'),
+        title: Text(l10n.conversationHistory),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.pop(),
@@ -36,7 +37,7 @@ class HistoryScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    'No conversations in history',
+                    l10n.noConversationsInHistory,
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: Colors.grey,
@@ -44,7 +45,7 @@ class HistoryScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    'Start chatting to see your conversation history here',
+                    l10n.startChattingToSeeHistory,
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: Colors.grey.withValues(alpha: 0.7),
@@ -102,7 +103,7 @@ class HistoryScreen extends StatelessWidget {
                   subtitle: Row(
                     children: [
                       Text(
-                        '${conversation.messages.length} messages',
+                        l10n.messagesCount(conversation.messages.length.toString()),
                         style: TextStyle(
                           fontSize: 10.sp,
                           color: Colors.grey,
@@ -131,7 +132,7 @@ class HistoryScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Current',
+                          l10n.current,
                           style: TextStyle(
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w500,
@@ -156,13 +157,13 @@ class HistoryScreen extends StatelessWidget {
                     },
                     itemBuilder: (context) => [
                       if (!isCurrentConversation)
-                        const PopupMenuItem<String>(
+                        PopupMenuItem<String>(
                           value: 'switch',
                           child: Row(
                             children: [
-                              Icon(Icons.chat, size: 18),
-                              SizedBox(width: 8),
-                              Text('Switch to this conversation'),
+                              const Icon(Icons.chat, size: 18),
+                              const SizedBox(width: 8),
+                              Text(l10n.switchToConversation),
                             ],
                           ),
                         ),
@@ -177,7 +178,7 @@ class HistoryScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              'Delete conversation',
+                              l10n.deleteConversation,
                               style: TextStyle(
                                 color: Colors.red.shade600,
                               ),
@@ -232,19 +233,20 @@ class HistoryScreen extends StatelessWidget {
   }
 
   String _formatDate(DateTime dateTime) {
+    final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final difference = now.difference(dateTime);
 
     if (difference.inMinutes < 1) {
-      return 'Just now';
+      return l10n.justNow;
     } else if (difference.inMinutes < 60) {
-      return '${difference.inMinutes}m ago';
+      return l10n.minutesAgo(difference.inMinutes.toString());
     } else if (difference.inHours < 24) {
-      return '${difference.inHours}h ago';
+      return l10n.hoursAgo(difference.inHours.toString());
     } else if (difference.inDays == 1) {
-      return 'Yesterday';
+      return l10n.yesterday;
     } else if (difference.inDays < 7) {
-      return '${difference.inDays}d ago';
+      return l10n.daysAgo(difference.inDays.toString());
     } else {
       return '${dateTime.day}/${dateTime.month}';
     }
@@ -255,15 +257,16 @@ class HistoryScreen extends StatelessWidget {
     ChatProvider chatProvider,
     Conversation conversation,
   ) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Delete Conversation'),
+        title: Text(l10n.deleteConversation),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Are you sure you want to delete this conversation?'),
+            Text(l10n.deleteConversationConfirmation),
             SizedBox(height: 8.h),
             Text(
               '"${conversation.title}"',
@@ -273,9 +276,9 @@ class HistoryScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8.h),
-            const Text(
-              'This action cannot be undone.',
-              style: TextStyle(
+            Text(
+              l10n.thisActionCannotBeUndone,
+              style: const TextStyle(
                 color: Colors.red,
                 fontSize: 12,
               ),
@@ -285,7 +288,7 @@ class HistoryScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -293,8 +296,8 @@ class HistoryScreen extends StatelessWidget {
               await chatProvider.deleteConversation(conversation.id);
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Conversation deleted'),
+                  SnackBar(
+                    content: Text(l10n.conversationDeleted),
                     backgroundColor: Colors.red,
                   ),
                 );
@@ -303,7 +306,7 @@ class HistoryScreen extends StatelessWidget {
             style: TextButton.styleFrom(
               foregroundColor: Colors.red,
             ),
-            child: const Text('Delete'),
+            child: Text(l10n.delete),
           ),
         ],
       ),

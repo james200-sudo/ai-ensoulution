@@ -112,6 +112,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
   }
 
   Widget _buildLoadingState() {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -122,7 +123,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
           ),
           SizedBox(height: 24.h),
           Text(
-            'Vérification de votre paiement...',
+            l10n.verifyingPayment,
             style: TextStyle(
               fontSize: ResponsiveUtils.getFontSize(context, 16),
               color: Colors.grey.shade700,
@@ -131,7 +132,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
           ),
           SizedBox(height: 8.h),
           Text(
-            'Veuillez patienter un instant',
+            l10n.pleaseWait,
             style: TextStyle(
               fontSize: ResponsiveUtils.getFontSize(context, 14),
               color: Colors.grey.shade500,
@@ -143,6 +144,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
   }
 
   Widget _buildSuccessState() {
+    final l10n = AppLocalizations.of(context)!;
     return FadeTransition(
       opacity: _fadeAnimation,
       child: Padding(
@@ -171,7 +173,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
             
             // Success title
             Text(
-              'Paiement réussi !',
+              l10n.paymentSuccessful,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 28),
                 fontWeight: FontWeight.bold,
@@ -185,7 +187,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
             Container(
               padding: EdgeInsets.symmetric(horizontal: 32.w),
               child: Text(
-                'Votre abonnement a été activé avec succès. Vous avez désormais accès à toutes les fonctionnalités premium !',
+                l10n.subscriptionActivated,
                 style: TextStyle(
                   fontSize: ResponsiveUtils.getFontSize(context, 16),
                   color: Colors.grey.shade600,
@@ -220,21 +222,21 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                     children: [
                       _buildDetailRow(
                         Icons.workspace_premium,
-                        'Forfait',
+                        l10n.plan,
                         planName,
                       ),
                       Divider(height: 24.h),
                       _buildDetailRow(
                         Icons.check_circle_outline,
-                        'Statut',
-                        'Actif',
+                        l10n.status,
+                        l10n.active,
                         valueColor: AppTheme.primaryGreen,
                       ),
                       if (widget.sessionId != null) ...[
                         Divider(height: 24.h),
                         _buildDetailRow(
                           Icons.receipt_long,
-                          'Session',
+                          l10n.session,
                           widget.sessionId!.substring(0, 20) + '...',
                           isSmall: true,
                         ),
@@ -268,7 +270,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                         Icon(Icons.chat_bubble_outline, size: 20.sp),
                         SizedBox(width: 8.w),
                         Text(
-                          'Commencer le chat',
+                          l10n.startChatting,
                           style: TextStyle(
                             fontSize: ResponsiveUtils.getFontSize(context, 16),
                             fontWeight: FontWeight.w600,
@@ -292,7 +294,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                       ),
                     ),
                     child: Text(
-                      'Voir le profil',
+                      l10n.viewProfile,
                       style: TextStyle(
                         fontSize: ResponsiveUtils.getFontSize(context, 16),
                         fontWeight: FontWeight.w600,
@@ -309,6 +311,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
   }
 
   Widget _buildErrorState() {
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.all(24.w),
       child: Column(
@@ -322,7 +325,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
           SizedBox(height: 24.h),
           
           Text(
-            'Problème de vérification',
+            l10n.verificationProblem,
             style: TextStyle(
               fontSize: ResponsiveUtils.getFontSize(context, 24),
               fontWeight: FontWeight.bold,
@@ -341,7 +344,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
             child: Text(
               _errorMessage.isNotEmpty
                   ? _errorMessage
-                  : 'Impossible de vérifier votre paiement. Contactez le support si le problème persiste.',
+                  : l10n.verificationFailed,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 14),
                 color: Colors.red.shade700,
@@ -371,7 +374,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                       Icon(Icons.refresh, size: 20.sp),
                       SizedBox(width: 8.w),
                       Text(
-                        'Réessayer la vérification',
+                        l10n.retryVerification,
                         style: TextStyle(
                           fontSize: ResponsiveUtils.getFontSize(context, 16),
                           fontWeight: FontWeight.w600,
@@ -395,7 +398,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                     ),
                   ),
                   child: Text(
-                    'Continuer dans l\'application',
+                    l10n.continueInApp,
                     style: TextStyle(
                       fontSize: ResponsiveUtils.getFontSize(context, 16),
                       fontWeight: FontWeight.w600,

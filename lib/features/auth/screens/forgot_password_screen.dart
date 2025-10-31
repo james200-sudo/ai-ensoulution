@@ -47,7 +47,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       color: AppTheme.textGrey,
                     ),
                     Text(
-                      'Mot de passe oublié',
+                      l10n.forgotPasswordTitle,
                       style: TextStyle(
                         fontSize: ResponsiveUtils.getFontSize(context, 18),
                         fontWeight: FontWeight.w600,
@@ -173,6 +173,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   Widget _buildRequestForm() {
+    final l10n = AppLocalizations.of(context)!;
     return Form(
       key: _formKey,
       child: Column(
@@ -195,7 +196,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           SizedBox(height: ResponsiveUtils.isDesktop(context) ? 24 : 24.h),
           
           Text(
-            'Réinitialiser votre mot de passe',
+            l10n.resetYourPassword,
             style: TextStyle(
               fontSize: ResponsiveUtils.isDesktop(context) 
                   ? 24 
@@ -209,7 +210,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           SizedBox(height: ResponsiveUtils.isDesktop(context) ? 12 : 12.h),
           
           Text(
-            'Saisissez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.',
+            l10n.resetPasswordInstructions,
             style: TextStyle(
               fontSize: ResponsiveUtils.isDesktop(context) 
                   ? 16 
@@ -240,6 +241,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
     Widget _buildEmailSentContent() {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -260,7 +262,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         SizedBox(height: 24.h),
         
         Text(
-          'Email envoyé !',
+          l10n.emailSent,
           style: TextStyle(
             fontSize: ResponsiveUtils.getFontSize(context, 24),
             fontWeight: FontWeight.w700,
@@ -272,7 +274,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         SizedBox(height: 16.h),
         
         Text(
-          'Nous avons envoyé un email à :',
+          l10n.weSentAnEmailTo,
           style: TextStyle(
             fontSize: ResponsiveUtils.getFontSize(context, 16),
             color: AppTheme.textGrey,
@@ -305,7 +307,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               Icon(Icons.info_outline, color: Colors.blue.shade700, size: 32.sp),
               SizedBox(height: 16.h),
               Text(
-                'Comment réinitialiser votre mot de passe',
+                l10n.howToResetPassword,
                 style: TextStyle(
                   fontSize: ResponsiveUtils.getFontSize(context, 18),
                   fontWeight: FontWeight.w700,
@@ -315,11 +317,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
               SizedBox(height: 16.h),
               Text(
-                '1. Ouvrez votre boîte mail\n'
-                '2. Cliquez sur le lien dans l\'email\n'
-                '3. Vous serez redirigé vers une page web\n'
-                '4. Saisissez votre nouveau mot de passe\n'
-                '5. Revenez dans l\'app pour vous connecter',
+                l10n.howToResetPasswordInstructions,
                 style: TextStyle(
                   fontSize: ResponsiveUtils.getFontSize(context, 15),
                   color: Colors.black87,
@@ -334,7 +332,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         SizedBox(height: 24.h),
         
         Text(
-          '📬 Vérifiez vos spams si vous ne voyez pas l\'email',
+          l10n.checkSpam,
           style: TextStyle(
             fontSize: ResponsiveUtils.getFontSize(context, 14),
             color: Colors.orange.shade700,
@@ -357,19 +355,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   Widget _buildEmailField() {
+    final l10n = AppLocalizations.of(context)!;
     return TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
-      decoration: const InputDecoration(
-        hintText: 'Adresse email',
-        prefixIcon: Icon(Icons.email_outlined),
+      decoration: InputDecoration(
+        hintText: l10n.emailAddress,
+        prefixIcon: const Icon(Icons.email_outlined),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Veuillez saisir votre email';
+          return l10n.pleaseEnterEmailAddress;
         }
         if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-          return 'Veuillez saisir un email valide';
+          return l10n.pleaseEnterValidEmail;
         }
         return null;
       },
@@ -377,6 +376,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   Widget _buildSendButton() {
+    final l10n = AppLocalizations.of(context)!;
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: 48.0, // Hauteur minimale de 48 pixels
@@ -405,7 +405,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                 )
               : Text(
-                  'Envoyer le lien de réinitialisation',
+                  l10n.sendResetLink,
                   style: TextStyle(
                     fontSize: ResponsiveUtils.isDesktop(context) 
                         ? 16 
@@ -457,6 +457,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   Widget _buildResendEmailButton() {
+    final l10n = AppLocalizations.of(context)!;
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: 48.0, // Hauteur minimale de 48 pixels
@@ -478,7 +479,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 )
               : const Icon(Icons.refresh),
           label: Text(
-            _isLoading ? 'Envoi en cours...' : 'Renvoyer l\'email',
+            _isLoading ? l10n.sendingInProgress : l10n.resendEmail,
             style: TextStyle(
               fontSize: ResponsiveUtils.isDesktop(context) 
                   ? 14 
@@ -501,36 +502,26 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   Widget _buildBackToLoginLink() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Retour à la ',
+    final l10n = AppLocalizations.of(context)!;
+    return Center(
+      child: GestureDetector(
+        onTap: () => context.go('/login'),
+        child: Text(
+          l10n.backToLogin,
           style: TextStyle(
-            fontSize: ResponsiveUtils.isDesktop(context) 
-                ? 14 
+            fontSize: ResponsiveUtils.isDesktop(context)
+                ? 14
                 : ResponsiveUtils.getFontSize(context, 14),
-            color: AppTheme.textGrey,
+            color: AppTheme.primaryGreen,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        GestureDetector(
-          onTap: () => context.go('/login'), // Correction ici
-          child: Text(
-            'connexion',
-            style: TextStyle(
-              fontSize: ResponsiveUtils.isDesktop(context) 
-                  ? 14 
-                  : ResponsiveUtils.getFontSize(context, 14),
-              color: AppTheme.primaryGreen,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
  Future<void> _handleSendResetEmail() async {
+    final l10n = AppLocalizations.of(context)!;
   if (!_emailSent && !_formKey.currentState!.validate()) return;
 
   setState(() {
@@ -551,7 +542,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['message'] ?? 'Email envoyé'),
+            content: Text(result['message'] ?? l10n.emailSentMessage),
             backgroundColor: AppTheme.primaryGreen,
           ),
         );
@@ -560,7 +551,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         if (result['userExists'] == false) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error'] ?? 'Adresse email non trouvée'),
+              content: Text(result['error'] ?? l10n.emailNotFound),
               backgroundColor: Colors.orange,
             ),
           );
@@ -568,7 +559,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           // Erreur d'envoi d'email
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error'] ?? 'Erreur lors de l\'envoi'),
+              content: Text(result['error'] ?? l10n.sendingError),
               backgroundColor: Colors.red,
             ),
           );
@@ -579,7 +570,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Erreur: ${e.toString()}'),
+          content: Text(l10n.errorWithMessage(e.toString())),
           backgroundColor: Colors.red,
         ),
       );

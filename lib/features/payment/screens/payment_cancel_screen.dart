@@ -10,6 +10,7 @@ class PaymentCancelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppTheme.backgroundGrey,
       body: SafeArea(
@@ -36,7 +37,7 @@ class PaymentCancelScreen extends StatelessWidget {
               
               // Title
               Text(
-                'Paiement annulé',
+                l10n.paymentCancelledTitle,
                 style: TextStyle(
                   fontSize: ResponsiveUtils.getFontSize(context, 28),
                   fontWeight: FontWeight.bold,
@@ -50,7 +51,7 @@ class PaymentCancelScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 32.w),
                 child: Text(
-                  'Votre paiement a été annulé. Aucun prélèvement n\'a été effectué sur votre compte.',
+                  l10n.paymentCancelledMessage,
                   style: TextStyle(
                     fontSize: ResponsiveUtils.getFontSize(context, 16),
                     color: Colors.grey.shade600,
@@ -81,19 +82,19 @@ class PaymentCancelScreen extends StatelessWidget {
                     _buildInfoRow(
                       context,
                       Icons.info_outline,
-                      'Aucun paiement n\'a été traité',
+                      l10n.noPaymentProcessed,
                     ),
                     SizedBox(height: 12.h),
                     _buildInfoRow(
                       context,
                       Icons.lock_outline,
-                      'Votre compte reste inchangé',
+                      l10n.accountUnchanged,
                     ),
                     SizedBox(height: 12.h),
                     _buildInfoRow(
                       context,
                       Icons.restart_alt,
-                      'Vous pouvez réessayer à tout moment',
+                      l10n.youCanRetry,
                     ),
                   ],
                 ),
@@ -122,7 +123,7 @@ class PaymentCancelScreen extends StatelessWidget {
                           Icon(Icons.restart_alt, size: 20.sp),
                           SizedBox(width: 8.w),
                           Text(
-                            'Réessayer',
+                            l10n.retryPayment,
                             style: TextStyle(
                               fontSize: ResponsiveUtils.getFontSize(context, 16),
                               fontWeight: FontWeight.w600,
@@ -146,7 +147,7 @@ class PaymentCancelScreen extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        'Retour à l\'application',
+                        l10n.returnToApp,
                         style: TextStyle(
                           fontSize: ResponsiveUtils.getFontSize(context, 16),
                           fontWeight: FontWeight.w600,
@@ -158,7 +159,7 @@ class PaymentCancelScreen extends StatelessWidget {
                   TextButton(
                     onPressed: () => context.go('/contact'),
                     child: Text(
-                      'Besoin d\'aide ? Contacter le support',
+                      l10n.needHelpContactSupport,
                       style: TextStyle(
                         fontSize: ResponsiveUtils.getFontSize(context, 14),
                         color: AppTheme.primaryGreen,

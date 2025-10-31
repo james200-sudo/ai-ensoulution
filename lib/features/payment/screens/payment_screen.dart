@@ -28,11 +28,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppTheme.backgroundGrey,
       appBar: AppBar(
         title: Text(
-          'Finaliser l\'achat',
+          l10n.completePurchase,
           style: TextStyle(
             fontSize: ResponsiveUtils.getFontSize(context, 18),
             fontWeight: FontWeight.w600,
@@ -68,6 +69,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   Widget _buildPlanSummaryCard() {
+    final l10n = AppLocalizations.of(context)!;
     final plansProvider = context.watch<PlansProvider>();
     final currentPrice = plansProvider.getPlanPrice(widget.plan);
     final billingPeriod = plansProvider.getBillingPeriodText();
@@ -93,7 +95,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Forfait sélectionné',
+                  l10n.selectedPlan,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: ResponsiveUtils.getFontSize(context, 12),
@@ -144,6 +146,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   Widget _buildPaymentInfo() {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
@@ -158,7 +161,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Text(
-                    'Paiement sécurisé avec Stripe',
+                    l10n.securePaymentWithStripe,
                     style: TextStyle(
                       fontSize: ResponsiveUtils.getFontSize(context, 16),
                       fontWeight: FontWeight.w600,
@@ -170,7 +173,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             SizedBox(height: 16.h),
             
             Text(
-              'Vous serez redirigé vers la page de paiement sécurisée de Stripe pour finaliser votre achat.',
+              l10n.redirectToStripe,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 14),
                 color: Colors.grey.shade600,
@@ -179,13 +182,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
             SizedBox(height: 16.h),
             
-            _buildInfoRow(Icons.check_circle, 'Chiffrement SSL 256 bits'),
+            _buildInfoRow(Icons.check_circle, l10n.sslEncryption),
             SizedBox(height: 8.h),
-            _buildInfoRow(Icons.credit_card, 'Toutes les cartes bancaires acceptées'),
+            _buildInfoRow(Icons.credit_card, l10n.allCreditCardsAccepted),
             SizedBox(height: 8.h),
-            _buildInfoRow(Icons.shield, 'Conforme au PCI DSS'),
+            _buildInfoRow(Icons.shield, l10n.pciDssCompliant),
             SizedBox(height: 8.h),
-            _buildInfoRow(Icons.lock, 'Vos données ne sont jamais stockées'),
+            _buildInfoRow(Icons.lock, l10n.dataNeverStored),
           ],
         ),
       ),
@@ -236,6 +239,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   Widget _buildPaymentButton() {
+    final l10n = AppLocalizations.of(context)!;
     final plansProvider = context.watch<PlansProvider>();
     final currentPrice = plansProvider.getPlanPrice(widget.plan);
     
@@ -267,7 +271,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                   SizedBox(width: 12.w),
                   Text(
-                    'Traitement...',
+                    l10n.processing,
                     style: TextStyle(
                       fontSize: ResponsiveUtils.getFontSize(context, 14),
                       fontWeight: FontWeight.w600,
@@ -281,7 +285,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Icon(Icons.lock, size: 18.sp),
                   SizedBox(width: 8.w),
                   Text(
-                    'Continuer vers le paiement - $currentPrice',
+                    l10n.continueToPayment(currentPrice),
                     style: TextStyle(
                       fontSize: ResponsiveUtils.getFontSize(context, 14),
                       fontWeight: FontWeight.w600,
@@ -294,6 +298,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   Widget _buildSecurityInfo() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -309,7 +314,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               SizedBox(width: 8.w),
               Expanded(
                 child: Text(
-                  'Paiement sécurisé et chiffré',
+                  l10n.secureAndEncryptedPayment,
                   style: TextStyle(
                     color: Colors.blue.shade700,
                     fontSize: ResponsiveUtils.getFontSize(context, 12),
@@ -321,7 +326,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
           SizedBox(height: 6.h),
           Text(
-            'Les informations de paiement sont protégées par un chiffrement de niveau bancaire. Nous ne stockons jamais les détails de votre carte.',
+            l10n.paymentInfoProtected,
             style: TextStyle(
               color: Colors.blue.shade600,
               fontSize: ResponsiveUtils.getFontSize(context, 10),
@@ -335,7 +340,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               borderRadius: BorderRadius.circular(4.r),
             ),
             child: Text(
-              'Propulsé par Stripe',
+              l10n.poweredByStripe,
               style: TextStyle(
                 color: Colors.blue.shade700,
                 fontSize: 8.sp,
@@ -367,11 +372,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
       //debugPrint('Token present: ${pocketbaseToken != null}');
       
       if (pocketbaseToken == null || pocketbaseToken.isEmpty) {
-        throw Exception('Session expirée. Veuillez vous reconnecter.');
+        throw Exception(l10n.sessionExpired);
       }
       
       if (!_authService.isLoggedIn) {
-        throw Exception('Vous devez être connecté pour effectuer un paiement.');
+        throw Exception(l10n.mustBeLoggedIn);
       }
       
       // Calculer le montant
@@ -380,7 +385,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           : widget.plan.monthlyPrice;
 
       if (amount <= 0) {
-        throw Exception('Montant invalide');
+        throw Exception(l10n.invalidAmount);
       }
 
       //debugPrint('Amount: \$${amount.toStringAsFixed(2)}');
@@ -411,18 +416,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
             SnackBar(
               content: Row(
                 children: [
-                  Icon(Icons.open_in_browser, color: Colors.white, size: 20),
-                  SizedBox(width: 12),
+                  const Icon(Icons.open_in_browser, color: Colors.white, size: 20),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'Redirection vers la page de paiement sécurisée...',
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                      l10n.redirectingToPayment,
+                      style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ),
                 ],
               ),
               backgroundColor: Colors.blue,
-              duration: Duration(seconds: 3),
+              duration: const Duration(seconds: 3),
               behavior: SnackBarBehavior.floating,
             ),
           );
@@ -434,12 +439,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
       } else if (result.isCancelled) {
         //debugPrint('Payment cancelled by user');
         setState(() {
-          _paymentError = 'Paiement annulé';
+          _paymentError = l10n.paymentCancelled;
         });
       } else {
         //debugPrint('Payment failed: ${result.errorMessage}');
         setState(() {
-          _paymentError = result.errorMessage ?? 'Échec de l\'initialisation du paiement';
+          _paymentError = result.errorMessage ?? l10n.paymentInitializationFailed;
         });
       }
 
@@ -457,11 +462,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
       
       // Messages d'erreur plus conviviaux
       if (errorMessage.contains('Session expirée') || errorMessage.contains('401')) {
-        errorMessage = 'Session expirée. Veuillez vous reconnecter.';
+        errorMessage = l10n.sessionExpired;
       } else if (errorMessage.contains('network') || errorMessage.contains('connection')) {
-        errorMessage = 'Problème de connexion. Vérifiez votre internet.';
+        errorMessage = l10n.connectionProblem;
       } else if (errorMessage.contains('timeout')) {
-        errorMessage = 'Le serveur ne répond pas. Réessayez plus tard.';
+        errorMessage = l10n.serverNotResponding;
       }
       
       setState(() {

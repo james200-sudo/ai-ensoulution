@@ -63,7 +63,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
     // Pré-remplir le message si un plan est spécifié
     if (widget.planName != null) {
       _messageController.text = 
-          'I am interested in the ${widget.planName} plan. Please contact me with more information about pricing and features.';
+          AppLocalizations.of(context)!.planInterest(widget.planName!);
     }
   }
 
@@ -582,6 +582,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
 
   // ✅ MÉTHODE CORRIGÉE - ENREGISTRE DANS POCKETBASE
   Future<void> _submitForm() async {
+    final l10n = AppLocalizations.of(context)!;
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -612,7 +613,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Text(
-                    AppLocalizations.of(context)!.messageSentSuccessfully,
+                    l10n.messageSentSuccessfully,
                   ),
                 ),
               ],
@@ -652,7 +653,7 @@ class _ContactFormScreenState extends State<ContactFormScreen>
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Text(
-                    'Failed to send message: ${e.toString()}',
+                    l10n.failedToSend(e.toString()),
                   ),
                 ),
               ],

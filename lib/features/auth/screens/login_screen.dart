@@ -295,19 +295,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildEmailField() {
+    final l10n = AppLocalizations.of(context)!;
     return TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        hintText: AppLocalizations.of(context)!.enterYourUsername,
+        hintText: l10n.enterYourUsername,
         prefixIcon: const Icon(Icons.email_outlined),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return AppLocalizations.of(context)!.pleaseEnterYourUsername;
+          return l10n.pleaseEnterYourUsername;
         }
         if (!value.contains('@')) {
-          return 'Please enter a valid email';
+          return l10n.pleaseEnterValidEmail;
         }
         return null;
       },
@@ -462,13 +463,14 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_isCompanyUser) {
       return const SizedBox.shrink();
     }
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       children: [
         SizedBox(height: 16.h),
         TextButton(
           onPressed: () => context.go('/forgot-password'),
           child: Text(
-            'Mot de passe oublié ?',
+            l10n.forgotPassword,
             style: TextStyle(
               color: AppTheme.primaryGreen,
               fontSize: ResponsiveUtils.getFontSize(context, 14),
@@ -483,7 +485,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Text(
-                'Nouveau sur notre plateforme ?',
+                l10n.newToPlatform,
                 style: TextStyle(
                   color: AppTheme.textGrey,
                   fontSize: ResponsiveUtils.getFontSize(context, 13),
@@ -501,7 +503,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onPressed: () => context.go('/register'),
             icon: const Icon(Icons.person_add),
             label: Text(
-              'Créer un compte gratuit',
+              l10n.createFreeAccount,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 14),
                 fontWeight: FontWeight.w600,
@@ -524,14 +526,15 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_isCompanyUser) {
       return const SizedBox.shrink();
     }
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       children: [
         const SizedBox(height: 16),
         TextButton(
           onPressed: () => context.go('/forgot-password'),
-          child: const Text(
-            'Mot de passe oublié ?',
-            style: TextStyle(
+          child: Text(
+            l10n.forgotPassword,
+            style: const TextStyle(
               color: AppTheme.primaryGreen,
               fontSize: 14,
               fontWeight: FontWeight.w500,
@@ -539,20 +542,20 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         const SizedBox(height: 8),
-        const Row(
+        Row(
           children: [
-            Expanded(child: Divider()),
+            const Expanded(child: Divider()),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                'Nouveau sur notre plateforme ?',
-                style: TextStyle(
+                l10n.newToPlatform,
+                style: const TextStyle(
                   color: AppTheme.textGrey,
                   fontSize: 13,
                 ),
               ),
             ),
-            Expanded(child: Divider()),
+            const Expanded(child: Divider()),
           ],
         ),
         const SizedBox(height: 8),
@@ -562,9 +565,9 @@ class _LoginScreenState extends State<LoginScreen> {
           child: OutlinedButton.icon(
             onPressed: () => context.go('/register'),
             icon: const Icon(Icons.person_add),
-            label: const Text(
-              'Créer un compte gratuit',
-              style: TextStyle(
+            label: Text(
+              l10n.createFreeAccount,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
@@ -688,6 +691,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleCompanyLogin() async {
+    final l10n = AppLocalizations.of(context)!;
     final strapiClient = StrapiClient(apiUrl: AppConstants.strapiApiUrl);
     final response = await strapiClient.login(
       _emailController.text.trim(),
@@ -711,8 +715,8 @@ class _LoginScreenState extends State<LoginScreen> {
         final profileProvider = context.read<ProfileProvider>();
         await profileProvider.refreshUserProfile();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Connexion company réussie'),
+          SnackBar(
+            content: Text(l10n.companyLoginSuccess),
             backgroundColor: AppTheme.primaryGreen,
           ),
         );
@@ -722,8 +726,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)!
-                .loginFailed('JWT not found in response')),
+            content: Text(l10n.loginFailed(l10n.jwtNotFound)),
             backgroundColor: Colors.red,
           ),
         );
@@ -732,6 +735,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleIndividualLogin() async {
+    final l10n = AppLocalizations.of(context)!;
     final result = await _authService.loginWithEmailPassword(
       email: _emailController.text.trim(),
       password: _passwordController.text,
@@ -745,7 +749,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await profileProvider.refreshUserProfile();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(result['message'] ?? 'Connexion réussie'),
+          content: Text(result['message'] ?? l10n.loginSuccess),
           backgroundColor: AppTheme.primaryGreen,
         ),
       );
@@ -753,7 +757,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } else if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(result['error'] ?? 'Erreur de connexion'),
+          content: Text(result['error'] ?? l10n.loginError),
           backgroundColor: Colors.red,
         ),
       );
@@ -761,6 +765,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleGoogleLogin() async {
+    final l10n = AppLocalizations.of(context)!;
     setState(() {
       _isLoading = true;
     });
@@ -777,7 +782,7 @@ class _LoginScreenState extends State<LoginScreen> {
         await profileProvider.refreshUserProfile();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['message'] ?? 'Connexion Google réussie'),
+            content: Text(result['message'] ?? l10n.googleLoginSuccess),
             backgroundColor: AppTheme.primaryGreen,
           ),
         );
@@ -785,7 +790,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['error'] ?? 'Erreur Google'),
+            content: Text(result['error'] ?? l10n.googleLoginError),
             backgroundColor: Colors.red,
           ),
         );
@@ -794,7 +799,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Erreur Google: ${e.toString()}'),
+            content: Text(l10n.googleError(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -810,12 +815,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _handleBiometricLogin() async {
     if (!_biometricEnabled) return;
+    final l10n = AppLocalizations.of(context)!;
     try {
       setState(() {
         _isLoading = true;
       });
       final bool didAuthenticate = await _localAuth.authenticate(
-        localizedReason: AppLocalizations.of(context)!.pleaseAuthenticateToLogin,
+        localizedReason: l10n.pleaseAuthenticateToLogin,
         options: const AuthenticationOptions(
           biometricOnly: false,
           stickyAuth: true,
@@ -833,7 +839,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Authentification biométrique échouée: ${e.toString()}'),
+            content: Text(l10n.biometricAuthFailed(e.toString())),
             backgroundColor: Colors.red,
           ),
         );

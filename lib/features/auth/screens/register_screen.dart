@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: AppTheme.textGrey,
                     ),
                     Text(
-                      'Créer un compte',
+                      l10n.createAccount,
                       style: TextStyle(
                         fontSize: ResponsiveUtils.getFontSize(context, 18),
                         fontWeight: FontWeight.w600,
@@ -75,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           SizedBox(height: 32.h),
                           
                           Text(
-                            'Rejoignez notre communauté',
+                            l10n.joinOurCommunity,
                             style: TextStyle(
                               fontSize: ResponsiveUtils.getFontSize(context, 16),
                               fontWeight: FontWeight.w500,
@@ -245,19 +245,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildNameField() {
+    final l10n = AppLocalizations.of(context)!;
     return TextFormField(
       controller: _nameController,
       keyboardType: TextInputType.name,
-      decoration: const InputDecoration(
-        hintText: 'Nom complet',
-        prefixIcon: Icon(Icons.person_outline),
+      decoration: InputDecoration(
+        hintText: l10n.fullName,
+        prefixIcon: const Icon(Icons.person_outline),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Veuillez saisir votre nom';
+          return l10n.pleaseEnterYourName;
         }
         if (value.length < 2) {
-          return 'Le nom doit contenir au moins 2 caractères';
+          return l10n.nameMinLength;
         }
         return null;
       },
@@ -265,19 +266,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildEmailField() {
+    final l10n = AppLocalizations.of(context)!;
     return TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
-      decoration: const InputDecoration(
-        hintText: 'Adresse email',
-        prefixIcon: Icon(Icons.email_outlined),
+      decoration: InputDecoration(
+        hintText: l10n.emailAddress,
+        prefixIcon: const Icon(Icons.email_outlined),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Veuillez saisir votre email';
+          return l10n.pleaseEnterEmailAddress;
         }
         if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-          return 'Veuillez saisir un email valide';
+          return l10n.pleaseEnterValidEmail;
         }
         return null;
       },
@@ -285,11 +287,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildPasswordField() {
+    final l10n = AppLocalizations.of(context)!;
     return TextFormField(
       controller: _passwordController,
       obscureText: _obscurePassword,
       decoration: InputDecoration(
-        hintText: 'Mot de passe',
+        hintText: l10n.password,
         prefixIcon: const Icon(Icons.lock_outline),
         suffixIcon: IconButton(
           icon: Icon(
@@ -304,13 +307,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Veuillez saisir un mot de passe';
+          return l10n.pleaseEnterYourPassword;
         }
         if (value.length < 8) {
-          return 'Le mot de passe doit contenir au moins 8 caractères';
+          return l10n.passwordMinLength8;
         }
         if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)').hasMatch(value)) {
-          return 'Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre';
+          return l10n.passwordComplexity;
         }
         return null;
       },
@@ -318,11 +321,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildConfirmPasswordField() {
+    final l10n = AppLocalizations.of(context)!;
     return TextFormField(
       controller: _confirmPasswordController,
       obscureText: _obscureConfirmPassword,
       decoration: InputDecoration(
-        hintText: 'Confirmer le mot de passe',
+        hintText: l10n.confirmPassword,
         prefixIcon: const Icon(Icons.lock_outline),
         suffixIcon: IconButton(
           icon: Icon(
@@ -337,10 +341,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Veuillez confirmer votre mot de passe';
+          return l10n.pleaseConfirmPassword;
         }
         if (value != _passwordController.text) {
-          return 'Les mots de passe ne correspondent pas';
+          return l10n.passwordsDoNotMatch;
         }
         return null;
       },
@@ -348,6 +352,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildTermsCheckbox() {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -368,7 +373,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               });
             },
             child: Text(
-              'J\'accepte les conditions d\'utilisation et la politique de confidentialité',
+              l10n.acceptTerms,
               style: TextStyle(
                 fontSize: ResponsiveUtils.isDesktop(context) 
                     ? 14 
@@ -384,6 +389,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildRegisterButton() {
+    final l10n = AppLocalizations.of(context)!;
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: 48.0,
@@ -413,7 +419,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 )
               : Text(
-                  'Créer mon compte',
+                  l10n.createMyAccount,
                   style: TextStyle(
                     fontSize: ResponsiveUtils.isDesktop(context) 
                         ? 16 
@@ -428,6 +434,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   // ✅ NOUVEAU : Diviseur "OU"
   Widget _buildOrDivider() {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       children: [
         const Expanded(child: Divider()),
@@ -436,7 +443,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             horizontal: ResponsiveUtils.isDesktop(context) ? 15 : 15.w,
           ),
           child: Text(
-            'OU',
+            l10n.or.toUpperCase(),
             style: TextStyle(
               color: AppTheme.textGrey,
               fontSize: ResponsiveUtils.isDesktop(context) 
@@ -452,6 +459,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   // ✅ NOUVEAU : Bouton Google OAuth
   Widget _buildGoogleButton() {
+    final l10n = AppLocalizations.of(context)!;
     final isMobile = ResponsiveUtils.isMobile(context);
     return SizedBox(
       width: isMobile ? double.infinity : 300,
@@ -476,7 +484,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             SizedBox(width: isMobile ? 8.w : 8),
             Text(
-              'Continuer avec Google',
+              l10n.continueWithGoogle,
               style: TextStyle(
                 color: const Color(0xFF4285F4),
                 fontSize: isMobile ? ResponsiveUtils.getFontSize(context, 13) : 14,
@@ -490,11 +498,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildLoginLink() {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Vous avez déjà un compte ? ',
+          l10n.alreadyHaveAnAccount,
           style: TextStyle(
             fontSize: ResponsiveUtils.isDesktop(context) 
                 ? 14 
@@ -505,7 +514,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         GestureDetector(
           onTap: () => context.go('/login'),
           child: Text(
-            'Se connecter',
+            l10n.signIn,
             style: TextStyle(
               fontSize: ResponsiveUtils.isDesktop(context) 
                   ? 14 
@@ -524,12 +533,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // ========================================
 
   Future<void> _handleRegister() async {
+    final l10n = AppLocalizations.of(context)!;
     if (!_formKey.currentState!.validate()) return;
 
     if (!_acceptTerms) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Vous devez accepter les conditions d\'utilisation'),
+        SnackBar(
+          content: Text(l10n.mustAcceptTerms),
           backgroundColor: Colors.red,
         ),
       );
@@ -553,7 +563,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           // Inscription réussie et email envoyé
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['message'] ?? 'Inscription réussie'),
+              content: Text(result['message'] ?? l10n.registrationSuccess),
               backgroundColor: AppTheme.primaryGreen,
               duration: const Duration(seconds: 4),
             ),
@@ -569,7 +579,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           // Compte créé mais problème d'envoi d'email
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['message'] ?? 'Compte créé mais problème d\'envoi d\'email'),
+              content: Text(result['message'] ?? l10n.accountCreatedEmailError),
               backgroundColor: Colors.orange,
               duration: const Duration(seconds: 4),
             ),
@@ -587,7 +597,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           // Échec de l'inscription
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error'] ?? 'Erreur d\'inscription'),
+              content: Text(result['error'] ?? l10n.registrationError),
               backgroundColor: Colors.red,
             ),
           );
@@ -597,7 +607,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Erreur: ${e.toString()}'),
+            content: Text(l10n.errorWithMessage(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -613,6 +623,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   // ✅ NOUVEAU : Gestion de l'inscription Google
   Future<void> _handleGoogleRegister() async {
+    final l10n = AppLocalizations.of(context)!;
     setState(() {
       _isLoading = true;
     });
@@ -633,8 +644,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           // Message différencié selon nouvel utilisateur ou existant
           final isNewUser = result['isNewUser'] == true;
           final message = isNewUser 
-              ? 'Compte créé avec succès' 
-              : 'Connexion réussie';
+              ? l10n.accountCreatedSuccess
+              : l10n.loginSuccess;
           
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -653,7 +664,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error'] ?? 'Erreur lors de l\'authentification Google'),
+              content: Text(result['error'] ?? l10n.googleAuthError),
               backgroundColor: Colors.red,
               duration: const Duration(seconds: 4),
             ),
@@ -666,7 +677,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Erreur inattendue: ${e.toString()}'),
+            content: Text(l10n.unexpectedError(e.toString())),
             backgroundColor: Colors.red,
           ),
         );

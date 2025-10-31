@@ -139,6 +139,7 @@ class _PlansScreenState extends State<PlansScreen> {
   }
 
   Future<void> _handleRefresh(PlansProvider plansProvider, ProfileProvider profileProvider) async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       //print('🔄 PlansScreen: Début du rafraîchissement complet');
       
@@ -151,10 +152,10 @@ class _PlansScreenState extends State<PlansScreen> {
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Plans and profile refreshed successfully'),
+          SnackBar(
+            content: Text(l10n.plansAndProfileRefreshed),
             backgroundColor: AppTheme.primaryGreen,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ),
         );
       }
@@ -166,7 +167,7 @@ class _PlansScreenState extends State<PlansScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to refresh: ${e.toString()}'),
+            content: Text(l10n.failedToRefresh(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -291,13 +292,13 @@ class _PlansScreenState extends State<PlansScreen> {
             children: [
               _buildToggleButton(
                 context,
-                'Monthly',
+                l10n.monthly,
                 !plansProvider.isYearlyBilling,
                 () => plansProvider.setBillingPeriod(isYearly: false),
               ),
               _buildToggleButton(
                 context,
-                'Yearly',
+                l10n.yearly,
                 plansProvider.isYearlyBilling,
                 () => plansProvider.setBillingPeriod(isYearly: true),
               ),
@@ -412,6 +413,7 @@ class _PlansScreenState extends State<PlansScreen> {
   }
 
   Widget _buildLoadingSliver() {
+    final l10n = AppLocalizations.of(context)!;
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Center(
@@ -422,7 +424,7 @@ class _PlansScreenState extends State<PlansScreen> {
             CircularProgressIndicator(color: AppTheme.primaryGreen),
             SizedBox(height: 16.h),
             Text(
-              'Loading plans...',
+              l10n.loadingPlans,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 16),
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
@@ -435,6 +437,7 @@ class _PlansScreenState extends State<PlansScreen> {
   }
 
   Widget _buildErrorSliver(BuildContext context, PlansProvider plansProvider) {
+    final l10n = AppLocalizations.of(context)!;
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Center(
@@ -451,7 +454,7 @@ class _PlansScreenState extends State<PlansScreen> {
               ),
               SizedBox(height: 16.h),
               Text(
-                'Failed to load plans',
+                l10n.failedToLoadPlans,
                 style: TextStyle(
                   fontSize: ResponsiveUtils.getFontSize(context, 18),
                   fontWeight: FontWeight.w600,
@@ -474,7 +477,7 @@ class _PlansScreenState extends State<PlansScreen> {
                   context.read<ProfileProvider>()
                 ),
                 icon: const Icon(Icons.refresh),
-                label: const Text('Retry'),
+                label: Text(l10n.retry),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppTheme.primaryGreen,
                   foregroundColor: Colors.white,
@@ -488,6 +491,7 @@ class _PlansScreenState extends State<PlansScreen> {
   }
 
   Widget _buildEmptySliver(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Center(
@@ -502,7 +506,7 @@ class _PlansScreenState extends State<PlansScreen> {
             ),
             SizedBox(height: 16.h),
             Text(
-              'No plans available',
+              l10n.noPlansAvailable,
               style: TextStyle(
                 fontSize: ResponsiveUtils.getFontSize(context, 18),
                 fontWeight: FontWeight.w600,

@@ -205,6 +205,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   PreferredSizeWidget _buildAppBar() {
+    final l10n = AppLocalizations.of(context)!;
     return AppBar(
       automaticallyImplyLeading: false,
       leading: IconButton(
@@ -216,7 +217,7 @@ class _ChatScreenState extends State<ChatScreen> {
         IconButton(
           icon: const Icon(Icons.add_comment_outlined),
           onPressed: _createNewConversation,
-          tooltip: 'New Conversation',
+          tooltip: l10n.newConversation,
         ),
       ],
       backgroundColor:
@@ -229,6 +230,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _buildDrawer() {
+    final l10n = AppLocalizations.of(context)!;
     return Drawer(
       child: Column(
         children: [
@@ -243,13 +245,13 @@ class _ChatScreenState extends State<ChatScreen> {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
             ),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.history, size: 20),
-                SizedBox(width: 8),
+                const Icon(Icons.history, size: 20),
+                const SizedBox(width: 8),
                 Text(
-                  'Conversation History',
-                  style: TextStyle(
+                  l10n.conversationHistory,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -267,9 +269,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 if (conversations.isEmpty) {
                   return Center(
                     child: Padding(
-                      padding: EdgeInsets.all(32.0),
+                      padding: const EdgeInsets.all(32.0),
                       child: Text(
-                        'No conversations in history',
+                        l10n.noConversationsInHistory,
                         style: TextStyle(
                           fontSize: 14,
                           color: Theme.of(context)
@@ -372,7 +374,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   context.push('/history');
                 },
                 icon: const Icon(Icons.history, size: 18),
-                label: const Text('View Full History'),
+                label: Text(l10n.viewFullHistory),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(
@@ -444,9 +446,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       fontSize: 16,
                     ),
                   ),
-                  subtitle: const Text(
-                    'Profile Settings',
-                    style: TextStyle(
+                  subtitle: Text(
+                    l10n.profile,
+                    style: const TextStyle(
                       fontSize: 12,
                       color: Colors.grey,
                     ),
@@ -627,7 +629,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'What can I help you with today?',
+                      l10n.whatCanIHelpYouWith,
                       style: TextStyle(
                         fontFamily: 'SF Pro Display',
                         fontSize: ResponsiveUtils.getFontSize(context, 24),
@@ -762,9 +764,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: Row(
                       children: [
-                        const Text(
-                          'Recording',
-                          style: TextStyle(
+                        Text(
+                          l10n.recording,
+                          style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: AppTheme.primaryGreen,
@@ -1266,6 +1268,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _showAttachmentMenu() {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -1274,7 +1277,7 @@ class _ChatScreenState extends State<ChatScreen> {
             children: <Widget>[
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: const Text('Gallery'),
+                title: Text(l10n.gallery),
                 onTap: () {
                   _pickImage(ImageSource.gallery);
                   Navigator.of(context).pop();
@@ -1282,7 +1285,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               ListTile(
                 leading: const Icon(Icons.photo_camera),
-                title: const Text('Camera'),
+                title: Text(l10n.camera),
                 onTap: () {
                   _pickImage(ImageSource.camera);
                   Navigator.of(context).pop();
@@ -1307,15 +1310,16 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   String _formatDate(DateTime date) {
+    final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final difference = now.difference(date);
 
     if (difference.inDays == 0) {
-      return 'Today ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
+      return '${l10n.today} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
     } else if (difference.inDays == 1) {
-      return 'Yesterday';
+      return l10n.yesterday;
     } else if (difference.inDays < 7) {
-      return '${difference.inDays} days ago';
+      return l10n.daysAgo(difference.inDays.toString());
     } else {
       return '${date.day}/${date.month}/${date.year}';
     }
@@ -1414,9 +1418,9 @@ class _ChatScreenState extends State<ChatScreen> {
         // Show error message to user
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Failed to save voice recording'),
-              duration: Duration(seconds: 2),
+            SnackBar(
+              content: Text(l10n.failedToSaveRecording),
+              duration: const Duration(seconds: 2),
             ),
           );
         }
@@ -1426,7 +1430,7 @@ class _ChatScreenState extends State<ChatScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Recording error: $e'),
+            content: Text(l10n.recordingError(e.toString())),
             duration: const Duration(seconds: 3),
           ),
         );
@@ -1435,17 +1439,16 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _showPermissionDeniedDialog() {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Recording Permission Required'),
-        content: const Text(
-          'Voice recording requires microphone permission. Please enable it in your device settings to record voice messages.',
-        ),
+        title: Text(l10n.permissionDenied),
+        content: Text(l10n.permissionDeniedMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text(l10n.ok),
           ),
         ],
       ),

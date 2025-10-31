@@ -164,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       prefixIcon: Icon(Icons.email, size: 20, color: Colors.grey[600]),
                       filled: true,
                       fillColor: Colors.grey[200], // Fond gris pour montrer qu'il est désactivé
-                      helperText: 'Email cannot be changed', // Message d'aide
+                      helperText: AppLocalizations.of(context)!.emailCannotBeChanged, // Message d'aide
                       helperStyle: TextStyle(fontSize: 11, color: Colors.grey[600]),
                     ),
                   ),
@@ -212,7 +212,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('Failed to update profile: $e'),
+                              content: Text(AppLocalizations.of(context)!.failedToUpdateProfile(e.toString())),
                               backgroundColor: Colors.red,
                             ),
                           );
@@ -412,7 +412,7 @@ class _ProfileContent extends StatelessWidget {
                 children: [
                   Center(
                     child: Text(
-                      "Current Plan: $plan",
+                      AppLocalizations.of(context)!.currentPlan(plan),
                       style: TextStyle(
                         fontSize: ResponsiveUtils.getFontSize(context, 14),
                         color: Theme.of(context)
@@ -426,7 +426,8 @@ class _ProfileContent extends StatelessWidget {
                   if (expiryDate != null && plan != 'Free') ...[
                     SizedBox(height: 4.h),
                     Text(
-                      "Expires: ${expiryDate.day}/${expiryDate.month}/${expiryDate.year}",
+                      AppLocalizations.of(context)!.expires(
+                          "${expiryDate.day}/${expiryDate.month}/${expiryDate.year}"),
                       style: TextStyle(
                         fontSize: ResponsiveUtils.getFontSize(context, 12),
                         color: Theme.of(context)
