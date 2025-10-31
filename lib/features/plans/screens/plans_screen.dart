@@ -7,7 +7,7 @@ import 'package:tgm_ai_chat/features/plans/providers/plans_provider.dart';
 import 'package:tgm_ai_chat/core/theme/app_theme.dart';
 import 'package:tgm_ai_chat/core/utils/responsive.dart';
 import 'package:tgm_ai_chat/features/profile/providers/profile_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tgm_ai_chat/l10n/app_localizations.dart';
 
 class PlansScreen extends StatefulWidget {
   const PlansScreen({super.key});

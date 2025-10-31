@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tgm_ai_chat/l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 import '../providers/chat_provider.dart';
 import '../models/conversation.dart';
