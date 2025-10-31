@@ -114,7 +114,7 @@ class TGMAIApp extends StatelessWidget {
     );
   }
 
-  Locale? _getLocaleFromSettings(String languageCode) {
+  Locale _getLocaleFromSettings(String languageCode) {
     switch (languageCode) {
       case 'fr':
         return const Locale('fr', '');
@@ -122,7 +122,7 @@ class TGMAIApp extends StatelessWidget {
         return const Locale('es', '');
       case 'en':
       default:
-        return null;
+        return const Locale('en', '');
     }
   }
 }

@@ -176,5 +176,23 @@
   "support247": "Support 24h/24 et 7j/7",
   "conversationHistory": "Historique des conversations",
   "noConversationsInHistory": "Aucune conversation dans l'historique",
-  "newConversation": "Nouvelle conversation"
+  "newConversation": "Nouvelle conversation",
+
+  "helpAndSupportDesc": "Obtenez de l'aide ou contactez le support",
+  "aboutDesc": "Version de l'application et informations",
+  "fontSizeSmall": "Petit",
+  "fontSizeMedium": "Moyen",
+  "fontSizeLarge": "Grand",
+  "fontSizeExtraLarge": "Très Grand",
+  "privacySettingsContent": "Les paramètres de confidentialité seraient configurés ici, y compris les préférences de collecte de données et les contrôles de confidentialité.",
+  "fontSizeSample": "Exemple de texte avec la taille actuelle",
+  "done": "Terminé",
+  "aboutTgmAi": "À propos de TGM AI",
+  "clearHistoryDialogContent": "Cela supprimera définitivement tout l'historique de vos conversations. Cette action est irréversible.\\n\\nÊtes-vous sûr de vouloir continuer ?",
+  "clear": "Effacer",
+  "resetSettingsDialogContent": "Cela réinitialisera tous les paramètres à leurs valeurs par défaut. Êtes-vous sûr de vouloir continuer ?",
+  "reset": "Réinitialiser",
+  "historyClearedSuccess": "Historique des discussions effacé avec succès",
+  "historyClearedError": "Échec de la suppression de l'historique des discussions",
+  "settingsResetSuccess": "Paramètres réinitialisés par défaut"
 }

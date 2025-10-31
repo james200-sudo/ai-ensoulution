@@ -86,6 +86,7 @@ class _SettingsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Consumer<SettingsProvider>(
       builder: (context, settingsProvider, child) {
         if (settingsProvider.isLoading) {
@@ -102,19 +103,19 @@ class _SettingsContent extends StatelessWidget {
 
             // Notifications Section
             SettingsSection(
-              title: 'Notifications',
+              title: l10n.notifications,
               children: [
                 SettingToggle(
-                  label: 'Push Notifications',
-                  subtitle: 'Receive notifications for new messages',
+                  label: l10n.pushNotifications,
+                  subtitle: l10n.pushNotificationsDesc,
                   value: settings.pushNotifications,
                   onChanged: settingsProvider.updatePushNotifications,
                   icon: Icons.notifications,
                 ),
                 const Divider(height: 1),
                 SettingToggle(
-                  label: 'Message Sounds',
-                  subtitle: 'Play sound when messages arrive',
+                  label: l10n.messageSounds,
+                  subtitle: l10n.messageSoundsDesc,
                   value: settings.messageSounds,
                   onChanged: settingsProvider.updateMessageSounds,
                   icon: Icons.volume_up,
@@ -124,11 +125,11 @@ class _SettingsContent extends StatelessWidget {
 
             // Chat Preferences Section
             SettingsSection(
-              title: 'Chat Preferences',
+              title: l10n.chatPreferences,
               children: [
                 SettingToggle(
-                  label: 'Auto-save Conversations',
-                  subtitle: 'Automatically save chat history',
+                  label: l10n.autoSaveConversations,
+                  subtitle: l10n.autoSaveConversationsDesc,
                   value: settings.autoSaveConversations,
                   onChanged: (value) async {
                     await settingsProvider.updateAutoSaveConversations(value);
@@ -143,8 +144,8 @@ class _SettingsContent extends StatelessWidget {
                 ),
                 const Divider(height: 1),
                 SettingToggle(
-                  label: 'Dark Mode',
-                  subtitle: 'Use dark theme for the app',
+                  label: l10n.darkMode,
+                  subtitle: l10n.darkModeDesc,
                   value: settings.darkMode,
                   onChanged: settingsProvider.updateDarkMode,
                   icon: Icons.dark_mode,
@@ -155,11 +156,11 @@ class _SettingsContent extends StatelessWidget {
             // Security Section - only show if biometric is available
             if (settingsProvider.biometricAvailable)
               SettingsSection(
-                title: 'Security',
+                title: l10n.security,
                 children: [
                   SettingToggle(
-                    label: 'Biometric Authentication',
-                    subtitle: 'Use fingerprint or face ID to unlock',
+                    label: l10n.biometricAuth,
+                    subtitle: l10n.biometricAuthDesc,
                     value: settings.biometricAuth,
                     onChanged: settingsProvider.updateBiometricAuth,
                     icon: Icons.fingerprint,
@@ -169,11 +170,11 @@ class _SettingsContent extends StatelessWidget {
 
             // Account Section
             SettingsSection(
-              title: 'Account',
+              title: l10n.account,
               children: [
                 SettingItem(
-                  label: 'Privacy Settings',
-                  subtitle: 'Manage your privacy preferences',
+                  label: l10n.privacySettings,
+                  subtitle: l10n.privacySettingsDesc,
                   icon: Icons.privacy_tip,
                   onTap: () => _showPrivacySettings(context),
                 ),
@@ -186,22 +187,22 @@ class _SettingsContent extends StatelessWidget {
                 ),
                 const Divider(height: 1),
                 SettingItem(
-                  label: 'Font Size',
-                  subtitle: _getFontSizeLabel(settings.fontSize),
+                  label: l10n.fontSize,
+                  subtitle: _getFontSizeLabel(context, settings.fontSize),
                   icon: Icons.text_fields,
                   onTap: () => _showFontSizeSettings(context),
                 ),
                 const Divider(height: 1),
                 SettingItem(
-                  label: 'Help & Support',
-                  subtitle: 'Get help or contact support',
+                  label: l10n.helpAndSupport,
+                  subtitle: l10n.helpAndSupportDesc,
                   icon: Icons.help_outline,
                   onTap: () => _showHelp(context),
                 ),
                 const Divider(height: 1),
                 SettingItem(
-                  label: 'About',
-                  subtitle: 'App version and information',
+                  label: l10n.about,
+                  subtitle: l10n.aboutDesc,
                   icon: Icons.info_outline,
                   onTap: () => _showAbout(context),
                 ),
@@ -210,18 +211,18 @@ class _SettingsContent extends StatelessWidget {
 
             // Danger Zone Section
             SettingsSection(
-              title: 'Data & Storage',
+              title: l10n.dataAndStorage,
               children: [
                 SettingItem(
-                  label: 'Clear Chat History',
-                  subtitle: 'Delete all conversation history',
+                  label: l10n.clearChatHistory,
+                  subtitle: l10n.clearChatHistoryDesc,
                   icon: Icons.delete_outline,
                   onTap: () => _showClearHistoryDialog(context),
                 ),
                 const Divider(height: 1),
                 SettingItem(
-                  label: 'Reset Settings',
-                  subtitle: 'Reset all settings to default',
+                  label: l10n.resetSettings,
+                  subtitle: l10n.resetSettingsDesc,
                   icon: Icons.restore,
                   onTap: () => _showResetDialog(context),
                 ),
@@ -235,11 +236,12 @@ class _SettingsContent extends StatelessWidget {
     );
   }
 
-  String _getFontSizeLabel(double fontSize) {
-    if (fontSize <= 12) return 'Small';
-    if (fontSize <= 14) return 'Medium';
-    if (fontSize <= 16) return 'Large';
-    return 'Extra Large';
+  String _getFontSizeLabel(BuildContext context, double fontSize) {
+    final l10n = AppLocalizations.of(context)!;
+    if (fontSize <= 12) return l10n.fontSizeSmall;
+    if (fontSize <= 14) return l10n.fontSizeMedium;
+    if (fontSize <= 16) return l10n.fontSizeLarge;
+    return l10n.fontSizeExtraLarge;
   }
 
   String _getLanguageDisplayName(BuildContext context, String languageCode) {
@@ -255,16 +257,16 @@ class _SettingsContent extends StatelessWidget {
   }
 
   void _showPrivacySettings(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Privacy Settings'),
-        content: const Text(
-            'Privacy settings would be configured here, including data collection preferences and privacy controls.'),
+        title: Text(l10n.privacySettings),
+        content: Text(l10n.privacySettingsContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text(l10n.ok),
           ),
         ],
       ),
@@ -274,16 +276,17 @@ class _SettingsContent extends StatelessWidget {
   void _showLanguageSettings(BuildContext context) {
     final settingsProvider = context.read<SettingsProvider>();
     final currentLanguage = settingsProvider.settings.language;
+    final l10n = AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.language),
+        title: Text(l10n.language),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: Text(AppLocalizations.of(context)!.languageEnglish),
+              title: Text(l10n.languageEnglish),
               trailing: currentLanguage == 'en'
                   ? const Icon(Icons.check,
                       color: AppTheme.primaryGreen, size: 20)
@@ -294,7 +297,7 @@ class _SettingsContent extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.languageFrench),
+              title: Text(l10n.languageFrench),
               trailing: currentLanguage == 'fr'
                   ? const Icon(Icons.check,
                       color: AppTheme.primaryGreen, size: 20)
@@ -305,7 +308,7 @@ class _SettingsContent extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.of(context)!.languageSpanish),
+              title: Text(l10n.languageSpanish),
               trailing: currentLanguage == 'es'
                   ? const Icon(Icons.check,
                       color: AppTheme.primaryGreen, size: 20)
@@ -323,18 +326,19 @@ class _SettingsContent extends StatelessWidget {
 
   void _showFontSizeSettings(BuildContext context) {
     final provider = context.read<SettingsProvider>();
+    final l10n = AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Font Size'),
+        title: Text(l10n.fontSize),
         content: StatefulBuilder(
           builder: (context, setState) {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Sample text with current size',
+                  l10n.fontSizeSample,
                   style: TextStyle(fontSize: provider.settings.fontSize),
                 ),
                 SizedBox(height: 20.h),
@@ -343,7 +347,7 @@ class _SettingsContent extends StatelessWidget {
                   min: 10,
                   max: 20,
                   divisions: 4,
-                  label: _getFontSizeLabel(provider.settings.fontSize),
+                  label: _getFontSizeLabel(context, provider.settings.fontSize),
                   onChanged: (value) {
                     setState(() {});
                     provider.updateFontSize(value);
@@ -356,7 +360,7 @@ class _SettingsContent extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Done'),
+            child: Text(l10n.done),
           ),
         ],
       ),
@@ -364,16 +368,16 @@ class _SettingsContent extends StatelessWidget {
   }
 
   void _showHelp(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Help & Support'),
-        content: const Text(
-            'For support, please contact us at:\nsupport@ensolutions.ca\n\nOr visit our help center online for frequently asked questions and troubleshooting guides.'),
+        title: Text(l10n.helpAndSupport),
+        content: Text(l10n.helpAndSupportContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text(l10n.ok),
           ),
         ],
       ),
@@ -381,16 +385,16 @@ class _SettingsContent extends StatelessWidget {
   }
 
   void _showAbout(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('About TGM AI'),
-        content: const Text(
-            'TGM HydroAI Chat App v1.0.0\n\nAn intelligent chat application powered by advanced AI technology.\n\nBuilt with Flutter and designed for seamless communication with AI assistants.\n\n© 2024 TGM AI. All rights reserved.'),
+        title: Text(l10n.aboutTgmAi),
+        content: Text(l10n.aboutContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text(l10n.ok),
           ),
         ],
       ),
@@ -398,16 +402,16 @@ class _SettingsContent extends StatelessWidget {
   }
 
   void _showClearHistoryDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Clear Chat History'),
-        content: const Text(
-            'This will permanently delete all your conversation history. This action cannot be undone.\n\nAre you sure you want to continue?'),
+        title: Text(l10n.clearChatHistory),
+        content: Text(l10n.clearHistoryDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -416,8 +420,8 @@ class _SettingsContent extends StatelessWidget {
                 if (context.mounted) {
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Chat history cleared successfully'),
+                    SnackBar(
+                      content: Text(l10n.historyClearedSuccess),
                       backgroundColor: AppTheme.primaryGreen,
                     ),
                   );
@@ -426,8 +430,8 @@ class _SettingsContent extends StatelessWidget {
                 if (context.mounted) {
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Failed to clear chat history'),
+                    SnackBar(
+                      content: Text(l10n.historyClearedError),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -435,7 +439,7 @@ class _SettingsContent extends StatelessWidget {
               }
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Clear', style: TextStyle(color: Colors.white)),
+            child: Text(l10n.clear, style: const TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -443,16 +447,16 @@ class _SettingsContent extends StatelessWidget {
   }
 
   void _showResetDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Reset Settings'),
-        content: const Text(
-            'This will reset all settings to their default values. Are you sure you want to continue?'),
+        title: Text(l10n.resetSettings),
+        content: Text(l10n.resetSettingsDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -462,14 +466,14 @@ class _SettingsContent extends StatelessWidget {
               if (context.mounted) {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Settings reset to defaults'),
+                  SnackBar(
+                    content: Text(l10n.settingsResetSuccess),
                     backgroundColor: AppTheme.primaryGreen,
                   ),
                 );
               }
             },
-            child: const Text('Reset'),
+            child: Text(l10n.reset),
           ),
         ],
       ),
