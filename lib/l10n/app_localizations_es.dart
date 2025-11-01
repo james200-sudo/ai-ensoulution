@@ -9,6 +9,12 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
+  String get companyCode => 'Company Code';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
   String get appTitle => 'TGM IA Chat';
 
   @override
@@ -262,7 +268,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pleaseInputValidNumber => 'Por favor ingrese un número válido';
 
   @override
-  String get currentPlan => 'Plan Actual';
+  String currentPlan(Object plan) {
+    return 'Plan Actual';
+  }
 
   @override
   String get choosePlan => 'Elegir Plan';
@@ -572,4 +580,553 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get newConversation => 'Nueva conversación';
+
+  @override
+  String get helpAndSupportDesc => 'Get help or contact support';
+
+  @override
+  String get aboutDesc => 'App version and information';
+
+  @override
+  String get fontSizeSmall => 'Small';
+
+  @override
+  String get fontSizeMedium => 'Medium';
+
+  @override
+  String get fontSizeLarge => 'Large';
+
+  @override
+  String get fontSizeExtraLarge => 'Extra Large';
+
+  @override
+  String get privacySettingsContent =>
+      'Privacy settings would be configured here, including data collection preferences and privacy controls.';
+
+  @override
+  String get fontSizeSample => 'Sample text with current size';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get aboutTgmAi => 'About TGM AI';
+
+  @override
+  String get clearHistoryDialogContent =>
+      'This will permanently delete all your conversation history. This action cannot be undone.\\n\\nAre you sure you want to continue?';
+
+  @override
+  String get clear => 'Clear';
+
+  @override
+  String get resetSettingsDialogContent =>
+      'This will reset all settings to their default values. Are you sure you want to continue?';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get historyClearedSuccess => 'Chat history cleared successfully';
+
+  @override
+  String get historyClearedError => 'Failed to clear chat history';
+
+  @override
+  String get settingsResetSuccess => 'Settings reset to defaults';
+
+  @override
+  String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get newToPlatform => 'New to our platform?';
+
+  @override
+  String get createFreeAccount => 'Create a free account';
+
+  @override
+  String get companyLoginSuccess => 'Company login successful';
+
+  @override
+  String get jwtNotFound => 'JWT not found in response';
+
+  @override
+  String get loginSuccess => 'Login successful';
+
+  @override
+  String get loginError => 'Login error';
+
+  @override
+  String get googleLoginSuccess => 'Google login successful';
+
+  @override
+  String get googleLoginError => 'Google error';
+
+  @override
+  String googleError(String error) {
+    return 'Google error: $error';
+  }
+
+  @override
+  String biometricAuthFailed(String error) {
+    return 'Biometric authentication failed: $error';
+  }
+
+  @override
+  String get createAccount => 'Create account';
+
+  @override
+  String get joinOurCommunity => 'Join our community';
+
+  @override
+  String get pleaseEnterYourName => 'Please enter your name';
+
+  @override
+  String get nameMinLength => 'Name must be at least 2 characters';
+
+  @override
+  String get passwordMinLength8 => 'Password must be at least 8 characters';
+
+  @override
+  String get passwordComplexity =>
+      'Password must contain an uppercase letter, a lowercase letter, and a number';
+
+  @override
+  String get confirmPassword => 'Confirm password';
+
+  @override
+  String get pleaseConfirmPassword => 'Please confirm your password';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get acceptTerms => 'I accept the terms of use and the privacy policy';
+
+  @override
+  String get createMyAccount => 'Create my account';
+
+  @override
+  String get alreadyHaveAnAccount => 'Already have an account? ';
+
+  @override
+  String get mustAcceptTerms => 'You must accept the terms of use';
+
+  @override
+  String get registrationSuccess => 'Registration successful';
+
+  @override
+  String get accountCreatedEmailError =>
+      'Account created but there was a problem sending the email';
+
+  @override
+  String get registrationError => 'Registration error';
+
+  @override
+  String errorWithMessage(String error) {
+    return 'Error: $error';
+  }
+
+  @override
+  String get accountCreatedSuccess => 'Account created successfully';
+
+  @override
+  String get googleAuthError => 'Error during Google authentication';
+
+  @override
+  String unexpectedError(String error) {
+    return 'Unexpected error: $error';
+  }
+
+  @override
+  String get forgotPasswordTitle => 'Forgot password';
+
+  @override
+  String get resetYourPassword => 'Reset your password';
+
+  @override
+  String get resetPasswordInstructions =>
+      'Enter your email address and we will send you a link to reset your password.';
+
+  @override
+  String get sendResetLink => 'Send reset link';
+
+  @override
+  String get backToLogin => 'Back to login';
+
+  @override
+  String get emailSent => 'Email sent!';
+
+  @override
+  String get weSentAnEmailTo => 'We sent an email to:';
+
+  @override
+  String get howToResetPassword => 'How to reset your password';
+
+  @override
+  String get howToResetPasswordInstructions =>
+      '1. Open your mailbox\n2. Click on the link in the email\n3. You will be redirected to a web page\n4. Enter your new password\n5. Return to the app to log in';
+
+  @override
+  String get checkSpam => '📬 Check your spam if you don\'t see the email';
+
+  @override
+  String get resendEmail => 'Resend email';
+
+  @override
+  String get sendingInProgress => 'Sending...';
+
+  @override
+  String get emailSentMessage => 'Email sent';
+
+  @override
+  String get emailNotFound => 'Email address not found';
+
+  @override
+  String get sendingError => 'Error while sending';
+
+  @override
+  String get resetPassword => 'Reset password';
+
+  @override
+  String get newPassword => 'New password';
+
+  @override
+  String get passwordResetSuccess => 'Password reset successfully';
+
+  @override
+  String get passwordResetError => 'Error resetting password';
+
+  @override
+  String get returnToLogin => 'Return to login';
+
+  @override
+  String get verifyEmail => 'Verify email';
+
+  @override
+  String get verificationEmailSent => 'Verification email sent!';
+
+  @override
+  String get instructions => 'Instructions';
+
+  @override
+  String get openMailbox => 'Open your mailbox';
+
+  @override
+  String get findVerificationEmail => 'Find the verification email';
+
+  @override
+  String get clickVerifyButton => 'Click the \"Verify\" button';
+
+  @override
+  String get accountActivated =>
+      'Your account will be activated automatically!';
+
+  @override
+  String get emailResent => 'Email resent';
+
+  @override
+  String get emailCannotBeChanged => 'Email cannot be changed';
+
+  @override
+  String failedToUpdateProfile(Object error) {
+    return 'Failed to update profile: $error';
+  }
+
+  @override
+  String expires(Object date) {
+    return 'Expires: $date';
+  }
+
+  @override
+  String failedToPickImage(Object error) {
+    return 'Failed to pick image: $error';
+  }
+
+  @override
+  String get plansAndProfileRefreshed =>
+      'Plans and profile refreshed successfully';
+
+  @override
+  String failedToRefresh(Object error) {
+    return 'Failed to refresh: $error';
+  }
+
+  @override
+  String get monthly => 'Monthly';
+
+  @override
+  String get yearly => 'Yearly';
+
+  @override
+  String get loadingPlans => 'Loading plans...';
+
+  @override
+  String get failedToLoadPlans => 'Failed to load plans';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get noPlansAvailable => 'No plans available';
+
+  @override
+  String get securePaymentWithStripe => 'Secure Payment with Stripe';
+
+  @override
+  String get redirectToStripe =>
+      'You will be redirected to Stripe\'s secure payment page to complete your purchase.';
+
+  @override
+  String get sslEncryption => '256-bit SSL encryption';
+
+  @override
+  String get allCreditCardsAccepted => 'All major credit cards accepted';
+
+  @override
+  String get pciDssCompliant => 'PCI DSS Compliant';
+
+  @override
+  String get dataNeverStored => 'Your data is never stored';
+
+  @override
+  String continueToPayment(Object price) {
+    return 'Continue to Payment - $price';
+  }
+
+  @override
+  String get secureAndEncryptedPayment => 'Secure and Encrypted Payment';
+
+  @override
+  String get paymentInfoProtected =>
+      'Payment information is protected by bank-level encryption. We never store your card details.';
+
+  @override
+  String get poweredByStripe => 'Powered by Stripe';
+
+  @override
+  String get sessionExpired => 'Session expired. Please log in again.';
+
+  @override
+  String get mustBeLoggedIn => 'You must be logged in to make a payment.';
+
+  @override
+  String get invalidAmount => 'Invalid amount';
+
+  @override
+  String get redirectingToPayment => 'Redirecting to secure payment page...';
+
+  @override
+  String get paymentCancelled => 'Payment cancelled';
+
+  @override
+  String get paymentInitializationFailed => 'Failed to initialize payment';
+
+  @override
+  String get connectionProblem => 'Connection problem. Check your internet.';
+
+  @override
+  String get serverNotResponding =>
+      'The server is not responding. Please try again later.';
+
+  @override
+  String get verifyingPayment => 'Verifying your payment...';
+
+  @override
+  String get pleaseWait => 'Please wait a moment';
+
+  @override
+  String get paymentSuccessful => 'Payment successful!';
+
+  @override
+  String get subscriptionActivated =>
+      'Your subscription has been successfully activated. You now have access to all premium features!';
+
+  @override
+  String get plan => 'Plan';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get session => 'Session';
+
+  @override
+  String get startChatting => 'Start chatting';
+
+  @override
+  String get viewProfile => 'View profile';
+
+  @override
+  String get verificationProblem => 'Verification problem';
+
+  @override
+  String get verificationFailed =>
+      'Could not verify your payment. Please contact support if the problem persists.';
+
+  @override
+  String get retryVerification => 'Retry verification';
+
+  @override
+  String get continueInApp => 'Continue in app';
+
+  @override
+  String get paymentCancelledTitle => 'Payment Cancelled';
+
+  @override
+  String get paymentCancelledMessage =>
+      'Your payment has been cancelled. No charge has been made to your account.';
+
+  @override
+  String get noPaymentProcessed => 'No payment has been processed';
+
+  @override
+  String get accountUnchanged => 'Your account remains unchanged';
+
+  @override
+  String get youCanRetry => 'You can try again at any time';
+
+  @override
+  String get retryPayment => 'Retry Payment';
+
+  @override
+  String get returnToApp => 'Return to App';
+
+  @override
+  String get needHelpContactSupport => 'Need help? Contact support';
+
+  @override
+  String get viewFullHistory => 'View Full History';
+
+  @override
+  String get whatCanIHelpYouWith => 'What can I help you with today?';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get yesterday => 'Yesterday';
+
+  @override
+  String daysAgo(Object days) {
+    return '${days}d ago';
+  }
+
+  @override
+  String get recording => 'Recording';
+
+  @override
+  String get failedToSaveRecording => 'Failed to save voice recording';
+
+  @override
+  String recordingError(Object error) {
+    return 'Recording error: $error';
+  }
+
+  @override
+  String get permissionDenied => 'Recording Permission Required';
+
+  @override
+  String get permissionDeniedMessage =>
+      'Voice recording requires microphone permission. Please enable it in your device settings to record voice messages.';
+
+  @override
+  String get startChattingToSeeHistory =>
+      'Start chatting to see your conversation history here';
+
+  @override
+  String messagesCount(Object count) {
+    return '$count messages';
+  }
+
+  @override
+  String get current => 'Current';
+
+  @override
+  String get switchToConversation => 'Switch to this conversation';
+
+  @override
+  String get deleteConversation => 'Delete conversation';
+
+  @override
+  String get justNow => 'Just now';
+
+  @override
+  String minutesAgo(Object minutes) {
+    return '${minutes}m ago';
+  }
+
+  @override
+  String hoursAgo(Object hours) {
+    return '${hours}h ago';
+  }
+
+  @override
+  String get deleteConversationConfirmation =>
+      'Are you sure you want to delete this conversation?';
+
+  @override
+  String get thisActionCannotBeUndone => 'This action cannot be undone.';
+
+  @override
+  String get conversationDeleted => 'Conversation deleted';
+
+  @override
+  String planInterest(Object planName) {
+    return 'I am interested in the $planName plan. Please contact me with more information about pricing and features.';
+  }
+
+  @override
+  String failedToSend(Object error) {
+    return 'Failed to send message: $error';
+  }
+
+  @override
+  String get welcomeTo => 'Welcome to TGM HydroAI';
+
+  @override
+  String get chooseAccountType => 'Choose your account type to get started';
+
+  @override
+  String get individual => 'Individual';
+
+  @override
+  String get personalUse => 'Personal use with social login';
+
+  @override
+  String get company => 'Company';
+
+  @override
+  String get businessAccount => 'Business account with company code';
+
+  @override
+  String get companyCodeRequired => 'Company code is required';
+
+  @override
+  String get companyCodeLength => 'Company code must be exactly 6 characters';
+
+  @override
+  String get invalidCompanyCode => 'Only uppercase letters and numbers allowed';
+
+  @override
+  String get companyCodeHint => 'Enter 6-digit company code';
+
+  @override
+  String get companyCodeDescription =>
+      '6 uppercase alphanumeric characters (A-Z, 0-9)';
+
+  @override
+  String get continueButton => 'Continue';
+
+  @override
+  String get logoFallback => 'TGM\nAI';
+
+  @override
+  String get changeLanguage => 'Change language';
 }

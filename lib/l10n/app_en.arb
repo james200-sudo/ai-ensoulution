@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
-  
+  "companyCode": "Company Code",
+  "delete": "Delete",
   "appTitle": "TGM HydroAI Chat",
   "@appTitle": {
     "description": "The title of the application"

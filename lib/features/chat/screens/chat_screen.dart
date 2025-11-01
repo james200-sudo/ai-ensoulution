@@ -17,7 +17,6 @@ import '../widgets/message_bubble.dart';
 import '../widgets/typing_indicator.dart';
 import '../../profile/providers/profile_provider.dart';
 import '../../../core/services/audio_recording_service.dart';
-import 'package:tgm_ai_chat/l10n/app_localizations.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:math' as math;
 import 'package:tgm_ai_chat/core/services/plan_enforcement_service.dart';
@@ -882,7 +881,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.send,
                             textCapitalization: TextCapitalization.sentences,
-                            onSubmitted: (value) => _sendMessage(l10n),
+                            onSubmitted: (value) => _sendMessage(),
                             decoration: InputDecoration(
                               hintText: l10n.typeYourMessage,
                               border: InputBorder.none,
@@ -1008,7 +1007,9 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _buildAttachmentButton(AppLocalizations l10n) {
+  // ✅ CORRIGÉ : Paramètre retiré
+  Widget _buildAttachmentButton() {
+    final l10n = AppLocalizations.of(context)!;
     final buttonSize = ResponsiveUtils.isDesktop(context) ? 44.0 : 41.0;
     final iconSize = ResponsiveUtils.isDesktop(context) ? 22.0 : 20.0;
 
@@ -1268,7 +1269,9 @@ class _ChatScreenState extends State<ChatScreen> {
     _sendMessage();
   }
 
-  void _showAttachmentMenu(AppLocalizations l10n) {
+  // ✅ CORRIGÉ : Paramètre retiré
+  void _showAttachmentMenu() {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -1309,7 +1312,9 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  String _formatDate(DateTime date, AppLocalizations l10n) {
+  // ✅ CORRIGÉ : Paramètre retiré
+  String _formatDate(DateTime date) {
+    final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final difference = now.difference(date);
 
@@ -1324,7 +1329,9 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void _toggleVoiceRecording(AppLocalizations l10n) async {
+  // ✅ CORRIGÉ : Paramètre retiré
+  void _toggleVoiceRecording() async {
+    final l10n = AppLocalizations.of(context)!;
     // Add haptic feedback for better user experience
     HapticFeedback.lightImpact();
 
@@ -1357,7 +1364,9 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  Future<void> _startVoiceRecording(AppLocalizations l10n) async {
+  // ✅ CORRIGÉ : Paramètre retiré
+  Future<void> _startVoiceRecording() async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       //debugPrint('Starting voice recording...');
 
@@ -1395,7 +1404,9 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  Future<void> _stopVoiceRecording(AppLocalizations l10n) async {
+  // ✅ CORRIGÉ : Paramètre retiré
+  Future<void> _stopVoiceRecording() async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       //debugPrint('Stopping voice recording...');
 
@@ -1437,7 +1448,9 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void _showPermissionDeniedDialog(AppLocalizations l10n) {
+  // ✅ CORRIGÉ : Paramètre retiré
+  void _showPermissionDeniedDialog() {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -1466,7 +1479,9 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  void _sendMessage(AppLocalizations l10n) {
+  // ✅ CORRIGÉ : Paramètre retiré
+  void _sendMessage() {
+    final l10n = AppLocalizations.of(context)!;
     if (_messageController.text.trim().isEmpty && _selectedImage == null) {
       return;
     }

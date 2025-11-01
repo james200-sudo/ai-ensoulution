@@ -9,7 +9,7 @@ import 'package:tgm_ai_chat/core/services/pocketbase_auth_service.dart';
 import 'package:tgm_ai_chat/core/theme/app_theme.dart';
 import 'package:tgm_ai_chat/core/utils/responsive.dart';
 import 'package:tgm_ai_chat/core/services/stripe_checkout_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tgm_ai_chat/l10n/app_localizations.dart';
 
 class PaymentScreen extends StatefulWidget {
   final Plan plan;

@@ -1,7 +1,8 @@
 {
   "@@locale": "fr",
-  
-  "appTitle": "TGM IA Chat",
+  "appTitle": "TGM HydroAI Chat",
+  "companyCode": "Code Entreprise",
+  "delete": "Supprimer",
   "appTagline": "Assistant de Chat Intelligent",
   "loading": "Chargement...",
   "signIn": "Se connecter",
