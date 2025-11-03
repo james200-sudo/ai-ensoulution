@@ -247,12 +247,16 @@ class _PlansScreenState extends State<PlansScreen> {
                       ),
                       SizedBox(width: 8.w),
                     ],
-                    Text(
-                      '${l10n.currentPlan}: $currentPlan',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontSize: ResponsiveUtils.getFontSize(context, 15),
-                        fontWeight: FontWeight.w600,
+                    Flexible(  // ← Ajout de Flexible
+                      child: Text(
+                        '${l10n.currentPlan}: $currentPlan',
+                        overflow: TextOverflow.ellipsis,  // ← Tronque avec "..." si trop long
+                        maxLines: 1,  // ← Limite à une ligne
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontSize: ResponsiveUtils.getFontSize(context, 15),
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],

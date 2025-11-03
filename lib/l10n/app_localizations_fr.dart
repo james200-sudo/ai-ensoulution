@@ -9,7 +9,7 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get companyCode => 'Code Entreprise';
+  String get companyCode => 'Code entreprise';
 
   @override
   String get delete => 'Supprimer';
@@ -71,10 +71,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get daysActive => 'Jours actifs';
 
   @override
-  String get rating => 'Note';
+  String get rating => 'Évaluation';
 
   @override
-  String get chatHistory => 'Historique des conversations';
+  String get chatHistory => 'Historique de discussion';
 
   @override
   String get preferences => 'Préférences';
@@ -99,13 +99,13 @@ class AppLocalizationsFr extends AppLocalizations {
       'Recevoir des notifications pour les nouveaux messages';
 
   @override
-  String get messageSounds => 'Sons des messages';
+  String get messageSounds => 'Sons de messages';
 
   @override
   String get messageSoundsDesc => 'Jouer un son à l\'arrivée des messages';
 
   @override
-  String get chatPreferences => 'Préférences de chat';
+  String get chatPreferences => 'Préférences de discussion';
 
   @override
   String get autoSaveConversations =>
@@ -113,7 +113,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get autoSaveConversationsDesc =>
-      'Sauvegarder automatiquement l\'historique des conversations';
+      'Sauvegarder automatiquement l\'historique des discussions';
 
   @override
   String get darkMode => 'Mode sombre';
@@ -150,7 +150,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dataAndStorage => 'Données et stockage';
 
   @override
-  String get clearChatHistory => 'Effacer l\'historique des conversations';
+  String get clearChatHistory => 'Effacer l\'historique des discussions';
 
   @override
   String get clearChatHistoryDesc =>
@@ -204,7 +204,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get aiResponseError =>
-      'Désolé, j\'ai rencontré une erreur. Veuillez réessayer.';
+      'Je suis désolé, j\'ai rencontré une erreur. Veuillez réessayer.';
 
   @override
   String get languageEnglish => 'English (US)';
@@ -225,7 +225,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get completePurchase => 'Finaliser l\'achat';
 
   @override
-  String get selectedPlan => 'Forfait sélectionné';
+  String get selectedPlan => 'Plan sélectionné';
 
   @override
   String get featuresIncluded => 'Fonctionnalités incluses :';
@@ -247,11 +247,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pleaseFillAllFields =>
-      'Veuillez remplir tous les champs de la carte de crédit';
+      'Veuillez remplir tous les champs de carte de crédit';
 
   @override
   String successfullyUpgraded(String planName) {
-    return 'Mise à niveau réussie vers le plan $planName !';
+    return 'Mise à niveau réussie au plan $planName !';
   }
 
   @override
@@ -260,21 +260,19 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get pleaseInputValidCvv => 'Veuillez saisir un CVV valide';
+  String get pleaseInputValidCvv => 'Veuillez entrer un CVV valide';
 
   @override
-  String get pleaseInputValidDate => 'Veuillez saisir une date valide';
+  String get pleaseInputValidDate => 'Veuillez entrer une date valide';
 
   @override
-  String get pleaseInputValidNumber => 'Veuillez saisir un numéro valide';
+  String get pleaseInputValidNumber => 'Veuillez entrer un numéro valide';
 
   @override
-  String currentPlan(Object plan) {
-    return 'Plan actuel : $plan';
-  }
+  String get currentPlan => 'Plan actuel';
 
   @override
-  String get choosePlan => 'Choisir le Plan';
+  String get choosePlan => 'Choisir un plan';
 
   @override
   String planExpires(String date) {
@@ -282,13 +280,13 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get changePlan => 'Changer de Plan';
+  String get changePlan => 'Changer de plan';
 
   @override
   String get noProfileData => 'Aucune donnée de profil disponible';
 
   @override
-  String get helpAndSupportTitle => 'Aide et Support';
+  String get helpAndSupportTitle => 'Aide et support';
 
   @override
   String get helpAndSupportContent =>
@@ -314,50 +312,50 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get contactUs => 'Nous Contacter';
+  String get contactUs => 'Nous contacter';
 
   @override
-  String get enterpriseContact => 'Contact Entreprise';
+  String get enterpriseContact => 'Contact entreprise';
 
   @override
-  String get enterpriseSolutions => 'Solutions Entreprise';
+  String get enterpriseSolutions => 'Solutions entreprise';
 
   @override
   String get enterpriseDescription =>
-      'Obtenez des solutions personnalisées pour les besoins de votre entreprise. Notre équipe vous contactera dans les 24 heures pour discuter de vos exigences.';
+      'Obtenez des solutions personnalisées pour vos besoins d\'entreprise. Notre équipe vous contactera dans les 24 heures pour discuter de vos besoins.';
 
   @override
-  String get contactInformation => 'Informations de Contact';
+  String get contactInformation => 'Informations de contact';
 
   @override
-  String get companyName => 'Nom de l\'Entreprise';
+  String get companyName => 'Nom de l\'entreprise';
 
   @override
-  String get fullName => 'Nom Complet';
+  String get fullName => 'Nom complet';
 
   @override
-  String get emailAddress => 'Adresse Email';
+  String get emailAddress => 'Adresse email';
 
   @override
-  String get phoneNumber => 'Numéro de Téléphone';
+  String get phoneNumber => 'Numéro de téléphone';
 
   @override
   String get message => 'Message';
 
   @override
-  String get sendMessage => 'Envoyer le Message';
+  String get sendMessage => 'Envoyer le message';
 
   @override
   String get sending => 'Envoi...';
 
   @override
-  String get alternativeContactMethods => 'Méthodes de Contact Alternatives';
+  String get alternativeContactMethods => 'Méthodes de contact alternatives';
 
   @override
   String get businessHours => 'Heures d\'ouverture';
 
   @override
-  String get businessHoursValue => 'Lun - Ven: 9:00 AM - 6:00 PM EST';
+  String get businessHoursValue => 'Lun - Ven : 9h00 - 18h00 HNE';
 
   @override
   String get enterpriseEmail => 'hello@ensolutions.ca';
@@ -383,7 +381,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get enterMessage =>
-      'Parlez-nous des besoins et exigences de votre entreprise...';
+      'Parlez-nous de vos besoins et exigences d\'entreprise...';
 
   @override
   String get pleaseEnterCompanyName =>
@@ -404,7 +402,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pleaseEnterValidEmail =>
-      'Veuillez entrer une adresse e-mail valide';
+      'Veuillez entrer une adresse email valide';
 
   @override
   String get messageSentSuccessfully =>
@@ -419,7 +417,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get close => 'Fermer';
 
   @override
-  String get currentPlanTitle => 'Plan Actuel';
+  String get currentPlanTitle => 'Plan actuel';
 
   @override
   String get choosePreferredSignInMethod =>
@@ -446,7 +444,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String loginFailed(String error) {
-    return 'Échec de la connexion : $error';
+    return 'Échec de connexion : $error';
   }
 
   @override
@@ -464,7 +462,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Veuillez vous authentifier pour vous connecter à TGM HydroAI Chat';
 
   @override
-  String get businessHoursText => 'Lun - Ven: 9h00 - 18h00 PST';
+  String get businessHoursText => 'Lun - Ven : 9h00 - 18h00 HNP';
 
   @override
   String get pleaseProvideMoreDetails =>
@@ -474,7 +472,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get chooseYourPlan => 'Choisissez votre plan';
 
   @override
-  String get unlockThePowerOfAI => 'Libérez la puissance de l\'IA';
+  String get unlockThePowerOfAI => 'Débloquez la puissance de l\'IA';
 
   @override
   String get choosePerfectPlan =>
@@ -499,7 +497,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get messagesPerDay => '10 messages par jour';
 
   @override
-  String get basicAIResponses => 'Réponses IA basiques';
+  String get basicAIResponses => 'Réponses IA de base';
 
   @override
   String get standardSupport => 'Support standard';
@@ -520,7 +518,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get messageHistory => 'Historique des messages';
 
   @override
-  String get everythingInPro => 'Tout de Pro';
+  String get everythingInPro => 'Tout dans Pro';
 
   @override
   String get premiumAIModel => 'Modèle IA premium';
@@ -538,7 +536,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get exportConversations => 'Exporter les conversations';
 
   @override
-  String get everythingInPremium => 'Tout de Premium';
+  String get everythingInPremium => 'Tout dans Premium';
 
   @override
   String get customAITraining => 'Formation IA personnalisée';
@@ -560,7 +558,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get enterpriseGradeSecurity =>
-      'Tous les plans incluent une sécurité de niveau entreprise,\nune disponibilité 24h/24 et 7j/7, et une garantie de remboursement.';
+      'Tous les plans incluent une sécurité de niveau entreprise,\nune disponibilité 24/7 et une garantie de remboursement.';
 
   @override
   String get secure => 'Sécurisé';
@@ -569,7 +567,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get fast => 'Rapide';
 
   @override
-  String get support247 => 'Support 24h/24 et 7j/7';
+  String get support247 => 'Support 24/7';
 
   @override
   String get conversationHistory => 'Historique des conversations';
@@ -582,22 +580,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get newConversation => 'Nouvelle conversation';
 
   @override
-  String get helpAndSupportDesc => 'Obtenez de l\'aide ou contactez le support';
+  String get helpAndSupportDesc => 'Obtenir de l\'aide ou contacter le support';
 
   @override
-  String get aboutDesc => 'Version de l\'application et informations';
+  String get aboutDesc => 'Version et informations de l\'application';
 
   @override
-  String get fontSizeSmall => 'Petit';
+  String get fontSizeSmall => 'Petite';
 
   @override
-  String get fontSizeMedium => 'Moyen';
+  String get fontSizeMedium => 'Moyenne';
 
   @override
-  String get fontSizeLarge => 'Grand';
+  String get fontSizeLarge => 'Grande';
 
   @override
-  String get fontSizeExtraLarge => 'Très Grand';
+  String get fontSizeExtraLarge => 'Très grande';
 
   @override
   String get privacySettingsContent =>
@@ -614,28 +612,29 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get clearHistoryDialogContent =>
-      'Cela supprimera définitivement tout l\'historique de vos conversations. Cette action est irréversible.\\n\\nÊtes-vous sûr de vouloir continuer ?';
+      'Ceci supprimera définitivement tout votre historique de conversation. Cette action ne peut pas être annulée.\\n\\nÊtes-vous sûr de vouloir continuer ?';
 
   @override
   String get clear => 'Effacer';
 
   @override
   String get resetSettingsDialogContent =>
-      'Cela réinitialisera tous les paramètres à leurs valeurs par défaut. Êtes-vous sûr de vouloir continuer ?';
+      'Ceci réinitialisera tous les paramètres à leurs valeurs par défaut. Êtes-vous sûr de vouloir continuer ?';
 
   @override
   String get reset => 'Réinitialiser';
 
   @override
   String get historyClearedSuccess =>
-      'Historique des discussions effacé avec succès';
+      'Historique de discussion effacé avec succès';
 
   @override
   String get historyClearedError =>
-      'Échec de la suppression de l\'historique des discussions';
+      'Échec de l\'effacement de l\'historique de discussion';
 
   @override
-  String get settingsResetSuccess => 'Paramètres réinitialisés par défaut';
+  String get settingsResetSuccess =>
+      'Paramètres réinitialisés aux valeurs par défaut';
 
   @override
   String get forgotPassword => 'Mot de passe oublié ?';
@@ -671,7 +670,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String biometricAuthFailed(String error) {
-    return 'Authentification biométrique échouée : $error';
+    return 'Échec de l\'authentification biométrique : $error';
   }
 
   @override
@@ -681,7 +680,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get joinOurCommunity => 'Rejoignez notre communauté';
 
   @override
-  String get pleaseEnterYourName => 'Veuillez saisir votre nom';
+  String get pleaseEnterYourName => 'Veuillez entrer votre nom';
 
   @override
   String get nameMinLength => 'Le nom doit contenir au moins 2 caractères';
@@ -722,7 +721,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get accountCreatedEmailError =>
-      'Compte créé mais problème d\'envoi d\'email';
+      'Compte créé mais il y a eu un problème lors de l\'envoi de l\'email';
 
   @override
   String get registrationError => 'Erreur d\'inscription';
@@ -751,7 +750,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get resetPasswordInstructions =>
-      'Saisissez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.';
+      'Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.';
 
   @override
   String get sendResetLink => 'Envoyer le lien de réinitialisation';
@@ -770,7 +769,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get howToResetPasswordInstructions =>
-      '1. Ouvrez votre boîte mail\n2. Cliquez sur le lien dans l\'email\n3. Vous serez redirigé vers une page web\n4. Saisissez votre nouveau mot de passe\n5. Revenez dans l\'app pour vous connecter';
+      '1. Ouvrez votre boîte mail\n2. Cliquez sur le lien dans l\'email\n3. Vous serez redirigé vers une page web\n4. Entrez votre nouveau mot de passe\n5. Revenez à l\'application pour vous connecter';
 
   @override
   String get checkSpam => '📬 Vérifiez vos spams si vous ne voyez pas l\'email';
@@ -779,7 +778,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get resendEmail => 'Renvoyer l\'email';
 
   @override
-  String get sendingInProgress => 'Envoi en cours...';
+  String get sendingInProgress => 'Envoi...';
 
   @override
   String get emailSentMessage => 'Email envoyé';
@@ -807,7 +806,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get returnToLogin => 'Retour à la connexion';
 
   @override
-  String get verifyEmail => 'Vérification email';
+  String get verifyEmail => 'Vérifier l\'email';
 
   @override
   String get verificationEmailSent => 'Email de vérification envoyé !';
@@ -819,10 +818,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get openMailbox => 'Ouvrez votre boîte mail';
 
   @override
-  String get findVerificationEmail => 'Cherchez l\'email de vérification';
+  String get findVerificationEmail => 'Trouvez l\'email de vérification';
 
   @override
-  String get clickVerifyButton => 'Cliquez sur le bouton \"Verify\"';
+  String get clickVerifyButton => 'Cliquez sur le bouton \"Vérifier\"';
 
   @override
   String get accountActivated => 'Votre compte sera activé automatiquement !';
@@ -883,13 +882,14 @@ class AppLocalizationsFr extends AppLocalizations {
       'Vous serez redirigé vers la page de paiement sécurisée de Stripe pour finaliser votre achat.';
 
   @override
-  String get sslEncryption => 'Chiffrement SSL 256 bits';
+  String get sslEncryption => 'Cryptage SSL 256 bits';
 
   @override
-  String get allCreditCardsAccepted => 'Toutes les cartes bancaires acceptées';
+  String get allCreditCardsAccepted =>
+      'Toutes les cartes de crédit principales acceptées';
 
   @override
-  String get pciDssCompliant => 'Conforme au PCI DSS';
+  String get pciDssCompliant => 'Conforme PCI DSS';
 
   @override
   String get dataNeverStored => 'Vos données ne sont jamais stockées';
@@ -900,11 +900,11 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get secureAndEncryptedPayment => 'Paiement sécurisé et chiffré';
+  String get secureAndEncryptedPayment => 'Paiement sécurisé et crypté';
 
   @override
   String get paymentInfoProtected =>
-      'Les informations de paiement sont protégées par un chiffrement de niveau bancaire. Nous ne stockons jamais les détails de votre carte.';
+      'Les informations de paiement sont protégées par un cryptage bancaire. Nous ne stockons jamais les détails de votre carte.';
 
   @override
   String get poweredByStripe => 'Propulsé par Stripe';
@@ -936,23 +936,23 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get serverNotResponding =>
-      'Le serveur ne répond pas. Réessayez plus tard.';
+      'Le serveur ne répond pas. Veuillez réessayer plus tard.';
 
   @override
   String get verifyingPayment => 'Vérification de votre paiement...';
 
   @override
-  String get pleaseWait => 'Veuillez patienter un instant';
+  String get pleaseWait => 'Veuillez patienter un moment';
 
   @override
   String get paymentSuccessful => 'Paiement réussi !';
 
   @override
   String get subscriptionActivated =>
-      'Votre abonnement a été activé avec succès. Vous avez désormais accès à toutes les fonctionnalités premium !';
+      'Votre abonnement a été activé avec succès. Vous avez maintenant accès à toutes les fonctionnalités premium !';
 
   @override
-  String get plan => 'Forfait';
+  String get plan => 'Plan';
 
   @override
   String get status => 'Statut';
@@ -964,7 +964,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get session => 'Session';
 
   @override
-  String get startChatting => 'Commencer le chat';
+  String get startChatting => 'Commencer à discuter';
 
   @override
   String get viewProfile => 'Voir le profil';
@@ -974,7 +974,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get verificationFailed =>
-      'Impossible de vérifier votre paiement. Contactez le support si le problème persiste.';
+      'Impossible de vérifier votre paiement. Veuillez contacter le support si le problème persiste.';
 
   @override
   String get retryVerification => 'Réessayer la vérification';
@@ -987,7 +987,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get paymentCancelledMessage =>
-      'Votre paiement a été annulé. Aucun prélèvement n\'a été effectué sur votre compte.';
+      'Votre paiement a été annulé. Aucun débit n\'a été effectué sur votre compte.';
 
   @override
   String get noPaymentProcessed => 'Aucun paiement n\'a été traité';
@@ -1005,7 +1005,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get returnToApp => 'Retour à l\'application';
 
   @override
-  String get needHelpContactSupport => 'Besoin d\'aide ? Contacter le support';
+  String get needHelpContactSupport => 'Besoin d\'aide ? Contactez le support';
 
   @override
   String get viewFullHistory => 'Voir l\'historique complet';
@@ -1024,7 +1024,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String daysAgo(Object days) {
-    return 'Il y a $days j';
+    return 'Il y a $days jours';
   }
 
   @override
@@ -1047,7 +1047,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get startChattingToSeeHistory =>
-      'Commencez à discuter pour voir l\'historique de vos conversations ici';
+      'Commencez à discuter pour voir votre historique de conversation ici';
 
   @override
   String messagesCount(Object count) {
@@ -1055,10 +1055,10 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get current => 'Actuel';
+  String get current => 'Actuelle';
 
   @override
-  String get switchToConversation => 'Passer à cette conversation';
+  String get switchToConversation => 'Basculer vers cette conversation';
 
   @override
   String get deleteConversation => 'Supprimer la conversation';
@@ -1068,12 +1068,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String minutesAgo(Object minutes) {
-    return 'Il y a $minutes min';
+    return 'Il y a ${minutes}m';
   }
 
   @override
   String hoursAgo(Object hours) {
-    return 'Il y a $hours h';
+    return 'Il y a ${hours}h';
   }
 
   @override
@@ -1081,7 +1081,8 @@ class AppLocalizationsFr extends AppLocalizations {
       'Êtes-vous sûr de vouloir supprimer cette conversation ?';
 
   @override
-  String get thisActionCannotBeUndone => 'Cette action est irréversible.';
+  String get thisActionCannotBeUndone =>
+      'Cette action ne peut pas être annulée.';
 
   @override
   String get conversationDeleted => 'Conversation supprimée';
@@ -1113,31 +1114,31 @@ class AppLocalizationsFr extends AppLocalizations {
   String get company => 'Entreprise';
 
   @override
-  String get businessAccount => 'Compte professionnel avec code d\'entreprise';
+  String get businessAccount => 'Compte d\'entreprise avec code entreprise';
 
   @override
-  String get companyCodeRequired => 'Le code d\'entreprise est requis';
+  String get companyCodeRequired => 'Le code entreprise est requis';
 
   @override
   String get companyCodeLength =>
-      'Le code d\'entreprise doit comporter exactement 6 caractères';
+      'Le code entreprise doit contenir exactement 6 caractères';
 
   @override
   String get invalidCompanyCode =>
       'Seules les lettres majuscules et les chiffres sont autorisés';
 
   @override
-  String get companyCodeHint => 'Entrez le code d\'entreprise à 6 chiffres';
+  String get companyCodeHint => 'Entrez le code à 6 chiffres';
 
   @override
   String get companyCodeDescription =>
-      '6 caractères alphanumériques majuscules (A-Z, 0-9)';
+      '6 caractères alphanumériques en majuscules (A-Z, 0-9)';
 
   @override
   String get continueButton => 'Continuer';
 
   @override
-  String get logoFallback => 'TGM\nIA';
+  String get logoFallback => 'TGM\nAI';
 
   @override
   String get changeLanguage => 'Changer de langue';

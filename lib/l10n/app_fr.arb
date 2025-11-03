@@ -1,269 +1,1089 @@
 {
   "@@locale": "fr",
-  "appTitle": "TGM HydroAI Chat",
-  "companyCode": "Code Entreprise",
+  "companyCode": "Code entreprise",
   "delete": "Supprimer",
+  "appTitle": "TGM HydroAI Chat",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  
   "appTagline": "Assistant de Chat Intelligent",
+  "@appTagline": {
+    "description": "The tagline shown on splash screen"
+  },
+  
   "loading": "Chargement...",
+  "@loading": {
+    "description": "Loading text"
+  },
+  
   "signIn": "Se connecter",
+  "@signIn": {
+    "description": "Sign in button text"
+  },
+  
   "emailOrUsername": "Email ou nom d'utilisateur",
+  "@emailOrUsername": {
+    "description": "Email or username input placeholder"
+  },
+  
   "password": "Mot de passe",
+  "@password": {
+    "description": "Password input placeholder"
+  },
+  
   "continueWith": "Continuer avec {provider}",
+  "@continueWith": {
+    "description": "Social login button text",
+    "placeholders": {
+      "provider": {
+        "type": "String",
+        "example": "Google"
+      }
+    }
+  },
+  
   "or": "ou",
+  "@or": {
+    "description": "Divider text between login options"
+  },
+  
   "aiAssistant": "Assistant IA",
+  "@aiAssistant": {
+    "description": "AI assistant title"
+  },
+  
   "typeYourMessage": "Tapez votre message...",
+  "@typeYourMessage": {
+    "description": "Chat input placeholder"
+  },
+  
   "profile": "Profil",
+  "@profile": {
+    "description": "Profile screen title"
+  },
+  
   "editProfile": "Modifier le profil",
+  "@editProfile": {
+    "description": "Edit profile button text"
+  },
+  
   "name": "Nom",
+  "@name": {
+    "description": "Name field label"
+  },
+  
   "email": "Email",
+  "@email": {
+    "description": "Email field label"
+  },
+  
   "cancel": "Annuler",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  
   "save": "Enregistrer",
+  "@save": {
+    "description": "Save button text"
+  },
+  
   "messages": "Messages",
+  "@messages": {
+    "description": "Messages stat label"
+  },
+  
   "daysActive": "Jours actifs",
-  "rating": "Note",
-  "chatHistory": "Historique des conversations",
+  "@daysActive": {
+    "description": "Days active stat label"
+  },
+  
+  "rating": "Évaluation",
+  "@rating": {
+    "description": "Rating stat label"
+  },
+  
+  "chatHistory": "Historique de discussion",
+  "@chatHistory": {
+    "description": "Chat history menu item"
+  },
+  
   "preferences": "Préférences",
+  "@preferences": {
+    "description": "Preferences menu item"
+  },
+  
   "helpAndSupport": "Aide et support",
+  "@helpAndSupport": {
+    "description": "Help and support menu item"
+  },
+  
   "about": "À propos",
+  "@about": {
+    "description": "About menu item"
+  },
+  
   "settings": "Paramètres",
+  "@settings": {
+    "description": "Settings screen title"
+  },
+  
   "notifications": "Notifications",
+  "@notifications": {
+    "description": "Notifications section title"
+  },
+  
   "pushNotifications": "Notifications push",
+  "@pushNotifications": {
+    "description": "Push notifications setting"
+  },
+  
   "pushNotificationsDesc": "Recevoir des notifications pour les nouveaux messages",
-  "messageSounds": "Sons des messages",
+  "@pushNotificationsDesc": {
+    "description": "Push notifications description"
+  },
+  
+  "messageSounds": "Sons de messages",
+  "@messageSounds": {
+    "description": "Message sounds setting"
+  },
+  
   "messageSoundsDesc": "Jouer un son à l'arrivée des messages",
-  "chatPreferences": "Préférences de chat",
+  "@messageSoundsDesc": {
+    "description": "Message sounds description"
+  },
+  
+  "chatPreferences": "Préférences de discussion",
+  "@chatPreferences": {
+    "description": "Chat preferences section title"
+  },
+  
   "autoSaveConversations": "Sauvegarde automatique des conversations",
-  "autoSaveConversationsDesc": "Sauvegarder automatiquement l'historique des conversations",
+  "@autoSaveConversations": {
+    "description": "Auto-save conversations setting"
+  },
+  
+  "autoSaveConversationsDesc": "Sauvegarder automatiquement l'historique des discussions",
+  "@autoSaveConversationsDesc": {
+    "description": "Auto-save conversations description"
+  },
+  
   "darkMode": "Mode sombre",
+  "@darkMode": {
+    "description": "Dark mode setting"
+  },
+  
   "darkModeDesc": "Utiliser le thème sombre pour l'application",
+  "@darkModeDesc": {
+    "description": "Dark mode description"
+  },
+  
   "security": "Sécurité",
+  "@security": {
+    "description": "Security section title"
+  },
+  
   "biometricAuth": "Authentification biométrique",
+  "@biometricAuth": {
+    "description": "Biometric authentication setting"
+  },
+  
   "biometricAuthDesc": "Utiliser l'empreinte digitale ou Face ID pour déverrouiller",
+  "@biometricAuthDesc": {
+    "description": "Biometric authentication description"
+  },
+  
   "account": "Compte",
+  "@account": {
+    "description": "Account section title"
+  },
+  
   "privacySettings": "Paramètres de confidentialité",
+  "@privacySettings": {
+    "description": "Privacy settings menu item"
+  },
+  
   "privacySettingsDesc": "Gérer vos préférences de confidentialité",
+  "@privacySettingsDesc": {
+    "description": "Privacy settings description"
+  },
+  
   "language": "Langue",
+  "@language": {
+    "description": "Language setting"
+  },
+  
   "fontSize": "Taille de police",
+  "@fontSize": {
+    "description": "Font size setting"
+  },
+  
   "dataAndStorage": "Données et stockage",
-  "clearChatHistory": "Effacer l'historique des conversations",
+  "@dataAndStorage": {
+    "description": "Data and storage section title"
+  },
+  
+  "clearChatHistory": "Effacer l'historique des discussions",
+  "@clearChatHistory": {
+    "description": "Clear chat history menu item"
+  },
+  
   "clearChatHistoryDesc": "Supprimer tout l'historique des conversations",
+  "@clearChatHistoryDesc": {
+    "description": "Clear chat history description"
+  },
+  
   "resetSettings": "Réinitialiser les paramètres",
+  "@resetSettings": {
+    "description": "Reset settings menu item"
+  },
+  
   "resetSettingsDesc": "Réinitialiser tous les paramètres par défaut",
+  "@resetSettingsDesc": {
+    "description": "Reset settings description"
+  },
+  
   "logOut": "Se déconnecter",
+  "@logOut": {
+    "description": "Log out button text"
+  },
+  
   "tapToChangePhoto": "Appuyez pour changer la photo",
+  "@tapToChangePhoto": {
+    "description": "Change photo instruction"
+  },
+  
   "photoLibrary": "Bibliothèque de photos",
+  "@photoLibrary": {
+    "description": "Photo library option"
+  },
+  
   "camera": "Appareil photo",
+  "@camera": {
+    "description": "Camera option"
+  },
+  
   "removePhoto": "Supprimer la photo",
+  "@removePhoto": {
+    "description": "Remove photo option"
+  },
+  
   "nameCannotBeEmpty": "Le nom ne peut pas être vide",
+  "@nameCannotBeEmpty": {
+    "description": "Name validation error"
+  },
+  
   "emailCannotBeEmpty": "L'email ne peut pas être vide",
+  "@emailCannotBeEmpty": {
+    "description": "Email validation error"
+  },
+  
   "profileUpdatedSuccessfully": "Profil mis à jour avec succès",
+  "@profileUpdatedSuccessfully": {
+    "description": "Profile update success message"
+  },
+  
   "pleaseEnterYourEmail": "Veuillez entrer votre email ou nom d'utilisateur",
+  "@pleaseEnterYourEmail": {
+    "description": "Email validation error on login"
+  },
+  
   "pleaseEnterYourPassword": "Veuillez entrer votre mot de passe",
+  "@pleaseEnterYourPassword": {
+    "description": "Password validation error on login"
+  },
+  
   "passwordMustBeAtLeast6Characters": "Le mot de passe doit contenir au moins 6 caractères",
+  "@passwordMustBeAtLeast6Characters": {
+    "description": "Password length validation error"
+  },
+  
   "welcomeMessage": "Bonjour ! Je suis votre assistant IA. Comment puis-je vous aider aujourd'hui ?",
-  "aiResponseError": "Désolé, j'ai rencontré une erreur. Veuillez réessayer.",
+  "@welcomeMessage": {
+    "description": "Default welcome message from AI"
+  },
+  
+  "aiResponseError": "Je suis désolé, j'ai rencontré une erreur. Veuillez réessayer.",
+  "@aiResponseError": {
+    "description": "AI error response message"
+  },
+  
   "languageEnglish": "English (US)",
+  "@languageEnglish": {
+    "description": "English language option"
+  },
+  
   "languageFrench": "Français",
+  "@languageFrench": {
+    "description": "French language option"
+  },
+  
   "languageSpanish": "Español",
+  "@languageSpanish": {
+    "description": "Spanish language option"
+  },
+
   "useBiometricLogin": "Utiliser la connexion biométrique",
+  "@useBiometricLogin": {
+    "description": "Biometric login button text"
+  },
+
   "authenticating": "Authentification...",
+  "@authenticating": {
+    "description": "Biometric authentication in progress text"
+  },
+
   "completePurchase": "Finaliser l'achat",
+  "@completePurchase": {
+    "description": "Payment screen title"
+  },
+
   "selectedPlan": "Plan sélectionné",
+  "@selectedPlan": {
+    "description": "Selected plan label"
+  },
+
   "featuresIncluded": "Fonctionnalités incluses :",
+  "@featuresIncluded": {
+    "description": "Features included label"
+  },
+
   "paymentInformation": "Informations de paiement",
+  "@paymentInformation": {
+    "description": "Payment information section title"
+  },
+
   "payAmount": "Payer {amount}",
+  "@payAmount": {
+    "description": "Pay button text",
+    "placeholders": {
+      "amount": {
+        "type": "String",
+        "example": "$10"
+      }
+    }
+  },
+
   "processing": "Traitement...",
+  "@processing": {
+    "description": "Payment processing text"
+  },
+
   "secureAndEncrypted": "Vos informations de paiement sont sécurisées et cryptées. Nous ne stockons jamais les détails de votre carte.",
-  "pleaseFillAllFields": "Veuillez remplir tous les champs de la carte de crédit",
-  "successfullyUpgraded": "Mise à niveau réussie vers le plan {planName} !",
+  "@secureAndEncrypted": {
+    "description": "Security information text"
+  },
+
+  "pleaseFillAllFields": "Veuillez remplir tous les champs de carte de crédit",
+  "@pleaseFillAllFields": {
+    "description": "Card validation error message"
+  },
+
+  "successfullyUpgraded": "Mise à niveau réussie au plan {planName} !",
+  "@successfullyUpgraded": {
+    "description": "Successful payment message",
+    "placeholders": {
+      "planName": {
+        "type": "String",
+        "example": "Premium"
+      }
+    }
+  },
+
   "paymentFailed": "Échec du paiement : {error}",
-  "pleaseInputValidCvv": "Veuillez saisir un CVV valide",
-  "pleaseInputValidDate": "Veuillez saisir une date valide",
-  "pleaseInputValidNumber": "Veuillez saisir un numéro valide",
-  "currentPlan": "Plan Actuel",
-  "choosePlan": "Choisir le Plan",
+  "@paymentFailed": {
+    "description": "Payment failure message",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Card declined"
+      }
+    }
+  },
+
+  "pleaseInputValidCvv": "Veuillez entrer un CVV valide",
+  "@pleaseInputValidCvv": {
+    "description": "CVV validation message"
+  },
+
+  "pleaseInputValidDate": "Veuillez entrer une date valide",
+  "@pleaseInputValidDate": {
+    "description": "Date validation message"
+  },
+
+  "pleaseInputValidNumber": "Veuillez entrer un numéro valide",
+  "@pleaseInputValidNumber": {
+    "description": "Card number validation message"
+  },
+
+  "currentPlan": "Plan actuel",
+  "@currentPlan": {
+    "description": "Current plan section title"
+  },
+
+  "choosePlan": "Choisir un plan",
+  "@choosePlan": {
+    "description": "Button text for selecting a plan"
+  },
+
   "planExpires": "Expire le : {date}",
-  "changePlan": "Changer de Plan",
+  "@planExpires": {
+    "description": "Plan expiry date",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "12/31/2024"
+      }
+    }
+  },
+
+  "changePlan": "Changer de plan",
+  "@changePlan": {
+    "description": "Change plan menu item"
+  },
+
   "noProfileData": "Aucune donnée de profil disponible",
-  "helpAndSupportTitle": "Aide et Support",
+  "@noProfileData": {
+    "description": "No profile data message"
+  },
+
+  "helpAndSupportTitle": "Aide et support",
+  "@helpAndSupportTitle": {
+    "description": "Help and support dialog title"
+  },
+
   "helpAndSupportContent": "Pour obtenir de l'aide, veuillez nous contacter à :\nsupport@ensolutions.ca\n\nOu visitez notre centre d'aide en ligne.",
+  "@helpAndSupportContent": {
+    "description": "Help and support dialog content"
+  },
+
   "aboutTitle": "À propos de TGM HydroAI",
+  "@aboutTitle": {
+    "description": "About dialog title"
+  },
+
   "aboutContent": "TGM HydroAI Chat App v1.0.0\n\nUne application de chat intelligente alimentée par une technologie IA avancée.\n\n© 2024 TGM AI. Tous droits réservés.",
+  "@aboutContent": {
+    "description": "About dialog content"
+  },
+
   "ok": "OK",
+  "@ok": {
+    "description": "OK button text"
+  },
+
   "logoutConfirmation": "Êtes-vous sûr de vouloir vous déconnecter ?",
+  "@logoutConfirmation": {
+    "description": "Logout confirmation message"
+  },
+
   "planName": "Plan {plan}",
-  "contactUs": "Nous Contacter",
-  "enterpriseContact": "Contact Entreprise",
-  "enterpriseSolutions": "Solutions Entreprise",
-  "enterpriseDescription": "Obtenez des solutions personnalisées pour les besoins de votre entreprise. Notre équipe vous contactera dans les 24 heures pour discuter de vos exigences.",
-  "contactInformation": "Informations de Contact",
-  "companyName": "Nom de l'Entreprise",
-  "fullName": "Nom Complet",
-  "emailAddress": "Adresse Email",
-  "phoneNumber": "Numéro de Téléphone",
+  "@planName": {
+    "description": "Plan name with suffix",
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "example": "Premium"
+      }
+    }
+  },
+
+  "contactUs": "Nous contacter",
+  "@contactUs": {
+    "description": "Contact us button text"
+  },
+
+  "enterpriseContact": "Contact entreprise",
+  "@enterpriseContact": {
+    "description": "Enterprise contact page title"
+  },
+
+  "enterpriseSolutions": "Solutions entreprise",
+  "@enterpriseSolutions": {
+    "description": "Enterprise solutions title"
+  },
+
+  "enterpriseDescription": "Obtenez des solutions personnalisées pour vos besoins d'entreprise. Notre équipe vous contactera dans les 24 heures pour discuter de vos besoins.",
+  "@enterpriseDescription": {
+    "description": "Enterprise solutions description"
+  },
+
+  "contactInformation": "Informations de contact",
+  "@contactInformation": {
+    "description": "Contact information form title"
+  },
+
+  "companyName": "Nom de l'entreprise",
+  "@companyName": {
+    "description": "Company name field label"
+  },
+
+  "fullName": "Nom complet",
+  "@fullName": {
+    "description": "Full name field label"
+  },
+
+  "emailAddress": "Adresse email",
+  "@emailAddress": {
+    "description": "Email address field label"
+  },
+
+  "phoneNumber": "Numéro de téléphone",
+  "@phoneNumber": {
+    "description": "Phone number field label"
+  },
+
   "message": "Message",
-  "sendMessage": "Envoyer le Message",
+  "@message": {
+    "description": "Message field label"
+  },
+
+  "sendMessage": "Envoyer le message",
+  "@sendMessage": {
+    "description": "Send message button text"
+  },
+
   "sending": "Envoi...",
-  "alternativeContactMethods": "Méthodes de Contact Alternatives",
-  "businessHours": "Heures d'Ouverture",
-  "businessHoursValue": "Lun - Ven: 9:00 AM - 6:00 PM EST",
-  "enterpriseEmail": "hello@ensolutions.ca",
-  "enterprisePhone": "+1 (514) 501-9202",
-  "messageMinLength": "Veuillez fournir plus de détails (minimum 20 caractères)",
-  "enterCompanyName": "Entrez le nom de votre entreprise",
-  "enterFullName": "Entrez votre nom complet",
-  "enterEmailAddress": "Entrez votre adresse email",
-  "enterPhoneNumber": "Entrez votre numéro de téléphone",
-  "enterMessage": "Parlez-nous des besoins et exigences de votre entreprise...",
-  "pleaseEnterCompanyName": "Veuillez entrer le nom de votre entreprise",
-  "pleaseEnterFullName": "Veuillez entrer votre nom complet",
-  "pleaseEnterEmailAddress": "Veuillez entrer votre adresse email",
-  "pleaseEnterPhoneNumber": "Veuillez entrer votre numéro de téléphone",
-  "pleaseEnterMessage": "Veuillez entrer votre message",
-  "pleaseEnterValidEmail": "Veuillez entrer une adresse email valide",
-  "messageSentSuccessfully": "Merci ! Votre message a été envoyé avec succès. Notre équipe entreprise vous contactera dans les 24 heures.",
-  "messageSendError": "Erreur lors de l'envoi du message : {error}",
-  "settings": "Paramètres",
-  "close": "Fermer",
-  "currentPlanTitle": "Plan Actuel",
-  "choosePreferredSignInMethod": "Choisissez votre méthode de connexion préférée",
-  "enterYourUsername": "Entrez votre nom d'utilisateur",
-  "pleaseEnterYourUsername": "Veuillez entrer votre nom d'utilisateur",
-  "enterYourPassword": "Entrez votre mot de passe",
-  "pleaseEnterYourPassword": "Veuillez entrer votre mot de passe",
-  "passwordMustBeAtLeast6Characters": "Le mot de passe doit contenir au moins 6 caractères",
-  "continueWithGoogle": "Continuer avec Google",
-  "continueWithFacebook": "Continuer avec Facebook",
-  "continueWithApple": "Continuer avec Apple",
-  "loginFailed": "Échec de la connexion : {error}",
-  "successfullyLoggedInWith": "Connexion réussie avec {provider}",
-  "biometricAuthenticationFailed": "Échec de l'authentification biométrique : {error}",
-  "pleaseAuthenticateToLogin": "Veuillez vous authentifier pour vous connecter à TGM HydroAI Chat",
+  "@sending": {
+    "description": "Sending message progress text"
+  },
+
+  "alternativeContactMethods": "Méthodes de contact alternatives",
+  "@alternativeContactMethods": {
+    "description": "Alternative contact methods section title"
+  },
+
   "businessHours": "Heures d'ouverture",
-  "businessHoursText": "Lun - Ven: 9h00 - 18h00 PST",
+  "@businessHours": {
+    "description": "Business hours label"
+  },
+
+  "businessHoursValue": "Lun - Ven : 9h00 - 18h00 HNE",
+  "@businessHoursValue": {
+    "description": "Business hours value"
+  },
+
+  "enterpriseEmail": "hello@ensolutions.ca",
+  "@enterpriseEmail": {
+    "description": "Enterprise email address"
+  },
+
+  "enterprisePhone": "+1 (514) 501-9202",
+  "@enterprisePhone": {
+    "description": "Enterprise phone number"
+  },
+
+  "messageMinLength": "Veuillez fournir plus de détails (minimum 20 caractères)",
+  "@messageMinLength": {
+    "description": "Message minimum length validation"
+  },
+
+  "enterCompanyName": "Entrez le nom de votre entreprise",
+  "@enterCompanyName": {
+    "description": "Company name field hint"
+  },
+
+  "enterFullName": "Entrez votre nom complet",
+  "@enterFullName": {
+    "description": "Full name field hint"
+  },
+
+  "enterEmailAddress": "Entrez votre adresse email",
+  "@enterEmailAddress": {
+    "description": "Email address field hint"
+  },
+
+  "enterPhoneNumber": "Entrez votre numéro de téléphone",
+  "@enterPhoneNumber": {
+    "description": "Phone number field hint"
+  },
+
+  "enterMessage": "Parlez-nous de vos besoins et exigences d'entreprise...",
+  "@enterMessage": {
+    "description": "Message field hint"
+  },
+
+  "pleaseEnterCompanyName": "Veuillez entrer le nom de votre entreprise",
+  "@pleaseEnterCompanyName": {
+    "description": "Company name validation error"
+  },
+
+  "pleaseEnterFullName": "Veuillez entrer votre nom complet",
+  "@pleaseEnterFullName": {
+    "description": "Full name validation error"
+  },
+
+  "pleaseEnterEmailAddress": "Veuillez entrer votre adresse email",
+  "@pleaseEnterEmailAddress": {
+    "description": "Email address validation error"
+  },
+
+  "pleaseEnterPhoneNumber": "Veuillez entrer votre numéro de téléphone",
+  "@pleaseEnterPhoneNumber": {
+    "description": "Phone number validation error"
+  },
+
+  "pleaseEnterMessage": "Veuillez entrer votre message",
+  "@pleaseEnterMessage": {
+    "description": "Message validation error"
+  },
+
+  "pleaseEnterValidEmail": "Veuillez entrer une adresse email valide",
+  "@pleaseEnterValidEmail": {
+    "description": "Email validation error"
+  },
+
+  "messageSentSuccessfully": "Merci ! Votre message a été envoyé avec succès. Notre équipe entreprise vous contactera dans les 24 heures.",
+  "@messageSentSuccessfully": {
+    "description": "Message sent success notification"
+  },
+
+  "messageSendError": "Erreur lors de l'envoi du message : {error}",
+  "@messageSendError": {
+    "description": "Message send error notification",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+
+  "close": "Fermer",
+  "@close": {
+    "description": "Close button text"
+  },
+
+  "currentPlanTitle": "Plan actuel",
+  "@currentPlanTitle": {
+    "description": "Current plan section title"
+  },
+
+  "choosePreferredSignInMethod": "Choisissez votre méthode de connexion préférée",
+  "@choosePreferredSignInMethod": {
+    "description": "Message shown to individual users for login options"
+  },
+
+  "enterYourUsername": "Entrez votre nom d'utilisateur",
+  "@enterYourUsername": {
+    "description": "Username field placeholder"
+  },
+
+  "pleaseEnterYourUsername": "Veuillez entrer votre nom d'utilisateur",
+  "@pleaseEnterYourUsername": {
+    "description": "Username validation error"
+  },
+
+  "enterYourPassword": "Entrez votre mot de passe",
+  "@enterYourPassword": {
+    "description": "Password field placeholder"
+  },
+
+  "continueWithGoogle": "Continuer avec Google",
+  "@continueWithGoogle": {
+    "description": "Google login button text"
+  },
+
+  "continueWithFacebook": "Continuer avec Facebook",
+  "@continueWithFacebook": {
+    "description": "Facebook login button text"
+  },
+
+  "continueWithApple": "Continuer avec Apple",
+  "@continueWithApple": {
+    "description": "Apple login button text"
+  },
+
+  "loginFailed": "Échec de connexion : {error}",
+  "@loginFailed": {
+    "description": "Login error message",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Invalid credentials"
+      }
+    }
+  },
+
+  "successfullyLoggedInWith": "Connexion réussie avec {provider}",
+  "@successfullyLoggedInWith": {
+    "description": "Social login success message",
+    "placeholders": {
+      "provider": {
+        "type": "String",
+        "example": "Google"
+      }
+    }
+  },
+
+  "biometricAuthenticationFailed": "Échec de l'authentification biométrique : {error}",
+  "@biometricAuthenticationFailed": {
+    "description": "Biometric auth error message",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Sensor not available"
+      }
+    }
+  },
+
+  "pleaseAuthenticateToLogin": "Veuillez vous authentifier pour vous connecter à TGM HydroAI Chat",
+  "@pleaseAuthenticateToLogin": {
+    "description": "Biometric authentication prompt"
+  },
+
+  "businessHoursText": "Lun - Ven : 9h00 - 18h00 HNP",
+  "@businessHoursText": {
+    "description": "Business hours text"
+  },
+
   "pleaseProvideMoreDetails": "Veuillez fournir plus de détails (minimum 20 caractères)",
+  "@pleaseProvideMoreDetails": {
+    "description": "Message validation error for minimum length"
+  },
+
   "chooseYourPlan": "Choisissez votre plan",
-  "unlockThePowerOfAI": "Libérez la puissance de l'IA",
+  "@chooseYourPlan": {
+    "description": "Plans screen title"
+  },
+
+  "unlockThePowerOfAI": "Débloquez la puissance de l'IA",
+  "@unlockThePowerOfAI": {
+    "description": "Plans hero section title"
+  },
+
   "choosePerfectPlan": "Choisissez le plan parfait pour améliorer votre productivité\navec notre assistant IA avancé",
+  "@choosePerfectPlan": {
+    "description": "Plans hero section description"
+  },
+
   "freePlan": "Gratuit",
+  "@freePlan": {
+    "description": "Free plan name"
+  },
+
   "proPlan": "Pro",
+  "@proPlan": {
+    "description": "Pro plan name"
+  },
+
   "premiumPlan": "Premium",
+  "@premiumPlan": {
+    "description": "Premium plan name"
+  },
+
   "enterprisePlan": "Entreprise",
+  "@enterprisePlan": {
+    "description": "Enterprise plan name"
+  },
+
   "contactUsForPricing": "Nous contacter",
+  "@contactUsForPricing": {
+    "description": "Enterprise plan pricing text"
+  },
+
   "messagesPerDay": "10 messages par jour",
-  "basicAIResponses": "Réponses IA basiques",
+  "@messagesPerDay": {
+    "description": "Free plan feature"
+  },
+
+  "basicAIResponses": "Réponses IA de base",
+  "@basicAIResponses": {
+    "description": "Free plan feature"
+  },
+
   "standardSupport": "Support standard",
+  "@standardSupport": {
+    "description": "Free plan feature"
+  },
+
   "unlimitedMessages": "Messages illimités",
+  "@unlimitedMessages": {
+    "description": "Pro plan feature"
+  },
+
   "advancedAIFeatures": "Fonctionnalités IA avancées",
+  "@advancedAIFeatures": {
+    "description": "Pro plan feature"
+  },
+
   "priorityResponses": "Réponses prioritaires",
+  "@priorityResponses": {
+    "description": "Pro plan feature"
+  },
+
   "fileAttachments": "Pièces jointes",
+  "@fileAttachments": {
+    "description": "Pro plan feature"
+  },
+
   "messageHistory": "Historique des messages",
-  "everythingInPro": "Tout de Pro",
+  "@messageHistory": {
+    "description": "Pro plan feature"
+  },
+
+  "everythingInPro": "Tout dans Pro",
+  "@everythingInPro": {
+    "description": "Premium plan feature"
+  },
+
   "premiumAIModel": "Modèle IA premium",
+  "@premiumAIModel": {
+    "description": "Premium plan feature"
+  },
+
   "voiceMessages": "Messages vocaux",
+  "@voiceMessages": {
+    "description": "Premium plan feature"
+  },
+
   "prioritySupport": "Support prioritaire",
+  "@prioritySupport": {
+    "description": "Premium plan feature"
+  },
+
   "customThemes": "Thèmes personnalisés",
+  "@customThemes": {
+    "description": "Premium plan feature"
+  },
+
   "exportConversations": "Exporter les conversations",
-  "everythingInPremium": "Tout de Premium",
+  "@exportConversations": {
+    "description": "Premium plan feature"
+  },
+
+  "everythingInPremium": "Tout dans Premium",
+  "@everythingInPremium": {
+    "description": "Enterprise plan feature"
+  },
+
   "customAITraining": "Formation IA personnalisée",
+  "@customAITraining": {
+    "description": "Enterprise plan feature"
+  },
+
   "teamCollaboration": "Collaboration d'équipe",
+  "@teamCollaboration": {
+    "description": "Enterprise plan feature"
+  },
+
   "adminDashboard": "Tableau de bord admin",
+  "@adminDashboard": {
+    "description": "Enterprise plan feature"
+  },
+
   "customBranding": "Marque personnalisée",
+  "@customBranding": {
+    "description": "Enterprise plan feature"
+  },
+
   "dedicatedSupport": "Support dédié",
+  "@dedicatedSupport": {
+    "description": "Enterprise plan feature"
+  },
+
   "secureAndReliable": "Sécurisé et fiable",
-  "enterpriseGradeSecurity": "Tous les plans incluent une sécurité de niveau entreprise,\nune disponibilité 24h/24 et 7j/7, et une garantie de remboursement.",
+  "@secureAndReliable": {
+    "description": "Plans bottom section title"
+  },
+
+  "enterpriseGradeSecurity": "Tous les plans incluent une sécurité de niveau entreprise,\nune disponibilité 24/7 et une garantie de remboursement.",
+  "@enterpriseGradeSecurity": {
+    "description": "Plans security description"
+  },
+
   "secure": "Sécurisé",
+  "@secure": {
+    "description": "Security feature label"
+  },
+
   "fast": "Rapide",
-  "support247": "Support 24h/24 et 7j/7",
+  "@fast": {
+    "description": "Speed feature label"
+  },
+
+  "support247": "Support 24/7",
+  "@support247": {
+    "description": "Support feature label"
+  },
+
   "conversationHistory": "Historique des conversations",
+  "@conversationHistory": {
+    "description": "Chat drawer title"
+  },
+
   "noConversationsInHistory": "Aucune conversation dans l'historique",
+  "@noConversationsInHistory": {
+    "description": "Empty conversation history message"
+  },
+
   "newConversation": "Nouvelle conversation",
+  "@newConversation": {
+    "description": "New conversation tooltip"
+  },
 
-  "helpAndSupportDesc": "Obtenez de l'aide ou contactez le support",
-  "aboutDesc": "Version de l'application et informations",
-  "fontSizeSmall": "Petit",
-  "fontSizeMedium": "Moyen",
-  "fontSizeLarge": "Grand",
-  "fontSizeExtraLarge": "Très Grand",
+  "helpAndSupportDesc": "Obtenir de l'aide ou contacter le support",
+  "@helpAndSupportDesc": {},
+  "aboutDesc": "Version et informations de l'application",
+  "@aboutDesc": {},
+  "fontSizeSmall": "Petite",
+  "@fontSizeSmall": {},
+  "fontSizeMedium": "Moyenne",
+  "@fontSizeMedium": {},
+  "fontSizeLarge": "Grande",
+  "@fontSizeLarge": {},
+  "fontSizeExtraLarge": "Très grande",
+  "@fontSizeExtraLarge": {},
   "privacySettingsContent": "Les paramètres de confidentialité seraient configurés ici, y compris les préférences de collecte de données et les contrôles de confidentialité.",
+  "@privacySettingsContent": {},
   "fontSizeSample": "Exemple de texte avec la taille actuelle",
+  "@fontSizeSample": {},
   "done": "Terminé",
+  "@done": {},
   "aboutTgmAi": "À propos de TGM AI",
-  "clearHistoryDialogContent": "Cela supprimera définitivement tout l'historique de vos conversations. Cette action est irréversible.\\n\\nÊtes-vous sûr de vouloir continuer ?",
+  "@aboutTgmAi": {},
+  "clearHistoryDialogContent": "Ceci supprimera définitivement tout votre historique de conversation. Cette action ne peut pas être annulée.\\n\\nÊtes-vous sûr de vouloir continuer ?",
+  "@clearHistoryDialogContent": {},
   "clear": "Effacer",
-  "resetSettingsDialogContent": "Cela réinitialisera tous les paramètres à leurs valeurs par défaut. Êtes-vous sûr de vouloir continuer ?",
+  "@clear": {},
+  "resetSettingsDialogContent": "Ceci réinitialisera tous les paramètres à leurs valeurs par défaut. Êtes-vous sûr de vouloir continuer ?",
+  "@resetSettingsDialogContent": {},
   "reset": "Réinitialiser",
-  "historyClearedSuccess": "Historique des discussions effacé avec succès",
-  "historyClearedError": "Échec de la suppression de l'historique des discussions",
-  "settingsResetSuccess": "Paramètres réinitialisés par défaut",
+  "@reset": {},
+  "historyClearedSuccess": "Historique de discussion effacé avec succès",
+  "@historyClearedSuccess": {},
+  "historyClearedError": "Échec de l'effacement de l'historique de discussion",
+  "@historyClearedError": {},
+  "settingsResetSuccess": "Paramètres réinitialisés aux valeurs par défaut",
+  "@settingsResetSuccess": {},
 
-  "pleaseEnterValidEmail": "Veuillez entrer une adresse e-mail valide",
   "forgotPassword": "Mot de passe oublié ?",
+  "@forgotPassword": {},
   "newToPlatform": "Nouveau sur notre plateforme ?",
+  "@newToPlatform": {},
   "createFreeAccount": "Créer un compte gratuit",
+  "@createFreeAccount": {},
   "companyLoginSuccess": "Connexion entreprise réussie",
+  "@companyLoginSuccess": {},
   "jwtNotFound": "JWT non trouvé dans la réponse",
+  "@jwtNotFound": {},
   "loginSuccess": "Connexion réussie",
+  "@loginSuccess": {},
   "loginError": "Erreur de connexion",
+  "@loginError": {},
   "googleLoginSuccess": "Connexion Google réussie",
+  "@googleLoginSuccess": {},
   "googleLoginError": "Erreur Google",
+  "@googleLoginError": {},
   "googleError": "Erreur Google : {error}",
-  "biometricAuthFailed": "Authentification biométrique échouée : {error}",
+  "@googleError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "biometricAuthFailed": "Échec de l'authentification biométrique : {error}",
+  "@biometricAuthFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
 
   "createAccount": "Créer un compte",
+  "@createAccount": {},
   "joinOurCommunity": "Rejoignez notre communauté",
-  "pleaseEnterYourName": "Veuillez saisir votre nom",
+  "@joinOurCommunity": {},
+  "pleaseEnterYourName": "Veuillez entrer votre nom",
+  "@pleaseEnterYourName": {},
   "nameMinLength": "Le nom doit contenir au moins 2 caractères",
+  "@nameMinLength": {},
   "passwordMinLength8": "Le mot de passe doit contenir au moins 8 caractères",
+  "@passwordMinLength8": {},
   "passwordComplexity": "Le mot de passe doit contenir une majuscule, une minuscule et un chiffre",
+  "@passwordComplexity": {},
   "confirmPassword": "Confirmer le mot de passe",
+  "@confirmPassword": {},
   "pleaseConfirmPassword": "Veuillez confirmer votre mot de passe",
+  "@pleaseConfirmPassword": {},
   "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+  "@passwordsDoNotMatch": {},
   "acceptTerms": "J'accepte les conditions d'utilisation et la politique de confidentialité",
+  "@acceptTerms": {},
   "createMyAccount": "Créer mon compte",
+  "@createMyAccount": {},
   "alreadyHaveAnAccount": "Vous avez déjà un compte ? ",
+  "@alreadyHaveAnAccount": {},
   "mustAcceptTerms": "Vous devez accepter les conditions d'utilisation",
+  "@mustAcceptTerms": {},
   "registrationSuccess": "Inscription réussie",
-  "accountCreatedEmailError": "Compte créé mais problème d'envoi d'email",
+  "@registrationSuccess": {},
+  "accountCreatedEmailError": "Compte créé mais il y a eu un problème lors de l'envoi de l'email",
+  "@accountCreatedEmailError": {},
   "registrationError": "Erreur d'inscription",
+  "@registrationError": {},
   "errorWithMessage": "Erreur : {error}",
+  "@errorWithMessage": {
+    "placeholders": { "error": { "type": "String" } }
+  },
   "accountCreatedSuccess": "Compte créé avec succès",
+  "@accountCreatedSuccess": {},
   "googleAuthError": "Erreur lors de l'authentification Google",
+  "@googleAuthError": {},
   "unexpectedError": "Erreur inattendue : {error}",
+  "@unexpectedError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
 
   "forgotPasswordTitle": "Mot de passe oublié",
+  "@forgotPasswordTitle": {},
   "resetYourPassword": "Réinitialiser votre mot de passe",
-  "resetPasswordInstructions": "Saisissez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+  "@resetYourPassword": {},
+  "resetPasswordInstructions": "Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+  "@resetPasswordInstructions": {},
   "sendResetLink": "Envoyer le lien de réinitialisation",
+  "@sendResetLink": {},
   "backToLogin": "Retour à la connexion",
+  "@backToLogin": {},
   "emailSent": "Email envoyé !",
+  "@emailSent": {},
   "weSentAnEmailTo": "Nous avons envoyé un email à :",
+  "@weSentAnEmailTo": {},
   "howToResetPassword": "Comment réinitialiser votre mot de passe",
-  "howToResetPasswordInstructions": "1. Ouvrez votre boîte mail\n2. Cliquez sur le lien dans l'email\n3. Vous serez redirigé vers une page web\n4. Saisissez votre nouveau mot de passe\n5. Revenez dans l'app pour vous connecter",
+  "@howToResetPassword": {},
+  "howToResetPasswordInstructions": "1. Ouvrez votre boîte mail\n2. Cliquez sur le lien dans l'email\n3. Vous serez redirigé vers une page web\n4. Entrez votre nouveau mot de passe\n5. Revenez à l'application pour vous connecter",
+  "@howToResetPasswordInstructions": {},
   "checkSpam": "📬 Vérifiez vos spams si vous ne voyez pas l'email",
+  "@checkSpam": {},
   "resendEmail": "Renvoyer l'email",
-  "sendingInProgress": "Envoi en cours...",
+  "@resendEmail": {},
+  "sendingInProgress": "Envoi...",
+  "@sendingInProgress": {},
   "emailSentMessage": "Email envoyé",
+  "@emailSentMessage": {},
   "emailNotFound": "Adresse email non trouvée",
+  "@emailNotFound": {},
   "sendingError": "Erreur lors de l'envoi",
+  "@sendingError": {},
   "resetPassword": "Réinitialiser le mot de passe",
   "newPassword": "Nouveau mot de passe",
   "passwordResetSuccess": "Mot de passe réinitialisé avec succès",
   "passwordResetError": "Erreur lors de la réinitialisation du mot de passe",
   "returnToLogin": "Retour à la connexion",
 
-  "verifyEmail": "Vérification email",
+  "verifyEmail": "Vérifier l'email",
   "verificationEmailSent": "Email de vérification envoyé !",
   "instructions": "Instructions",
   "openMailbox": "Ouvrez votre boîte mail",
-  "findVerificationEmail": "Cherchez l'email de vérification",
-  "clickVerifyButton": "Cliquez sur le bouton \"Verify\"",
+  "findVerificationEmail": "Trouvez l'email de vérification",
+  "clickVerifyButton": "Cliquez sur le bouton \"Vérifier\"",
   "accountActivated": "Votre compte sera activé automatiquement !",
   "emailResent": "Email renvoyé",
 
   "emailCannotBeChanged": "L'email ne peut pas être modifié",
   "failedToUpdateProfile": "Échec de la mise à jour du profil : {error}",
-  "currentPlan": "Plan actuel : {plan}",
   "expires": "Expire le : {date}",
 
   "failedToPickImage": "Échec de la sélection de l'image : {error}",
@@ -276,17 +1096,15 @@
   "retry": "Réessayer",
   "noPlansAvailable": "Aucun plan disponible",
 
-  "completePurchase": "Finaliser l'achat",
-  "selectedPlan": "Forfait sélectionné",
   "securePaymentWithStripe": "Paiement sécurisé avec Stripe",
   "redirectToStripe": "Vous serez redirigé vers la page de paiement sécurisée de Stripe pour finaliser votre achat.",
-  "sslEncryption": "Chiffrement SSL 256 bits",
-  "allCreditCardsAccepted": "Toutes les cartes bancaires acceptées",
-  "pciDssCompliant": "Conforme au PCI DSS",
+  "sslEncryption": "Cryptage SSL 256 bits",
+  "allCreditCardsAccepted": "Toutes les cartes de crédit principales acceptées",
+  "pciDssCompliant": "Conforme PCI DSS",
   "dataNeverStored": "Vos données ne sont jamais stockées",
   "continueToPayment": "Continuer vers le paiement - {price}",
-  "secureAndEncryptedPayment": "Paiement sécurisé et chiffré",
-  "paymentInfoProtected": "Les informations de paiement sont protégées par un chiffrement de niveau bancaire. Nous ne stockons jamais les détails de votre carte.",
+  "secureAndEncryptedPayment": "Paiement sécurisé et crypté",
+  "paymentInfoProtected": "Les informations de paiement sont protégées par un cryptage bancaire. Nous ne stockons jamais les détails de votre carte.",
   "poweredByStripe": "Propulsé par Stripe",
   "sessionExpired": "Session expirée. Veuillez vous reconnecter.",
   "mustBeLoggedIn": "Vous devez être connecté pour effectuer un paiement.",
@@ -295,31 +1113,31 @@
   "paymentCancelled": "Paiement annulé",
   "paymentInitializationFailed": "Échec de l'initialisation du paiement",
   "connectionProblem": "Problème de connexion. Vérifiez votre internet.",
-  "serverNotResponding": "Le serveur ne répond pas. Réessayez plus tard.",
+  "serverNotResponding": "Le serveur ne répond pas. Veuillez réessayer plus tard.",
 
   "verifyingPayment": "Vérification de votre paiement...",
-  "pleaseWait": "Veuillez patienter un instant",
+  "pleaseWait": "Veuillez patienter un moment",
   "paymentSuccessful": "Paiement réussi !",
-  "subscriptionActivated": "Votre abonnement a été activé avec succès. Vous avez désormais accès à toutes les fonctionnalités premium !",
-  "plan": "Forfait",
+  "subscriptionActivated": "Votre abonnement a été activé avec succès. Vous avez maintenant accès à toutes les fonctionnalités premium !",
+  "plan": "Plan",
   "status": "Statut",
   "active": "Actif",
   "session": "Session",
-  "startChatting": "Commencer le chat",
+  "startChatting": "Commencer à discuter",
   "viewProfile": "Voir le profil",
   "verificationProblem": "Problème de vérification",
-  "verificationFailed": "Impossible de vérifier votre paiement. Contactez le support si le problème persiste.",
+  "verificationFailed": "Impossible de vérifier votre paiement. Veuillez contacter le support si le problème persiste.",
   "retryVerification": "Réessayer la vérification",
   "continueInApp": "Continuer dans l'application",
 
   "paymentCancelledTitle": "Paiement annulé",
-  "paymentCancelledMessage": "Votre paiement a été annulé. Aucun prélèvement n'a été effectué sur votre compte.",
+  "paymentCancelledMessage": "Votre paiement a été annulé. Aucun débit n'a été effectué sur votre compte.",
   "noPaymentProcessed": "Aucun paiement n'a été traité",
   "accountUnchanged": "Votre compte reste inchangé",
   "youCanRetry": "Vous pouvez réessayer à tout moment",
   "retryPayment": "Réessayer le paiement",
   "returnToApp": "Retour à l'application",
-  "needHelpContactSupport": "Besoin d'aide ? Contacter le support",
+  "needHelpContactSupport": "Besoin d'aide ? Contactez le support",
 
   "viewFullHistory": "Voir l'historique complet",
   "whatCanIHelpYouWith": "Comment puis-je vous aider aujourd'hui ?",
@@ -332,17 +1150,16 @@
   "recordingError": "Erreur d'enregistrement : {error}",
   "permissionDenied": "Permission d'enregistrement requise",
   "permissionDeniedMessage": "L'enregistrement vocal nécessite l'autorisation du microphone. Veuillez l'activer dans les paramètres de votre appareil pour enregistrer des messages vocaux.",
-  "startChattingToSeeHistory": "Commencez à discuter pour voir l'historique de vos conversations ici",
+  "startChattingToSeeHistory": "Commencez à discuter pour voir votre historique de conversation ici",
   "messagesCount": "{count} messages",
-  "current": "Actuel",
-  "switchToConversation": "Passer à cette conversation",
+  "current": "Actuelle",
+  "switchToConversation": "Basculer vers cette conversation",
   "deleteConversation": "Supprimer la conversation",
   "justNow": "À l'instant",
-  "minutesAgo": "Il y a {minutes} min",
-  "hoursAgo": "Il y a {hours} h",
-  "daysAgo": "Il y a {days} j",
+  "minutesAgo": "Il y a {minutes}m",
+  "hoursAgo": "Il y a {hours}h",
   "deleteConversationConfirmation": "Êtes-vous sûr de vouloir supprimer cette conversation ?",
-  "thisActionCannotBeUndone": "Cette action est irréversible.",
+  "thisActionCannotBeUndone": "Cette action ne peut pas être annulée.",
   "conversationDeleted": "Conversation supprimée",
 
   "planInterest": "Je suis intéressé par le plan {planName}. Veuillez me contacter avec plus d'informations sur les prix et les fonctionnalités.",
@@ -352,15 +1169,15 @@
   "individual": "Individuel",
   "personalUse": "Usage personnel avec connexion sociale",
   "company": "Entreprise",
-  "businessAccount": "Compte professionnel avec code d'entreprise",
-  "companyCodeRequired": "Le code d'entreprise est requis",
-  "companyCodeLength": "Le code d'entreprise doit comporter exactement 6 caractères",
+  "businessAccount": "Compte d'entreprise avec code entreprise",
+  "companyCodeRequired": "Le code entreprise est requis",
+  "companyCodeLength": "Le code entreprise doit contenir exactement 6 caractères",
   "invalidCompanyCode": "Seules les lettres majuscules et les chiffres sont autorisés",
-  "companyCodeHint": "Entrez le code d'entreprise à 6 chiffres",
-  "companyCodeDescription": "6 caractères alphanumériques majuscules (A-Z, 0-9)",
+  "companyCodeHint": "Entrez le code à 6 chiffres",
+  "companyCodeDescription": "6 caractères alphanumériques en majuscules (A-Z, 0-9)",
   "continueButton": "Continuer",
 
-  "logoFallback": "TGM\nIA",
+  "logoFallback": "TGM\nAI",
 
   "changeLanguage": "Changer de langue"
 }

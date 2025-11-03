@@ -649,11 +649,6 @@
     }
   },
 
-  "settings": "Settings",
-  "@settings": {
-    "description": "Settings menu item"
-  },
-
   "close": "Close",
   "@close": {
     "description": "Close button text"
@@ -682,16 +677,6 @@
   "enterYourPassword": "Enter your password",
   "@enterYourPassword": {
     "description": "Password field placeholder"
-  },
-
-  "pleaseEnterYourPassword": "Please enter your password",
-  "@pleaseEnterYourPassword": {
-    "description": "Password validation error"
-  },
-
-  "passwordMustBeAtLeast6Characters": "Password must be at least 6 characters",
-  "@passwordMustBeAtLeast6Characters": {
-    "description": "Password length validation error"
   },
 
   "continueWithGoogle": "Continue with Google",
@@ -745,11 +730,6 @@
   "pleaseAuthenticateToLogin": "Please authenticate to login to TGM HydroAI Chat",
   "@pleaseAuthenticateToLogin": {
     "description": "Biometric authentication prompt"
-  },
-
-  "businessHours": "Business Hours",
-  "@businessHours": {
-    "description": "Business hours label"
   },
 
   "businessHoursText": "Mon - Fri: 9:00 AM - 6:00 PM PST",
@@ -977,8 +957,6 @@
   "settingsResetSuccess": "Settings reset to defaults",
   "@settingsResetSuccess": {},
 
-  "pleaseEnterValidEmail": "Please enter a valid email",
-  "@pleaseEnterValidEmail": {},
   "forgotPassword": "Forgot password?",
   "@forgotPassword": {},
   "newToPlatform": "New to our platform?",
@@ -1106,7 +1084,6 @@
 
   "emailCannotBeChanged": "Email cannot be changed",
   "failedToUpdateProfile": "Failed to update profile: {error}",
-  "currentPlan": "Current Plan: {plan}",
   "expires": "Expires: {date}",
 
   "failedToPickImage": "Failed to pick image: {error}",
@@ -1119,8 +1096,6 @@
   "retry": "Retry",
   "noPlansAvailable": "No plans available",
 
-  "completePurchase": "Complete Purchase",
-  "selectedPlan": "Selected Plan",
   "securePaymentWithStripe": "Secure Payment with Stripe",
   "redirectToStripe": "You will be redirected to Stripe's secure payment page to complete your purchase.",
   "sslEncryption": "256-bit SSL encryption",
@@ -1183,7 +1158,6 @@
   "justNow": "Just now",
   "minutesAgo": "{minutes}m ago",
   "hoursAgo": "{hours}h ago",
-  "daysAgo": "{days}d ago",
   "deleteConversationConfirmation": "Are you sure you want to delete this conversation?",
   "thisActionCannotBeUndone": "This action cannot be undone.",
   "conversationDeleted": "Conversation deleted",

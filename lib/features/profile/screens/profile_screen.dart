@@ -412,13 +412,13 @@ class _ProfileContent extends StatelessWidget {
                 children: [
                   Center(
                     child: Text(
-                      AppLocalizations.of(context)!.currentPlan(plan),
+                      "${AppLocalizations.of(context)!.currentPlan} $plan",
                       style: TextStyle(
                         fontSize: ResponsiveUtils.getFontSize(context, 14),
                         color: Theme.of(context)
                             .colorScheme
                             .onSurface
-                            .withValues(alpha: 0.7),
+                            .withOpacity(0.7),
                         fontWeight: FontWeight.w500,
                       ),
                     ),

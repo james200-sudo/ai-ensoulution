@@ -268,9 +268,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pleaseInputValidNumber => 'Por favor ingrese un número válido';
 
   @override
-  String currentPlan(Object plan) {
-    return 'Plan Actual';
-  }
+  String get currentPlan => 'Plan Actual';
 
   @override
   String get choosePlan => 'Elegir Plan';
@@ -1015,7 +1013,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String daysAgo(Object days) {
-    return '${days}d ago';
+    return '$days days ago';
   }
 
   @override

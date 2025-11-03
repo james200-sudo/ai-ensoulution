@@ -250,7 +250,7 @@ abstract class AppLocalizations {
   /// **'About'**
   String get about;
 
-  /// Settings menu item
+  /// Settings screen title
   ///
   /// In en, this message translates to:
   /// **'Settings'**
@@ -448,7 +448,7 @@ abstract class AppLocalizations {
   /// **'Please enter your email or username'**
   String get pleaseEnterYourEmail;
 
-  /// Password validation error
+  /// Password validation error on login
   ///
   /// In en, this message translates to:
   /// **'Please enter your password'**
@@ -583,8 +583,8 @@ abstract class AppLocalizations {
   /// Current plan section title
   ///
   /// In en, this message translates to:
-  /// **'Current Plan: {plan}'**
-  String currentPlan(Object plan);
+  /// **'Current Plan'**
+  String get currentPlan;
 
   /// Button text for selecting a plan
   ///
@@ -820,10 +820,10 @@ abstract class AppLocalizations {
   /// **'Please enter your message'**
   String get pleaseEnterMessage;
 
-  /// No description provided for @pleaseEnterValidEmail.
+  /// Email validation error
   ///
   /// In en, this message translates to:
-  /// **'Please enter a valid email'**
+  /// **'Please enter a valid email address'**
   String get pleaseEnterValidEmail;
 
   /// Message sent success notification
@@ -1945,7 +1945,7 @@ abstract class AppLocalizations {
   /// No description provided for @daysAgo.
   ///
   /// In en, this message translates to:
-  /// **'{days}d ago'**
+  /// **'{days} days ago'**
   String daysAgo(Object days);
 
   /// No description provided for @recording.

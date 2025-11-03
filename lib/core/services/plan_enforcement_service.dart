@@ -3,9 +3,11 @@ import 'package:pocketbase/pocketbase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/plan_limits_config.dart';
 import 'pocketbase_auth_service.dart';
+import 'app_config_service.dart'; // ← NOUVEAU
 
 class PlanEnforcementService {
   final PocketBaseAuthService _authService = PocketBaseAuthService();
+  final AppConfigService _appConfigService = AppConfigService(); // ← NOUVEAU
   
   // Accesseur (Getter) pour l'instance PocketBase
   PocketBase get _pb => _authService.pocketBase;
@@ -16,10 +18,41 @@ class PlanEnforcementService {
   UserPlanInfo? _cachedPlanInfo;
   DateTime? _cacheTimestamp;
   static const Duration _cacheDuration = Duration(minutes: 5);
+  
+  /// ✅ NOUVELLE MÉTHODE : Vérifier si l'utilisateur est en mode free
+  Future<bool> _isUserInFreeMode() async {
+    try {
+      final user = _authService.currentUser;
+      if (user == null) return false;
+
+      // Vérifier si c'est un utilisateur company
+      final planId = user['plan']?.toString() ?? '';
+      const companyPlans = ['hnahry5t5ardea3', '7iw3959pf0rbo7m'];
+      
+      // Les utilisateurs company ne sont PAS concernés par le planMode
+      if (companyPlans.contains(planId)) {
+        return false;
+      }
+
+      // Pour les utilisateurs individuels, vérifier le planMode
+      return await _appConfigService.isFreeMode();
+    } catch (e) {
+      debugPrint('❌ Erreur vérification free mode: $e');
+      return false;
+    }
+  }
+  
   /// Vérifie si l'utilisateur peut envoyer un message
   /// IMPORTANT: Ne s'applique QU'AUX utilisateurs individuels (PocketBase)
   Future<PlanCheckResult> canSendMessage(String userId) async {
     try {
+      // 🆓 VÉRIFIER D'ABORD LE MODE FREE (NOUVEAU)
+      final isFreeMode = await _isUserInFreeMode();
+      if (isFreeMode) {
+        debugPrint('✅ Application en mode gratuit - accès illimité');
+        return PlanCheckResult.allowed();
+      }
+      
       // 🔹 VÉRIFICATION CRITIQUE #1: Utilisateur non connecté à PocketBase = Company User
       if (!_authService.isLoggedIn) {
         debugPrint('✅ Utilisateur non connecté à PocketBase - accès autorisé (Company user via Strapi)');
@@ -112,6 +145,12 @@ class PlanEnforcementService {
   /// Vérifie si l'utilisateur peut uploader une image
   Future<PlanCheckResult> canUploadImage(String userId, int fileSizeBytes) async {
     try {
+      // 🆓 VÉRIFIER LE MODE FREE (NOUVEAU)
+      final isFreeMode = await _isUserInFreeMode();
+      if (isFreeMode) {
+        return PlanCheckResult.allowed();
+      }
+      
       // 🔹 Vérifier si c'est un utilisateur PocketBase
       if (!_authService.isLoggedIn) {
         return PlanCheckResult.allowed();
@@ -166,6 +205,12 @@ class PlanEnforcementService {
   
   Future<PlanCheckResult> _checkFeature(String userId, String featureName) async {
     try {
+      // 🆓 VÉRIFIER LE MODE FREE (NOUVEAU)
+      final isFreeMode = await _isUserInFreeMode();
+      if (isFreeMode) {
+        return PlanCheckResult.allowed();
+      }
+      
       if (!_authService.isLoggedIn) {
         return PlanCheckResult.allowed();
       }
@@ -215,53 +260,52 @@ class PlanEnforcementService {
       if (resetDateStr != null) {
         final resetDate = DateTime.parse(resetDateStr);
         if (DateTime.now().isAfter(resetDate)) {
+          debugPrint('🔄 Nouveau mois détecté - Reset du compteur');
           await _resetMonthlyQuota(userId);
           return 0;
         }
       } else {
-        // Première utilisation : définir la date de reset
         await _setNextResetDate(userId);
       }
       
-      // ✅ Vérifier si une synchronisation est nécessaire (toutes les 5 minutes)
+      // Vérifier si une synchronisation est nécessaire
       final lastSyncStr = prefs.getString('${_lastSyncKey}_$userId');
-      final shouldSync = lastSyncStr == null || 
-          DateTime.now().difference(DateTime.parse(lastSyncStr)).inMinutes > 5;
+      bool needsSync = true;
       
-      if (shouldSync) {
-        // Synchroniser avec PocketBase
-        return await _syncMessageCountFromPocketBase(userId);
+      if (lastSyncStr != null) {
+        final lastSync = DateTime.parse(lastSyncStr);
+        final timeSinceSync = DateTime.now().difference(lastSync);
+        needsSync = timeSinceSync.inMinutes >= 5;
       }
       
-      // Utiliser le compteur local mis en cache
-      final localCount = prefs.getInt('${_messageCountKey}_$userId') ?? 0;
-      return localCount;
+      if (needsSync) {
+        return await _syncMessageCountFromPocketBase(userId);
+      } else {
+        final count = prefs.getInt('${_messageCountKey}_$userId') ?? 0;
+        debugPrint('📊 Compteur local (cache valide): $count');
+        return count;
+      }
       
     } catch (e) {
-      debugPrint('❌ Erreur lecture compteur: $e');
-      return 0;
+      debugPrint('❌ Erreur récupération compteur: $e');
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        return prefs.getInt('${_messageCountKey}_$userId') ?? 0;
+      } catch (e2) {
+        return 0;
+      }
     }
   }
   
-  /// ✅ NOUVEAU: Synchronise le compteur depuis PocketBase
   Future<int> _syncMessageCountFromPocketBase(String userId) async {
     try {
+      debugPrint('🔄 Synchronisation du compteur depuis PocketBase...');
+      
       final now = DateTime.now();
       final firstDayOfMonth = DateTime(now.year, now.month, 1);
-      
-      // ✅ CORRECTION CRITIQUE: Requête correcte
-      // On compte les messages dans TOUTES les conversations de l'utilisateur
-      
-      // OPTION 1: Si les messages ont une relation directe avec l'utilisateur
-      // final messages = await _pb.collection('messages').getList(
-      //   filter: 'user.id = "$userId" && created >= "${firstDayOfMonth.toIso8601String()}" && isUser = true',
-      //   perPage: 1,
-      // );
-      
-      // OPTION 2 (RECOMMANDÉE): Compter via les conversations
-      // Récupérer toutes les conversations de l'utilisateur ce mois
-      final discussions = await _pb.collection('discussions').getList(
-          filter: 'user = "$userId" && created >= "${firstDayOfMonth.toIso8601String()}"',
+
+        final discussions = await _pb.collection('discussions').getList(
+          filter: 'user = "$userId"',
           perPage: 500,
         );
 
