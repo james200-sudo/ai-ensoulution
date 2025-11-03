@@ -41,6 +41,18 @@
       }
     }
   },
+  "appleLoginSuccess": "Apple login successful",
+  "@appleLoginSuccess": {},
+  "appleLoginError": "Apple error",
+  "@appleLoginError": {},
+  "appleError": "Apple error: {error}",
+  "@appleError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
   
   "or": "or",
   "@or": {

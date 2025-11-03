@@ -5,7 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/responsive.dart';
 import '../../../core/utils/constants.dart';
@@ -121,6 +122,65 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           _canUseBiometrics = false;
           _biometricEnabled = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _handleAppleLogin() async {
+    final l10n = AppLocalizations.of(context)!;
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final fullName = (credential.givenName ?? '') +
+          (credential.familyName != null ? ' ${credential.familyName}' : '');
+
+      final result = await _authService.loginWithApple(
+        authorizationCode: credential.authorizationCode,
+        fullName: fullName,
+        email: credential.email,
+      );
+
+      if (result['success'] == true && mounted) {
+        final profileProvider = context.read<ProfileProvider>();
+        await profileProvider.refreshUserProfile();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['message'] ?? l10n.appleLoginSuccess),
+            backgroundColor: AppTheme.primaryGreen,
+          ),
+        );
+        context.go('/chat');
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['error'] ?? l10n.appleLoginError),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.appleError(e.toString())),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
         });
       }
     }
@@ -417,7 +477,24 @@ class _LoginScreenState extends State<LoginScreen> {
           SizedBox(height: 8.h),
         ],
         _buildGoogleButton(),
+        if (defaultTargetPlatform == TargetPlatform.iOS) ...[
+          SizedBox(height: 8.h),
+          _buildAppleButton(),
+        ],
       ],
+    );
+  }
+
+  Widget _buildAppleButton() {
+    final isMobile = ResponsiveUtils.isMobile(context);
+    return SizedBox(
+      width: isMobile ? double.infinity : 300,
+      height: isMobile ? 40.h : 44,
+      child: SignInWithAppleButton(
+        onPressed: _isLoading ? null : _handleAppleLogin,
+        style: SignInWithAppleButtonStyle.black,
+        borderRadius: BorderRadius.all(Radius.circular(isMobile ? 8.r : 8)),
+      ),
     );
   }
 

@@ -361,5 +361,8 @@
 
   "logoFallback": "TGM\nIA",
 
-  "changeLanguage": "Changer de langue"
+  "changeLanguage": "Changer de langue",
+  "appleLoginSuccess": "Connexion Apple réussie",
+  "appleLoginError": "Erreur Apple",
+  "appleError": "Erreur Apple : {error}"
 }

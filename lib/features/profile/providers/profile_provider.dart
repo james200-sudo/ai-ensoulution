@@ -724,4 +724,20 @@ class ProfileProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> deleteAccount() async {
+    if (_userProfile == null) return;
+
+    try {
+      if (_isCompanyUser) {
+        // Handle company user account deletion
+      } else {
+        await _authService.deleteAccount();
+      }
+
+      await logout();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'pocketbase_instance.dart';
 
 class PocketBaseAuthService {
@@ -132,6 +133,47 @@ class PocketBaseAuthService {
     }
   }
   
+  Future<Map<String, dynamic>> loginWithApple({
+    required String authorizationCode,
+    String? fullName,
+    String? email,
+  }) async {
+    try {
+      final redirectUrl = '$_baseUrl/api/oauth2-redirect';
+
+      final response = await _pb.send(
+        "/api/collections/$_usersCollection/auth-with-oauth2",
+        method: "POST",
+        body: {
+          "provider": "apple",
+          "code": authorizationCode,
+          "redirectUrl": redirectUrl,
+          "createData": {
+            if (email != null) 'email': email,
+            if (fullName != null) 'name': fullName,
+            'emailVisibility': true,
+          }
+        },
+      );
+
+      if (response == null || response['token'] == null) {
+        throw Exception('Authentication failed');
+      }
+
+      final authData = RecordAuth.fromJson(response);
+      await _saveAuthData(authData.token, authData.record?.toJson());
+
+      return {
+        'success': true,
+        'token': authData.token,
+        'user': authData.record?.toJson(),
+        'message': 'Authentification Apple réussie',
+      };
+    } catch (e) {
+      return {'success': false, 'error': 'Erreur OAuth Apple.', 'details': e.toString()};
+    }
+  }
+
   // REGISTER
   Future<Map<String, dynamic>> registerUser({
     required String email,
@@ -174,8 +216,8 @@ class PocketBaseAuthService {
         };
       } catch (emailError) {
         return {
-          'success': true,
-          'message': 'Compte créé mais l\'email de vérification n\'a pas pu être envoyé.',
+          'success': false,
+          'error': 'Compte créé mais l\'email de vérification n\'a pas pu être envoyé.',
           'userId': record.id,
           'needsVerification': true,
           'emailSent': false,
@@ -416,6 +458,21 @@ class PocketBaseAuthService {
       return {'success': true, 'message': 'Serveur PocketBase disponible', 'baseUrl': _baseUrl};
     } catch (e) {
       return {'success': false, 'error': 'Serveur PocketBase indisponible', 'details': e.toString()};
+    }
+  }
+
+  Future<void> deleteAccount() async {
+    try {
+      if (!_pb.authStore.isValid) {
+        throw Exception('User is not authenticated');
+      }
+
+      final userId = _pb.authStore.model.id;
+      await _pb.collection(_usersCollection).delete(userId);
+
+      _pb.authStore.clear();
+    } catch (e) {
+      rethrow;
     }
   }
 }

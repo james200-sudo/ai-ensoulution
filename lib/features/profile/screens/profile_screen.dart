@@ -291,6 +291,8 @@ class _ProfileContent extends StatelessWidget {
                 _buildMenuSection(context),
                 SizedBox(height: 30.h),
                 _buildLogoutButton(context),
+                SizedBox(height: 10.h),
+                _buildDeleteAccountButton(context),
               ],
             );
           },
@@ -352,6 +354,68 @@ class _ProfileContent extends StatelessWidget {
             context,
             profile.stats.rating.toStringAsFixed(1),
             AppLocalizations.of(context)!.rating,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDeleteAccountButton(BuildContext context) {
+    return TextButton(
+      onPressed: () => _showDeleteAccountDialog(context),
+      child: Text(
+        AppLocalizations.of(context)!.deleteAccount,
+        style: TextStyle(
+          color: Colors.red,
+          fontSize: ResponsiveUtils.getFontSize(context, 14),
+        ),
+      ),
+    );
+  }
+
+  void _showDeleteAccountDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context)!.deleteAccount),
+        content: Text(AppLocalizations.of(context)!.deleteAccountConfirmation),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(AppLocalizations.of(context)!.cancel),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final profileProvider = context.read<ProfileProvider>();
+              try {
+                await profileProvider.deleteAccount();
+                if (context.mounted) {
+                  Navigator.pop(context);
+                  context.go('/login');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(AppLocalizations.of(context)!.accountDeletedSuccessfully),
+                      backgroundColor: AppTheme.primaryGreen,
+                    ),
+                  );
+                }
+              } catch (e) {
+                if (context.mounted) {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(AppLocalizations.of(context)!.failedToDeleteAccount(e.toString())),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              }
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            child: Text(
+              "Delete",
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),

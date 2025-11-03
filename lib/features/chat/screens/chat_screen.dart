@@ -848,7 +848,7 @@ class _ChatScreenState extends State<ChatScreen> {
           minimum: EdgeInsets.zero,
           child: Row(
             children: [
-              _buildAttachmentButton(),
+              _buildAttachmentButton(l10n),
               const SizedBox(width: 10),
               Expanded(
                 child: KeyboardListener(
@@ -1015,19 +1015,21 @@ class _ChatScreenState extends State<ChatScreen> {
     return SizedBox(
       width: buttonSize,
       height: buttonSize,
-      child: Material(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(buttonSize / 2),
-        child: InkWell(
+      child: Builder(builder: (buttonContext) {
+        return Material(
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(buttonSize / 2),
-          onTap: _showAttachmentMenu,
-          child: Icon(
-            Icons.add,
-            color: AppTheme.textGrey,
-            size: iconSize,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(buttonSize / 2),
+            onTap: () => _showAttachmentMenu(buttonContext, l10n),
+            child: Icon(
+              Icons.add,
+              color: AppTheme.textGrey,
+              size: iconSize,
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -1268,9 +1270,9 @@ class _ChatScreenState extends State<ChatScreen> {
     _sendMessage();
   }
 
-  void _showAttachmentMenu(AppLocalizations l10n) {
+  void _showAttachmentMenu(BuildContext menuContext, AppLocalizations l10n) {
     showModalBottomSheet(
-      context: context,
+      context: menuContext,
       builder: (context) {
         return SafeArea(
           child: Wrap(
@@ -1279,7 +1281,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 leading: const Icon(Icons.photo_library),
                 title: Text(l10n.gallery),
                 onTap: () {
-                  _pickImage(ImageSource.gallery);
+                  _pickImage(ImageSource.gallery, menuContext);
                   Navigator.of(context).pop();
                 },
               ),
@@ -1287,7 +1289,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 leading: const Icon(Icons.photo_camera),
                 title: Text(l10n.camera),
                 onTap: () {
-                  _pickImage(ImageSource.camera);
+                  _pickImage(ImageSource.camera, menuContext);
                   Navigator.of(context).pop();
                 },
               ),
@@ -1298,9 +1300,18 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Future<void> _pickImage(ImageSource source) async {
+  Future<void> _pickImage(ImageSource source, BuildContext context) async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: source);
+    final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
+    final rect = renderBox != null
+        ? renderBox.localToGlobal(Offset.zero) & renderBox.size
+        : null;
+
+    final pickedFile = await picker.pickImage(
+      source: source,
+      popoverConfiguration:
+          rect != null ? PopoverConfiguration(sourceRect: rect) : null,
+    );
 
     if (pickedFile != null) {
       setState(() {

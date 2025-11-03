@@ -559,25 +559,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
             'email': _emailController.text.trim(),
             'fromRegister': true,
           });
-          
-        } else if (result['success'] == false && result['emailSent'] == false) {
+        } else if (result['emailSent'] == false) {
           // Compte créé mais problème d'envoi d'email
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['message'] ?? l10n.accountCreatedEmailError),
+              content: Text(result['error'] ?? l10n.accountCreatedEmailError),
               backgroundColor: Colors.orange,
               duration: const Duration(seconds: 4),
             ),
           );
 
           // Rediriger quand même vers la vérification car le compte existe
-          if (result['userId'] != null) {
-            context.go('/verify-email', extra: {
-              'email': _emailController.text.trim(),
-              'fromRegister': true,
-            });
-          }
-          
+          context.go('/verify-email', extra: {
+            'email': _emailController.text.trim(),
+            'fromRegister': true,
+          });
         } else {
           // Échec de l'inscription
           ScaffoldMessenger.of(context).showSnackBar(

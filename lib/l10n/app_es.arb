@@ -176,5 +176,11 @@
   "support247": "Soporte 24/7",
   "conversationHistory": "Historial de conversaciones",
   "noConversationsInHistory": "No hay conversaciones en el historial",
-  "newConversation": "Nueva conversación"
+  "newConversation": "Nueva conversación",
+  "googleLoginSuccess": "Inicio de sesión con Google exitoso",
+  "googleLoginError": "Error de Google",
+  "googleError": "Error de Google: {error}",
+  "appleLoginSuccess": "Inicio de sesión con Apple exitoso",
+  "appleLoginError": "Error de Apple",
+  "appleError": "Error de Apple: {error}"
 }
