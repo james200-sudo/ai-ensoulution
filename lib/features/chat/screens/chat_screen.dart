@@ -328,7 +328,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         ),
                         subtitle: Text(
-                          _formatDate(conversation.lastMessageAt),
+                          _formatDate(conversation.lastMessageAt, l10n),
                           style: const TextStyle(fontSize: 12),
                         ),
                         trailing: isCurrentConversation
@@ -857,7 +857,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     if (event is KeyDownEvent &&
                         event.logicalKey == LogicalKeyboardKey.enter &&
                         !HardwareKeyboard.instance.isShiftPressed) {
-                      _sendMessage();
+                      _sendMessage(l10n);
                     }
                   },
                   child: AnimatedContainer(
@@ -927,7 +927,7 @@ class _ChatScreenState extends State<ChatScreen> {
               );
             },
             child: _hasText
-                ? _buildSendButton(chatProvider, buttonSize, iconSize)
+                ? _buildSendButton(chatProvider, buttonSize, iconSize, l10n)
                 : _buildMicrophoneButton(buttonSize, iconSize, l10n),
           ),
         );
@@ -936,7 +936,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _buildSendButton(
-      ChatProvider chatProvider, double buttonSize, double iconSize) {
+      ChatProvider chatProvider, double buttonSize, double iconSize, AppLocalizations l10n) {
     final loaderSize = ResponsiveUtils.isDesktop(context) ? 18.0 : 16.0;
 
     return Container(
@@ -951,7 +951,7 @@ class _ChatScreenState extends State<ChatScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(buttonSize / 2),
-          onTap: chatProvider.isTyping ? null : _sendMessage,
+          onTap: chatProvider.isTyping ? null : () => _sendMessage(l10n),
           child: Center(
             child: chatProvider.isTyping
                 ? SizedBox(
@@ -991,7 +991,7 @@ class _ChatScreenState extends State<ChatScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(buttonSize / 2),
-          onTap: _toggleVoiceRecording,
+          onTap: () => _toggleVoiceRecording(l10n),
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
             child: Icon(
@@ -1267,7 +1267,8 @@ class _ChatScreenState extends State<ChatScreen> {
   void _onSuggestionTapped(String suggestion) {
     // Set the suggestion as the message and send it
     _messageController.text = suggestion;
-    _sendMessage();
+    final l10n = AppLocalizations.of(context)!;
+    _sendMessage(l10n);
   }
 
   void _showAttachmentMenu(BuildContext menuContext, AppLocalizations l10n) {
@@ -1302,15 +1303,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> _pickImage(ImageSource source, BuildContext context) async {
     final picker = ImagePicker();
-    final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
-    final rect = renderBox != null
-        ? renderBox.localToGlobal(Offset.zero) & renderBox.size
-        : null;
-
+    
     final pickedFile = await picker.pickImage(
       source: source,
-      popoverConfiguration:
-          rect != null ? PopoverConfiguration(sourceRect: rect) : null,
     );
 
     if (pickedFile != null) {
@@ -1357,11 +1352,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
       // Start recording
       _startRecordingTimer();
-      await _startVoiceRecording();
+      await _startVoiceRecording(l10n);
     } else {
       // Stop recording and send
       _stopRecordingTimer();
-      await _stopVoiceRecording();
+      await _stopVoiceRecording(l10n);
 
       // Play feedback sound after stopping recording
       _playSoundFeedback();
@@ -1378,7 +1373,7 @@ class _ChatScreenState extends State<ChatScreen> {
         hasPermission = await _audioRecordingService.requestPermission();
         if (!hasPermission) {
           //debugPrint('Recording permission denied');
-          _showPermissionDeniedDialog();
+          _showPermissionDeniedDialog(l10n);
           setState(() {
             _isRecording = false;
           });
@@ -1519,7 +1514,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
             child: Text(
               AppLocalizations.of(context)!.photoLibrary,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           IconButton(

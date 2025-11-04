@@ -1216,5 +1216,18 @@
 
   "logoFallback": "TGM\nAI",
 
-  "changeLanguage": "Change language"
+  "changeLanguage": "Change language",
+  "companyCode": "Company Code",
+  "deleteAccount": "Delete Account",
+  "deleteAccountConfirmation": "Are you sure you want to delete your account? This action cannot be undone.",
+  "accountDeletedSuccessfully": "Account deleted successfully",
+  "failedToDeleteAccount": "Failed to delete account: {error}",
+  "@failedToDeleteAccount": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "delete": "Delete"
 }

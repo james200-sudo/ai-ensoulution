@@ -32,6 +32,17 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get appleLoginSuccess => 'Connexion Apple réussie';
+
+  @override
+  String get appleLoginError => 'Erreur Apple';
+
+  @override
+  String appleError(String error) {
+    return 'Erreur Apple : $error';
+  }
+
+  @override
   String get or => 'ou';
 
   @override
@@ -219,7 +230,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get completePurchase => 'Finaliser l\'achat';
 
   @override
-  String get selectedPlan => 'Plan sélectionné';
+  String get selectedPlan => 'Forfait sélectionné';
 
   @override
   String get featuresIncluded => 'Fonctionnalités incluses :';
@@ -263,7 +274,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pleaseInputValidNumber => 'Veuillez saisir un numéro valide';
 
   @override
-  String get currentPlan => 'Plan Actuel';
+  String currentPlan(Object plan) {
+    return 'Plan actuel : $plan';
+  }
 
   @override
   String get choosePlan => 'Choisir le Plan';
@@ -396,7 +409,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pleaseEnterValidEmail =>
-      'Veuillez entrer une adresse email valide';
+      'Veuillez entrer une adresse e-mail valide';
 
   @override
   String get messageSentSuccessfully =>
@@ -572,4 +585,586 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get newConversation => 'Nouvelle conversation';
+
+  @override
+  String get helpAndSupportDesc => 'Obtenez de l\'aide ou contactez le support';
+
+  @override
+  String get aboutDesc => 'Version de l\'application et informations';
+
+  @override
+  String get fontSizeSmall => 'Petit';
+
+  @override
+  String get fontSizeMedium => 'Moyen';
+
+  @override
+  String get fontSizeLarge => 'Grand';
+
+  @override
+  String get fontSizeExtraLarge => 'Très Grand';
+
+  @override
+  String get privacySettingsContent =>
+      'Les paramètres de confidentialité seraient configurés ici, y compris les préférences de collecte de données et les contrôles de confidentialité.';
+
+  @override
+  String get fontSizeSample => 'Exemple de texte avec la taille actuelle';
+
+  @override
+  String get done => 'Terminé';
+
+  @override
+  String get aboutTgmAi => 'À propos de TGM AI';
+
+  @override
+  String get clearHistoryDialogContent =>
+      'Cela supprimera définitivement tout l\'historique de vos conversations. Cette action est irréversible.\\n\\nÊtes-vous sûr de vouloir continuer ?';
+
+  @override
+  String get clear => 'Effacer';
+
+  @override
+  String get resetSettingsDialogContent =>
+      'Cela réinitialisera tous les paramètres à leurs valeurs par défaut. Êtes-vous sûr de vouloir continuer ?';
+
+  @override
+  String get reset => 'Réinitialiser';
+
+  @override
+  String get historyClearedSuccess =>
+      'Historique des discussions effacé avec succès';
+
+  @override
+  String get historyClearedError =>
+      'Échec de la suppression de l\'historique des discussions';
+
+  @override
+  String get settingsResetSuccess => 'Paramètres réinitialisés par défaut';
+
+  @override
+  String get forgotPassword => 'Mot de passe oublié ?';
+
+  @override
+  String get newToPlatform => 'Nouveau sur notre plateforme ?';
+
+  @override
+  String get createFreeAccount => 'Créer un compte gratuit';
+
+  @override
+  String get companyLoginSuccess => 'Connexion entreprise réussie';
+
+  @override
+  String get jwtNotFound => 'JWT non trouvé dans la réponse';
+
+  @override
+  String get loginSuccess => 'Connexion réussie';
+
+  @override
+  String get loginError => 'Erreur de connexion';
+
+  @override
+  String get googleLoginSuccess => 'Connexion Google réussie';
+
+  @override
+  String get googleLoginError => 'Erreur Google';
+
+  @override
+  String googleError(String error) {
+    return 'Erreur Google : $error';
+  }
+
+  @override
+  String biometricAuthFailed(String error) {
+    return 'Authentification biométrique échouée : $error';
+  }
+
+  @override
+  String get createAccount => 'Créer un compte';
+
+  @override
+  String get joinOurCommunity => 'Rejoignez notre communauté';
+
+  @override
+  String get pleaseEnterYourName => 'Veuillez saisir votre nom';
+
+  @override
+  String get nameMinLength => 'Le nom doit contenir au moins 2 caractères';
+
+  @override
+  String get passwordMinLength8 =>
+      'Le mot de passe doit contenir au moins 8 caractères';
+
+  @override
+  String get passwordComplexity =>
+      'Le mot de passe doit contenir une majuscule, une minuscule et un chiffre';
+
+  @override
+  String get confirmPassword => 'Confirmer le mot de passe';
+
+  @override
+  String get pleaseConfirmPassword => 'Veuillez confirmer votre mot de passe';
+
+  @override
+  String get passwordsDoNotMatch => 'Les mots de passe ne correspondent pas';
+
+  @override
+  String get acceptTerms =>
+      'J\'accepte les conditions d\'utilisation et la politique de confidentialité';
+
+  @override
+  String get createMyAccount => 'Créer mon compte';
+
+  @override
+  String get alreadyHaveAnAccount => 'Vous avez déjà un compte ? ';
+
+  @override
+  String get mustAcceptTerms =>
+      'Vous devez accepter les conditions d\'utilisation';
+
+  @override
+  String get registrationSuccess => 'Inscription réussie';
+
+  @override
+  String get accountCreatedEmailError =>
+      'Compte créé mais problème d\'envoi d\'email';
+
+  @override
+  String get registrationError => 'Erreur d\'inscription';
+
+  @override
+  String errorWithMessage(String error) {
+    return 'Erreur : $error';
+  }
+
+  @override
+  String get accountCreatedSuccess => 'Compte créé avec succès';
+
+  @override
+  String get googleAuthError => 'Erreur lors de l\'authentification Google';
+
+  @override
+  String unexpectedError(String error) {
+    return 'Erreur inattendue : $error';
+  }
+
+  @override
+  String get forgotPasswordTitle => 'Mot de passe oublié';
+
+  @override
+  String get resetYourPassword => 'Réinitialiser votre mot de passe';
+
+  @override
+  String get resetPasswordInstructions =>
+      'Saisissez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.';
+
+  @override
+  String get sendResetLink => 'Envoyer le lien de réinitialisation';
+
+  @override
+  String get backToLogin => 'Retour à la connexion';
+
+  @override
+  String get emailSent => 'Email envoyé !';
+
+  @override
+  String get weSentAnEmailTo => 'Nous avons envoyé un email à :';
+
+  @override
+  String get howToResetPassword => 'Comment réinitialiser votre mot de passe';
+
+  @override
+  String get howToResetPasswordInstructions =>
+      '1. Ouvrez votre boîte mail\n2. Cliquez sur le lien dans l\'email\n3. Vous serez redirigé vers une page web\n4. Saisissez votre nouveau mot de passe\n5. Revenez dans l\'app pour vous connecter';
+
+  @override
+  String get checkSpam => '📬 Vérifiez vos spams si vous ne voyez pas l\'email';
+
+  @override
+  String get resendEmail => 'Renvoyer l\'email';
+
+  @override
+  String get sendingInProgress => 'Envoi en cours...';
+
+  @override
+  String get emailSentMessage => 'Email envoyé';
+
+  @override
+  String get emailNotFound => 'Adresse email non trouvée';
+
+  @override
+  String get sendingError => 'Erreur lors de l\'envoi';
+
+  @override
+  String get resetPassword => 'Réinitialiser le mot de passe';
+
+  @override
+  String get newPassword => 'Nouveau mot de passe';
+
+  @override
+  String get passwordResetSuccess => 'Mot de passe réinitialisé avec succès';
+
+  @override
+  String get passwordResetError =>
+      'Erreur lors de la réinitialisation du mot de passe';
+
+  @override
+  String get returnToLogin => 'Retour à la connexion';
+
+  @override
+  String get verifyEmail => 'Vérification email';
+
+  @override
+  String get verificationEmailSent => 'Email de vérification envoyé !';
+
+  @override
+  String get instructions => 'Instructions';
+
+  @override
+  String get openMailbox => 'Ouvrez votre boîte mail';
+
+  @override
+  String get findVerificationEmail => 'Cherchez l\'email de vérification';
+
+  @override
+  String get clickVerifyButton => 'Cliquez sur le bouton \"Verify\"';
+
+  @override
+  String get accountActivated => 'Votre compte sera activé automatiquement !';
+
+  @override
+  String get emailResent => 'Email renvoyé';
+
+  @override
+  String get emailCannotBeChanged => 'L\'email ne peut pas être modifié';
+
+  @override
+  String failedToUpdateProfile(Object error) {
+    return 'Échec de la mise à jour du profil : $error';
+  }
+
+  @override
+  String expires(Object date) {
+    return 'Expire le : $date';
+  }
+
+  @override
+  String failedToPickImage(Object error) {
+    return 'Échec de la sélection de l\'image : $error';
+  }
+
+  @override
+  String get plansAndProfileRefreshed =>
+      'Plans et profil actualisés avec succès';
+
+  @override
+  String failedToRefresh(Object error) {
+    return 'Échec de l\'actualisation : $error';
+  }
+
+  @override
+  String get monthly => 'Mensuel';
+
+  @override
+  String get yearly => 'Annuel';
+
+  @override
+  String get loadingPlans => 'Chargement des plans...';
+
+  @override
+  String get failedToLoadPlans => 'Échec du chargement des plans';
+
+  @override
+  String get retry => 'Réessayer';
+
+  @override
+  String get noPlansAvailable => 'Aucun plan disponible';
+
+  @override
+  String get securePaymentWithStripe => 'Paiement sécurisé avec Stripe';
+
+  @override
+  String get redirectToStripe =>
+      'Vous serez redirigé vers la page de paiement sécurisée de Stripe pour finaliser votre achat.';
+
+  @override
+  String get sslEncryption => 'Chiffrement SSL 256 bits';
+
+  @override
+  String get allCreditCardsAccepted => 'Toutes les cartes bancaires acceptées';
+
+  @override
+  String get pciDssCompliant => 'Conforme au PCI DSS';
+
+  @override
+  String get dataNeverStored => 'Vos données ne sont jamais stockées';
+
+  @override
+  String continueToPayment(Object price) {
+    return 'Continuer vers le paiement - $price';
+  }
+
+  @override
+  String get secureAndEncryptedPayment => 'Paiement sécurisé et chiffré';
+
+  @override
+  String get paymentInfoProtected =>
+      'Les informations de paiement sont protégées par un chiffrement de niveau bancaire. Nous ne stockons jamais les détails de votre carte.';
+
+  @override
+  String get poweredByStripe => 'Propulsé par Stripe';
+
+  @override
+  String get sessionExpired => 'Session expirée. Veuillez vous reconnecter.';
+
+  @override
+  String get mustBeLoggedIn =>
+      'Vous devez être connecté pour effectuer un paiement.';
+
+  @override
+  String get invalidAmount => 'Montant invalide';
+
+  @override
+  String get redirectingToPayment =>
+      'Redirection vers la page de paiement sécurisée...';
+
+  @override
+  String get paymentCancelled => 'Paiement annulé';
+
+  @override
+  String get paymentInitializationFailed =>
+      'Échec de l\'initialisation du paiement';
+
+  @override
+  String get connectionProblem =>
+      'Problème de connexion. Vérifiez votre internet.';
+
+  @override
+  String get serverNotResponding =>
+      'Le serveur ne répond pas. Réessayez plus tard.';
+
+  @override
+  String get verifyingPayment => 'Vérification de votre paiement...';
+
+  @override
+  String get pleaseWait => 'Veuillez patienter un instant';
+
+  @override
+  String get paymentSuccessful => 'Paiement réussi !';
+
+  @override
+  String get subscriptionActivated =>
+      'Votre abonnement a été activé avec succès. Vous avez désormais accès à toutes les fonctionnalités premium !';
+
+  @override
+  String get plan => 'Forfait';
+
+  @override
+  String get status => 'Statut';
+
+  @override
+  String get active => 'Actif';
+
+  @override
+  String get session => 'Session';
+
+  @override
+  String get startChatting => 'Commencer le chat';
+
+  @override
+  String get viewProfile => 'Voir le profil';
+
+  @override
+  String get verificationProblem => 'Problème de vérification';
+
+  @override
+  String get verificationFailed =>
+      'Impossible de vérifier votre paiement. Contactez le support si le problème persiste.';
+
+  @override
+  String get retryVerification => 'Réessayer la vérification';
+
+  @override
+  String get continueInApp => 'Continuer dans l\'application';
+
+  @override
+  String get paymentCancelledTitle => 'Paiement annulé';
+
+  @override
+  String get paymentCancelledMessage =>
+      'Votre paiement a été annulé. Aucun prélèvement n\'a été effectué sur votre compte.';
+
+  @override
+  String get noPaymentProcessed => 'Aucun paiement n\'a été traité';
+
+  @override
+  String get accountUnchanged => 'Votre compte reste inchangé';
+
+  @override
+  String get youCanRetry => 'Vous pouvez réessayer à tout moment';
+
+  @override
+  String get retryPayment => 'Réessayer le paiement';
+
+  @override
+  String get returnToApp => 'Retour à l\'application';
+
+  @override
+  String get needHelpContactSupport => 'Besoin d\'aide ? Contacter le support';
+
+  @override
+  String get viewFullHistory => 'Voir l\'historique complet';
+
+  @override
+  String get whatCanIHelpYouWith => 'Comment puis-je vous aider aujourd\'hui ?';
+
+  @override
+  String get gallery => 'Galerie';
+
+  @override
+  String get today => 'Aujourd\'hui';
+
+  @override
+  String get yesterday => 'Hier';
+
+  @override
+  String daysAgo(Object days) {
+    return 'Il y a $days j';
+  }
+
+  @override
+  String get recording => 'Enregistrement';
+
+  @override
+  String get failedToSaveRecording => 'Échec de l\'enregistrement vocal';
+
+  @override
+  String recordingError(Object error) {
+    return 'Erreur d\'enregistrement : $error';
+  }
+
+  @override
+  String get permissionDenied => 'Permission d\'enregistrement requise';
+
+  @override
+  String get permissionDeniedMessage =>
+      'L\'enregistrement vocal nécessite l\'autorisation du microphone. Veuillez l\'activer dans les paramètres de votre appareil pour enregistrer des messages vocaux.';
+
+  @override
+  String get startChattingToSeeHistory =>
+      'Commencez à discuter pour voir l\'historique de vos conversations ici';
+
+  @override
+  String messagesCount(Object count) {
+    return '$count messages';
+  }
+
+  @override
+  String get current => 'Actuel';
+
+  @override
+  String get switchToConversation => 'Passer à cette conversation';
+
+  @override
+  String get deleteConversation => 'Supprimer la conversation';
+
+  @override
+  String get justNow => 'À l\'instant';
+
+  @override
+  String minutesAgo(Object minutes) {
+    return 'Il y a $minutes min';
+  }
+
+  @override
+  String hoursAgo(Object hours) {
+    return 'Il y a $hours h';
+  }
+
+  @override
+  String get deleteConversationConfirmation =>
+      'Êtes-vous sûr de vouloir supprimer cette conversation ?';
+
+  @override
+  String get thisActionCannotBeUndone => 'Cette action est irréversible.';
+
+  @override
+  String get conversationDeleted => 'Conversation supprimée';
+
+  @override
+  String planInterest(Object planName) {
+    return 'Je suis intéressé par le plan $planName. Veuillez me contacter avec plus d\'informations sur les prix et les fonctionnalités.';
+  }
+
+  @override
+  String failedToSend(Object error) {
+    return 'Échec de l\'envoi du message : $error';
+  }
+
+  @override
+  String get welcomeTo => 'Bienvenue chez TGM HydroAI';
+
+  @override
+  String get chooseAccountType =>
+      'Choisissez votre type de compte pour commencer';
+
+  @override
+  String get individual => 'Individuel';
+
+  @override
+  String get personalUse => 'Usage personnel avec connexion sociale';
+
+  @override
+  String get company => 'Entreprise';
+
+  @override
+  String get businessAccount => 'Compte professionnel avec code d\'entreprise';
+
+  @override
+  String get companyCodeRequired => 'Le code d\'entreprise est requis';
+
+  @override
+  String get companyCodeLength =>
+      'Le code d\'entreprise doit comporter exactement 6 caractères';
+
+  @override
+  String get invalidCompanyCode =>
+      'Seules les lettres majuscules et les chiffres sont autorisés';
+
+  @override
+  String get companyCodeHint => 'Entrez le code d\'entreprise à 6 chiffres';
+
+  @override
+  String get companyCodeDescription =>
+      '6 caractères alphanumériques majuscules (A-Z, 0-9)';
+
+  @override
+  String get continueButton => 'Continuer';
+
+  @override
+  String get logoFallback => 'TGM\nIA';
+
+  @override
+  String get changeLanguage => 'Changer de langue';
+
+  @override
+  String get companyCode => 'Code entreprise';
+
+  @override
+  String get deleteAccount => 'Supprimer le compte';
+
+  @override
+  String get deleteAccountConfirmation =>
+      'Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.';
+
+  @override
+  String get accountDeletedSuccessfully => 'Compte supprimé avec succès';
+
+  @override
+  String failedToDeleteAccount(String error) {
+    return 'Échec de la suppression du compte : $error';
+  }
+
+  @override
+  String get delete => 'Supprimer';
 }

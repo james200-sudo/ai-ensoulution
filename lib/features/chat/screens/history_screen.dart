@@ -307,7 +307,7 @@ class HistoryScreen extends StatelessWidget {
             style: TextButton.styleFrom(
               foregroundColor: Colors.red,
             ),
-            child: Text(l10n.delete),
+            child: Text(l10n.deleteConversation),
           ),
         ],
       ),

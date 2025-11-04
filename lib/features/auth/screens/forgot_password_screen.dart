@@ -43,7 +43,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () => context.go('/login'), // Correction ici
+                      onPressed: () => context.go('/login'),
                       icon: const Icon(Icons.arrow_back),
                       color: AppTheme.textGrey,
                     ),
@@ -128,7 +128,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () => context.go('/login'), // Correction ici
+                      onPressed: () => context.go('/login'),
                       icon: const Icon(Icons.arrow_back),
                       color: AppTheme.textGrey,
                     ),
@@ -220,17 +220,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           SizedBox(height: ResponsiveUtils.isDesktop(context) ? 32 : 32.h),
           
           // Champ email
-          _buildEmailField(),
+          _buildEmailField(l10n),
           
           SizedBox(height: ResponsiveUtils.isDesktop(context) ? 24 : 24.h),
           
           // Bouton envoyer
-          _buildSendButton(),
+          _buildSendButton(l10n),
           
           SizedBox(height: ResponsiveUtils.isDesktop(context) ? 24 : 24.h),
           
           // Lien retour connexion
-          _buildBackToLoginLink(),
+          _buildBackToLoginLink(l10n),
         ],
       ),
     );
@@ -339,12 +339,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         SizedBox(height: 32.h),
         
         // Bouton renvoyer
-        _buildResendEmailButton(),
+        _buildResendEmailButton(l10n),
         
         SizedBox(height: 16.h),
         
         // Retour login
-        _buildBackToLoginLink(),
+        _buildBackToLoginLink(l10n),
       ],
     );
   }
@@ -372,7 +372,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget _buildSendButton(AppLocalizations l10n) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
-        minHeight: 48.0, // Hauteur minimale de 48 pixels
+        minHeight: 48.0,
       ),
       child: SizedBox(
         width: double.infinity,
@@ -414,7 +414,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget _buildResetPasswordButton(AppLocalizations l10n) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
-        minHeight: 48.0, // Hauteur minimale de 48 pixels
+        minHeight: 48.0,
       ),
       child: SizedBox(
         width: double.infinity,
@@ -452,11 +452,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget _buildResendEmailButton(AppLocalizations l10n) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
-        minHeight: 48.0, // Hauteur minimale de 48 pixels
+        minHeight: 48.0,
       ),
       child: SizedBox(
         width: double.infinity,
-        // La hauteur par défaut était 44/40, mais le ConstrainedBox la forcera à 48.0 min.
         height: ResponsiveUtils.isDesktop(context) ? 44 : 40.h,
         child: OutlinedButton.icon(
           onPressed: _isLoading ? null : _handleSendResetEmail,
@@ -511,69 +510,69 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
- Future<void> _handleSendResetEmail() async {
+  Future<void> _handleSendResetEmail() async {
     final l10n = AppLocalizations.of(context)!;
-  if (!_emailSent && !_formKey.currentState!.validate()) return;
+    if (!_emailSent && !_formKey.currentState!.validate()) return;
 
-  setState(() {
-    _isLoading = true;
-  });
+    setState(() {
+      _isLoading = true;
+    });
 
-  try {
-    final result = await _authService.requestPasswordReset(
-      _emailController.text.trim(),
-    );
+    try {
+      final result = await _authService.requestPasswordReset(
+        _emailController.text.trim(),
+      );
 
-    if (mounted) {
-      if (result['success'] == true) {
-        // L'utilisateur existe et l'email a été envoyé
-        setState(() {
-          _emailSent = true;
-        });
+      if (mounted) {
+        if (result['success'] == true) {
+          // L'utilisateur existe et l'email a été envoyé
+          setState(() {
+            _emailSent = true;
+          });
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['message'] ?? l10n.emailSentMessage),
-            backgroundColor: AppTheme.primaryGreen,
-          ),
-        );
-      } else {
-        // Vérifier si c'est parce que l'utilisateur n'existe pas
-        if (result['userExists'] == false) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error'] ?? l10n.emailNotFound),
-              backgroundColor: Colors.orange,
+              content: Text(result['message'] ?? l10n.emailSentMessage),
+              backgroundColor: AppTheme.primaryGreen,
             ),
           );
         } else {
-          // Erreur d'envoi d'email
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(result['error'] ?? l10n.sendingError),
-              backgroundColor: Colors.red,
-            ),
-          );
+          // Vérifier si c'est parce que l'utilisateur n'existe pas
+          if (result['userExists'] == false) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(result['error'] ?? l10n.emailNotFound),
+                backgroundColor: Colors.orange,
+              ),
+            );
+          } else {
+            // Erreur d'envoi d'email
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(result['error'] ?? l10n.sendingError),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
         }
       }
-    }
-  } catch (e) {
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.errorWithMessage(e.toString())),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  } finally {
-    if (mounted) {
-      setState(() {
-        _isLoading = false;
-      });
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.errorWithMessage(e.toString())),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
-}
 
   @override
   void dispose() {

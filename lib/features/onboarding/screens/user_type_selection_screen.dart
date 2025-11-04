@@ -464,7 +464,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    l10n.companyCode,
+                    l10n.companyCodeHint,
                     style: TextStyle(
                       fontSize: ResponsiveUtils.getFontSize(context, 16),
                       fontWeight: FontWeight.w600,
@@ -732,7 +732,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    l10n.companyCode,
+                    l10n.companyCodeHint,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

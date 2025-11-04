@@ -88,7 +88,7 @@ dependencies:
   package_info_plus: ^9.0.0
   dart_jsonwebtoken: ^3.3.1
   http_parser: ^4.1.2
-  sign_in_with_apple: ^6.0.0
+  sign_in_with_apple: ^7.0.1
 
 dev_dependencies:
   flutter_test:

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tgm_ai_chat/l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/responsive.dart';
 import '../../../core/widgets/user_avatar.dart';

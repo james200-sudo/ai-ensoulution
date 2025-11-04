@@ -364,5 +364,18 @@
   "changeLanguage": "Changer de langue",
   "appleLoginSuccess": "Connexion Apple réussie",
   "appleLoginError": "Erreur Apple",
-  "appleError": "Erreur Apple : {error}"
+  "appleError": "Erreur Apple : {error}",
+  "companyCode": "Code entreprise",
+  "deleteAccount": "Supprimer le compte",
+  "deleteAccountConfirmation": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+  "accountDeletedSuccessfully": "Compte supprimé avec succès",
+  "failedToDeleteAccount": "Échec de la suppression du compte : {error}",
+  "@failedToDeleteAccount": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "delete": "Supprimer"
 }
