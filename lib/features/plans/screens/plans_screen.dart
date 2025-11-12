@@ -248,7 +248,7 @@ class _PlansScreenState extends State<PlansScreen> {
                       SizedBox(width: 8.w),
                     ],
                     Text(
-                      '${l10n.currentPlan}: $currentPlan',
+                      l10n.currentPlan(currentPlan),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: ResponsiveUtils.getFontSize(context, 15),

@@ -133,6 +133,58 @@ class PocketBaseAuthService {
     }
   }
   
+  // APPLE OAUTH - Pour Web (OAuth2)
+  Future<Map<String, dynamic>> loginWithAppleWeb() async {
+    try {
+      print('🍎 Apple OAuth (Web)...');
+      
+      final authData = await _pb.collection(_usersCollection).authWithOAuth2(
+        'apple',
+        (url) async {
+          print('📍 URL: $url');
+          
+          await Future.delayed(Duration(milliseconds: 500));
+          
+          if (await canLaunchUrl(url)) {
+            await launchUrl(
+              url,
+              mode: kIsWeb ? LaunchMode.externalApplication : LaunchMode.externalApplication,
+              webOnlyWindowName: kIsWeb ? '_blank' : null,
+            );
+          }
+        },
+        createData: {
+          'emailVisibility': true,
+          'subscriptionStatus': 'active',
+          'subscriptionStartDate': DateTime.now().toIso8601String(),
+          'subscriptionEndDate': DateTime.now().add(Duration(days: 7)).toIso8601String(),
+        },
+      );
+      
+      print('✅ Apple OAuth réussi');
+      
+      final userData = authData.record?.toJson();
+      await _saveAuthData(authData.token, userData);
+      
+      return {
+        'success': true,
+        'token': authData.token,
+        'user': userData,
+        'message': 'Authentification Apple réussie',
+      };
+      
+    } catch (e) {
+      print('❌ Erreur Apple OAuth: $e');
+      
+      if (e.toString().contains('429')) {
+        return {'success': false, 'error': 'Trop de tentatives. Attendez 1 minute.', 'rateLimited': true};
+      }
+      
+      return {'success': false, 'error': 'Erreur OAuth Apple. Utilisez email/password.', 'details': e.toString()};
+    }
+  }
+  
+  // APPLE OAUTH - Pour iOS (Native SDK)
   Future<Map<String, dynamic>> loginWithApple({
     required String authorizationCode,
     String? fullName,

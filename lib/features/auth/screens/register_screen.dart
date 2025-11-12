@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tgm_ai_chat/l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform, TargetPlatform;
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/responsive.dart';
 import '../../../core/services/pocketbase_auth_service.dart';
@@ -104,8 +106,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           _buildOrDivider(l10n),
                           SizedBox(height: 20.h),
 
-                          // ✅ NOUVEAU : Bouton Google OAuth
-                          _buildGoogleButton(l10n),
+                          // ✅ NOUVEAU : Boutons OAuth
+                          _buildSocialButtons(l10n),
 
                           SizedBox(height: 24.h),
                           _buildLoginLink(l10n),
@@ -213,7 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(height: 24),
                       _buildOrDivider(l10n),
                       const SizedBox(height: 20),
-                      _buildGoogleButton(l10n),
+                      _buildSocialButtons(l10n),
                       const SizedBox(height: 24),
                       _buildLoginLink(l10n),
                     ],
@@ -483,6 +485,70 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  Widget _buildAppleButton(AppLocalizations l10n) {
+    final isMobile = ResponsiveUtils.isMobile(context);
+    return SizedBox(
+      width: isMobile ? double.infinity : 300,
+      height: isMobile ? 44.h : 48,
+      child: OutlinedButton(
+        onPressed: _isLoading ? null : _handleAppleRegister,
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: Colors.black, width: 2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(isMobile ? 8.r : 8),
+          ),
+          backgroundColor: Colors.white,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.apple,
+              color: Colors.black,
+              size: isMobile ? 18.sp : 18,
+            ),
+            SizedBox(width: isMobile ? 8.w : 8),
+            Text(
+              l10n.continueWithApple,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: isMobile ? ResponsiveUtils.getFontSize(context, 13) : 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSocialButtons(AppLocalizations l10n) {
+    final bool isIOS = !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
+    final bool isAndroid = !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
+    final isMobile = ResponsiveUtils.isMobile(context);
+    
+    return Column(
+      children: [
+        // Android : uniquement Google
+        if (isAndroid) ...[
+          _buildGoogleButton(l10n),
+        ],
+        
+        // iOS : uniquement Apple
+        if (isIOS) ...[
+          _buildAppleButton(l10n),
+        ],
+        
+        // Web : les deux options
+        if (kIsWeb) ...[
+          _buildGoogleButton(l10n),
+          SizedBox(height: isMobile ? 12.h : 12),
+          _buildAppleButton(l10n),
+        ],
+      ],
+    );
+  }
+
   Widget _buildLoginLink(AppLocalizations l10n) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -659,6 +725,81 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.unexpectedError(e.toString())),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _handleAppleRegister() async {
+    final l10n = AppLocalizations.of(context)!;
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      Map<String, dynamic> result;
+      
+      // Sur web, utiliser OAuth2
+      if (kIsWeb) {
+        result = await _authService.loginWithAppleWeb();
+      } else {
+        // Sur iOS, utiliser le SDK natif
+        final credential = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
+        );
+
+        final fullName = (credential.givenName ?? '') +
+            (credential.familyName != null ? ' ${credential.familyName}' : '');
+
+        result = await _authService.loginWithApple(
+          authorizationCode: credential.authorizationCode,
+          fullName: fullName,
+          email: credential.email,
+        );
+      }
+
+      if (mounted) {
+        if (result['success'] == true) {
+          // Rafraîchir le profil utilisateur
+          final profileProvider = context.read<ProfileProvider>();
+          await profileProvider.refreshUserProfile();
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['message'] ?? l10n.appleLoginSuccess),
+              backgroundColor: AppTheme.primaryGreen,
+              duration: const Duration(seconds: 2),
+            ),
+          );
+          
+          // Rediriger vers le chat
+          context.go('/chat');
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['error'] ?? l10n.appleLoginError),
+              backgroundColor: Colors.red,
+              duration: const Duration(seconds: 4),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.appleError(e.toString())),
             backgroundColor: Colors.red,
           ),
         );

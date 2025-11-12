@@ -134,21 +134,29 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      final credential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-      );
+      Map<String, dynamic> result;
+      
+      // Sur web, utiliser OAuth2
+      if (kIsWeb) {
+        result = await _authService.loginWithAppleWeb();
+      } else {
+        // Sur iOS, utiliser le SDK natif
+        final credential = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
+        );
 
-      final fullName = (credential.givenName ?? '') +
-          (credential.familyName != null ? ' ${credential.familyName}' : '');
+        final fullName = (credential.givenName ?? '') +
+            (credential.familyName != null ? ' ${credential.familyName}' : '');
 
-      final result = await _authService.loginWithApple(
-        authorizationCode: credential.authorizationCode,
-        fullName: fullName,
-        email: credential.email,
-      );
+        result = await _authService.loginWithApple(
+          authorizationCode: credential.authorizationCode,
+          fullName: fullName,
+          email: credential.email,
+        );
+      }
 
       if (result['success'] == true && mounted) {
         final profileProvider = context.read<ProfileProvider>();
@@ -470,14 +478,30 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_isCompanyUser) {
       return const SizedBox.shrink();
     }
+    
+    final bool isIOS = !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
+    final bool isAndroid = !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
+    
     return Column(
       children: [
         if (_biometricEnabled) ...[
           _buildBiometricButton(),
           SizedBox(height: 8.h),
         ],
-        _buildGoogleButton(),
-        if (defaultTargetPlatform == TargetPlatform.iOS) ...[
+        
+        // Android : uniquement Google
+        if (isAndroid) ...[
+          _buildGoogleButton(),
+        ],
+        
+        // iOS : uniquement Apple
+        if (isIOS) ...[
+          _buildAppleButton(),
+        ],
+        
+        // Web : les deux options
+        if (kIsWeb) ...[
+          _buildGoogleButton(),
           SizedBox(height: 8.h),
           _buildAppleButton(),
         ],

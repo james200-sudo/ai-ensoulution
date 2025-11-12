@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:tgm_ai_chat/features/chat/providers/chat_provider.dart';
 
 /// Widget pour afficher le quota de messages de l'utilisateur
-/// ✅ CORRIGÉ : S'actualise automatiquement après chaque message
 class PlanQuotaWidget extends StatefulWidget {
   final String userId;
   
@@ -27,8 +26,6 @@ class _PlanQuotaWidgetState extends State<PlanQuotaWidget> {
   void initState() {
     super.initState();
     
-    
-    // ✅ CORRECTION : Écouter les changements du ChatProvider
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final chatProvider = context.read<ChatProvider>();
       chatProvider.addListener(_onChatProviderChanged);
@@ -38,7 +35,6 @@ class _PlanQuotaWidgetState extends State<PlanQuotaWidget> {
 
   @override
   void dispose() {
-    // ✅ Nettoyer le listener
     try {
       final chatProvider = context.read<ChatProvider>();
       chatProvider.removeListener(_onChatProviderChanged);
@@ -48,9 +44,7 @@ class _PlanQuotaWidgetState extends State<PlanQuotaWidget> {
     super.dispose();
   }
 
-  // ✅ NOUVEAU : Callback quand ChatProvider change
   void _onChatProviderChanged() {
-    // Recharger les infos après chaque changement (envoi de message)
     if (mounted) {
       _loadPlanInfo();
     }
@@ -63,8 +57,6 @@ class _PlanQuotaWidgetState extends State<PlanQuotaWidget> {
         _planInfo = info;
         _isLoading = false;
       });
-      
-      //debugPrint('📊 Quota mis à jour: ${info?.messageCount}/${info?.messageQuota}');
     }
   }
 
@@ -87,8 +79,12 @@ class _PlanQuotaWidgetState extends State<PlanQuotaWidget> {
       return const SizedBox.shrink();
     }
 
-    // Ne pas afficher pour les plans illimités
+    // Affichage pour les plans illimités
     if (_planInfo!.isUnlimited) {
+      // 🆕 Détection du plan Free Illimité
+      final isPlanFreeUnlimited = _planInfo!.planName.contains('Free') && 
+                                  _planInfo!.planName.contains('Illimité');
+      
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
@@ -103,8 +99,10 @@ class _PlanQuotaWidgetState extends State<PlanQuotaWidget> {
             SizedBox(width: 8.w),
             Expanded(
               child: Text(
-                // Traduction : "Plan [Nom du plan] - Messages Illimités"
-                'Plan ${_planInfo!.planName} - Messages Illimités', 
+                // 🆕 Affichage optimisé pour Free Illimité
+                isPlanFreeUnlimited 
+                    ? 'Plan ${_planInfo!.planName}' // "Plan Free Illimité" (sans redondance)
+                    : 'Plan ${_planInfo!.planName} - Messages Illimités',
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
@@ -161,7 +159,6 @@ class _PlanQuotaWidgetState extends State<PlanQuotaWidget> {
               SizedBox(width: 8.w),
               Expanded(
                 child: Text(
-                  // Traduction : "Plan [Nom du plan]"
                   'Plan ${_planInfo!.planName}',
                   style: TextStyle(
                     fontSize: 12.sp,
@@ -181,8 +178,7 @@ class _PlanQuotaWidgetState extends State<PlanQuotaWidget> {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: Text(
-                    // Traduction : "Mettre à niveau" (ou "Passer à la version supérieure")
-                    'Mettre à niveau', 
+                    'Mettre à niveau',
                     style: TextStyle(
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w600,
@@ -202,7 +198,6 @@ class _PlanQuotaWidgetState extends State<PlanQuotaWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          // Traduction : "[Nombre de messages utilisés] / [Quota total] messages"
                           '${_planInfo!.messageCount} / ${_planInfo!.messageQuota} messages',
                           style: TextStyle(
                             fontSize: 11.sp,
@@ -238,8 +233,7 @@ class _PlanQuotaWidgetState extends State<PlanQuotaWidget> {
             Padding(
               padding: EdgeInsets.only(top: 8.h),
               child: Text(
-                // Traduction : "Vous avez atteint votre limite mensuelle. Passez au plan Individuel pour des messages illimités."
-                'Vous avez atteint votre limite mensuelle. Passez au plan Individuel pour des messages illimités.', 
+                'Vous avez atteint votre limite mensuelle. Passez au plan Individuel pour des messages illimités.',
                 style: TextStyle(
                   fontSize: 10.sp,
                   color: Colors.red.shade700,

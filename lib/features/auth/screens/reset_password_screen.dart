@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/responsive.dart';
 import '../../../l10n/app_localizations.dart';
@@ -101,7 +100,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           SizedBox(height: 32.h),
 
           Text(
-            l10n.setNewPassword,
+            l10n.resetPassword,
             style: TextStyle(
               fontSize: ResponsiveUtils.getFontSize(context, 24),
               fontWeight: FontWeight.w700,
@@ -110,7 +109,18 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             textAlign: TextAlign.center,
           ),
 
-          SizedBox(height: 16.h),
+          SizedBox(height: 8.h),
+          
+          Text(
+            'Entrez votre nouveau mot de passe',
+            style: TextStyle(
+              fontSize: ResponsiveUtils.getFontSize(context, 14),
+              color: Colors.grey[600],
+            ),
+            textAlign: TextAlign.center,
+          ),
+
+          SizedBox(height: 32.h),
 
           // Champ Nouveau mot de passe
           TextFormField(
@@ -132,10 +142,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return l10n.pleaseEnterPassword;
+                return 'Veuillez entrer un mot de passe';
               }
               if (value.length < 8) {
-                return l10n.passwordTooShort;
+                return 'Le mot de passe doit contenir au moins 8 caractères';
               }
               return null;
             },
@@ -165,7 +175,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return l10n.pleaseConfirmPassword;
+                return 'Veuillez confirmer votre mot de passe';
               }
               if (value != _passwordController.text) {
                 return l10n.passwordsDoNotMatch;
@@ -198,15 +208,23 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Lottie.asset(
-          'assets/animations/success.json',
+        // Animation de succès remplacée par une icône
+        Container(
           width: 150.w,
           height: 150.h,
-          fit: BoxFit.fill,
+          decoration: BoxDecoration(
+            color: AppTheme.primaryGreen.withOpacity(0.1),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            Icons.check_circle,
+            size: 100.sp,
+            color: AppTheme.primaryGreen,
+          ),
         ),
         SizedBox(height: 32.h),
         Text(
-          l10n.passwordResetSuccess,
+          'Mot de passe réinitialisé !',
           style: TextStyle(
             fontSize: ResponsiveUtils.getFontSize(context, 22),
             fontWeight: FontWeight.bold,
@@ -215,7 +233,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         ),
         SizedBox(height: 16.h),
         Text(
-          l10n.canNowLogin,
+          'Vous pouvez maintenant vous connecter avec votre nouveau mot de passe',
           style: TextStyle(
             fontSize: ResponsiveUtils.getFontSize(context, 16),
             color: Colors.grey[600],
@@ -227,7 +245,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () => context.go('/login'),
-            child: Text(l10n.returnToLogin),
+            child: Text(l10n.signIn),
           ),
         ),
       ],
@@ -238,8 +256,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     if (!_formKey.currentState!.validate() || _token == null) {
       if (_token == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.resetTokenMissing),
+          const SnackBar(
+            content: Text('Code de vérification manquant'),
             backgroundColor: Colors.red,
           ),
         );
@@ -250,10 +268,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     setState(() => _isLoading = true);
 
     try {
+      // ✅ CORRECTION: Utiliser les paramètres nommés
       final result = await _authService.confirmPasswordReset(
-        _token!,
-        _passwordController.text,
-        _passwordConfirmController.text,
+        token: _token!,
+        newPassword: _passwordController.text,
+        passwordConfirm: _passwordConfirmController.text,
       );
 
       if (mounted) {
@@ -264,7 +283,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error'] ?? AppLocalizations.of(context)!.errorOccurred),
+              content: Text(result['error'] ?? 'Une erreur est survenue'),
               backgroundColor: Colors.red,
             ),
           );
